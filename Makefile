@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/15 16:24:29 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/15 19:09:29 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,10 @@ LIBFT			= libs/libft.a
 
 INCLUDE_PATH	= includes
 
-SRCS_PATH		= ./src
-SRCS			= 
+SRCS_PATH		= src
+SRCS			= utils/print_error.c \
+				  check_file/check_file.c \
+				  check_file/ambiant_lightning.c 
 
 MAIN			= main.c
 
