@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_empty.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/15 21:18:19 by drenassi         ###   ########.fr       */
+/*   Created: 2024/02/15 19:57:30 by drenassi          #+#    #+#             */
+/*   Updated: 2024/02/15 19:58:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main(int ac, char **av)
+int	is_empty(char *line)
 {
-	if (ac != 2)
-		return (print_error("Error: One argument needed.\n"), 1);
-	if (!check_file(av[1]))
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '\n' || line[i] == '\0')
 		return (1);
 	return (0);
 }

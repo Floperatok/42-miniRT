@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:40:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/15 19:31:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:17:01 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,39 @@ static int	check_extension(char *file)
 	return (1);
 }
 
-static int	check_identifier(char *line)
+static int	check_identifier(char *str)
 {
-	if (line[0] == 'A')
-		return (1);
-	else if (line[0] == 'C')
-		return (1);
-	else if (line[0] == 'L')
-		return (1);
-	else if (line[0] == 's' && line[1] == 'p')
-		return (1);
-	else if (line[0] == 'p' && line[1] == 'l')
-		return (1);
-	else if (line[0] == 'c' && line[1] == 'y')
-		return (1);
+	char	*line;
+
+	line = ft_strtrim(str, " ");
+	if (line[0] == 'A' && line[1] == ' ')
+		return (free(line), 1);
+	else if (line[0] == 'C' && line[1] == ' ')
+		return (free(line), 1);
+	else if (line[0] == 'L' && line[1] == ' ')
+		return (free(line), 1);
+	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
+		return (free(line), 1);
+	else if (line[0] == 'p' && line[1] == 'l' && line[2] == ' ')
+		return (free(line), 1);
+	else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
+		return (free(line), 1);
 	print_error("Error: Wrong identifier. List of valid identifiers:\n");
-	print_error("A for Ambient lightning;\n");
-	print_error("C for Camera;\n");
-	print_error("L for Light;\n");
-	print_error("sp for Sphere;\n");
-	print_error("pl for Plane;\n");
-	print_error("cy for Cylinder.\n");
-	return (0);
+	print_error("A for Ambient lightning;\nC for Camera;\nL for Light;\n");
+	print_error("sp for Sphere;\npl for Plane;\ncy for Cylinder.\n");
+	return (free(line), 0);
+}
+
+static int	check_line(char *line)
+{
+	char	**data;
+
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
+	data = ft_split(line, ' ');
+	if (!ft_strcmp(data[0], "A") && !check_ambiant_lightning(data))
+		return (free_double_array(data), 0);
+	return (free_double_array(data), 1);
 }
 
 int	check_file(char *file)
@@ -66,12 +77,10 @@ int	check_file(char *file)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] != '\n' && !check_identifier(line))
-			return (close(fd), get_next_line(-1), free(line), 0);
-		if (line[0] == 'A' && !check_ambiant_lightning(line))
-			return (close(fd), get_next_line(-1), free(line), 0);
+		if ((!is_empty(line) && !check_identifier(line)) || !check_line(line))
+			return (close(fd), free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (close(fd), get_next_line(-1), 1);
+	return (close(fd), 1);
 }

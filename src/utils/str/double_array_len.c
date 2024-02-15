@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   double_array_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/15 21:18:19 by drenassi         ###   ########.fr       */
+/*   Created: 2024/02/15 20:30:54 by drenassi          #+#    #+#             */
+/*   Updated: 2024/02/15 20:31:45 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main(int ac, char **av)
+int	double_array_len(char **array)
 {
-	if (ac != 2)
-		return (print_error("Error: One argument needed.\n"), 1);
-	if (!check_file(av[1]))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (array && array[i])
+		i++;
+	return (i);
 }

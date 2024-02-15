@@ -6,65 +6,49 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:07:50 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/15 19:30:51 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:44:10 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	check_rgb(char *param)
+int	check_ratio(char *ratio)
 {
-	int		i;
-	int		j;
-	int		commas;
-	char	*num;
+	int	i;
+	int	error;
 
-	commas = 0;
+	error = 0;
 	i = 0;
-	while (param[i] && param[i] != ' ')
-		if (param[i++] == ',')
-			commas++;
-	if (commas != 2)
-		return (0);
-	i = 0;
-	while(param[i] && param[i] != ' ')
-	{
-		j = 0;
-		while (param[j] && param[j] != ',')
-			j++;
-		num = ft_substr(param, i, j);
-		if (ft_atoi(num) < 0 || ft_atoi(num) > 255)
-			return (free(num), 0);
-		free(num);
-		i += j + 1;
-	}
+	if (ratio[i] < '0' || ratio[i++] > '1')
+		error = 1;
+	if (ratio[i++] != '.')
+		error = 1;
+	if (ratio[i] < '0' || ratio[i++] > '9')
+		error = 1;
+	if (ratio[i])
+		error = 1;
+	if (error)
+		return (print_error("Error: Wrong syntax for Ambient lightning.\n"),
+			print_error("Ratio must be in range [0.0,1.0]. Example: 0.2\n"));
 	return (1);
 }
 
-int check_ambiant_lightning(char *line)
+int check_ambiant_lightning(char **data)
 {
-	int		i;
-	char	*rgb;
+	static int	a_count = 0;
 
-	i = 1;
-	while (line[i] == ' ')
-		i++;
-	if (line[i] < '0' || line[i] > '1')
-		return (print_error("Error: Wrong syntax for Ambient lightning.\n"),
-			print_error("Ratio must be in range [0.0,1.0]. Example: 0.2\n"));
-	if (line[++i] != '.')
-		return (print_error("Error: Wrong syntax for Ambient lightning.\n"),
-			print_error("Ratio must be in range [0.0,1.0]. Example: 0.2\n"));
-	if (line[++i] < '0' || line[i] > '9')
-		return (print_error("Error: Wrong syntax for Ambient lightning.\n"),
-			print_error("Ratio must be in range [0.0,1.0]. Example: 0.2\n"));
-	i++;
-	while (line[i] == ' ')
-		i++;
-	rgb = ft_substr(line, i, ft_strlen(line) - i);
-	if (!check_rgb(rgb))
-		return (free(rgb), print_error("Error: Wrong syntax for Ambient "),
-			print_error("lighting.\nRGB colors must be in range [0-255].\n"),
-			print_error("Example: 255,255,255\n"));
-	return (free(rgb), 1);
+	a_count++;
+	if (a_count > 1)
+		return (print_error("Error: Too much Ambient lightnings.\n"));
+	if (double_array_len(data) != 3)
+		return (print_error("Error: Ambient lightning needs 2 arguments.\n"));
+	if (!check_ratio(data[1]))
+		return (0);
+	if (!check_rgb(data[2]))
+	{
+		print_error("Error: Wrong syntax for Ambient lighting.\nRGB colors ");
+		print_error("must be in range [0-255].\nExample: 255,255,255\n");
+		return (0);
+	}
+	return (1);
 }

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/15 21:18:19 by drenassi         ###   ########.fr       */
+/*   Created: 2024/02/15 17:46:55 by drenassi          #+#    #+#             */
+/*   Updated: 2024/02/15 19:38:51 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main(int ac, char **av)
+int	print_error(char *msg)
 {
-	if (ac != 2)
-		return (print_error("Error: One argument needed.\n"), 1);
-	if (!check_file(av[1]))
-		return (1);
+	ft_putstr_fd(msg, STDERR_FILENO);
 	return (0);
 }

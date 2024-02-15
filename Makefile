@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/15 19:09:29 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/15 21:15:44 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CC 			= cc
 CFLAGS		= -Wall -Werror -Wextra
 DEBUG_FLAGS = -g3
 MLXFLAGS	= -Imlx -lX11 -lXext
+MATH_FLAGS	= -lm
 AUTHOR		= drenassi
 DATE		= 09/11/2023
 NOVISU 		= 0 # 1 = no progress bar usefull when tty is not available
@@ -40,8 +41,14 @@ LIBFT			= libs/libft.a
 INCLUDE_PATH	= includes
 
 SRCS_PATH		= src
-SRCS			= utils/print_error.c \
+SRCS			= utils/float/ft_atof.c \
+				  utils/str/ft_strcmp.c \
+				  utils/str/double_array_len.c \
+				  utils/str/free_double_array.c \
+				  utils/str/is_empty.c \
+				  utils/str/print_error.c \
 				  check_file/check_file.c \
+				  check_file/rgb.c \
 				  check_file/ambiant_lightning.c 
 
 MAIN			= main.c
@@ -274,7 +281,7 @@ setup:
 ################################## NAME'S RULE #################################
 $(NAME):	${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX}
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX} $(MLXFLAGS))
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX} $(MLXFLAGS) $(MATH_FLAGS))
 			@printf "\33[2K\r\n"
 
 ################################# OBJECTS' RULE ################################
