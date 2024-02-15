@@ -1,0 +1,3 @@
+[submodule "libs/libs/libft"]
+	path = libs/libs/libft
+	url = https://github.com/Floperatok/42-libft
