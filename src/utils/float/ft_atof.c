@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 20:46:36 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/15 21:10:23 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/16 21:45:55 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ float	ft_atof(char *str)
 	while (str[++i] == '0')
 		frac_len++;
 	frac_len += decimal_len(frac);
-	frac *= powf(10, -frac_len);
+	frac /= powf(10, frac_len);
 	if (dec >= 0)
 		return (dec + frac);
 	else

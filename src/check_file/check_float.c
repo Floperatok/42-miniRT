@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rgb.c                                              :+:      :+:    :+:   */
+/*   check_float.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 20:08:42 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/16 21:15:45 by drenassi         ###   ########.fr       */
+/*   Created: 2024/02/16 21:02:14 by drenassi          #+#    #+#             */
+/*   Updated: 2024/02/16 21:03:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	check_rgb(char *param)
+int	check_float(char *f)
 {
-	int		i;
-	int		j;
-	int		commas;
-	char	*num;
+	int	dots;
+	int	i;
 
-	commas = 0;
+	dots = 0;
 	i = 0;
-	while (param[i] && param[i] != ' ')
-		if (param[i++] == ',')
-			commas++;
-	if (commas != 2)
+	if (f[0] == '-' || f[0] == '+')
+		i++;
+	if (f[i] == '.' || f[ft_strlen(f) - 1] == '.')
 		return (0);
-	i = 0;
-	while(i < (int) ft_strlen(param) && param[i] && param[i] != ' ')
+	while (f[i])
 	{
-		j = 0;
-		while (param[j] && param[j] != ',')
-			j++;
-		num = ft_substr(param, i, j);
-		if (ft_atoi(num) < 0 || ft_atoi(num) > 255)
-			return (free(num), 0);
-		free(num);
-		i += j + 1;
+		if ((f[i] < '0' || f[i] > '9') && f[i] != '.')
+			return (0);
+		if (dots > 1)
+			return (0);
+		if (f[i] == '.')
+			dots++;
+		i++;
 	}
 	return (1);
 }

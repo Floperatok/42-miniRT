@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/15 21:15:44 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/16 22:16:29 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,13 @@ SRCS			= utils/float/ft_atof.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
 				  check_file/check_file.c \
+				  check_file/check_float.c \
 				  check_file/rgb.c \
-				  check_file/ambiant_lightning.c 
+				  check_file/coordinates.c \
+				  check_file/identifier.c \
+				  check_file/ambiant_lightning.c \
+				  check_file/camera.c \
+				  init/create_data_array.c
 
 MAIN			= main.c
 
