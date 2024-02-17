@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:50:50 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:23:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 21:44:45 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  *	Sphere struct destroyer.
 */
-void	destroy_sphere(t_sphere *sphere)
+static void	destroy_one_sphere(t_sphere *sphere)
 {
 	if (!sphere)
 		return ;
@@ -23,10 +23,26 @@ void	destroy_sphere(t_sphere *sphere)
 	free(sphere);
 }
 
+void	destroy_sphere(t_sphere **sphere)
+{
+	t_sphere	*tmp;
+
+	if (!sphere)
+		return ;
+	tmp = *sphere;
+	while (*sphere)
+	{
+		tmp = (*sphere)->next;
+		destroy_one_sphere(*sphere);
+		*sphere = tmp;
+	}
+	sphere = NULL;
+}
+
 /*
  *	Create, set the values and return sphere struct.
 */
-t_sphere	*set_sphere(t_point *pos, float diameter, int color)
+static t_sphere	*new_sphere(t_point *pos, float diameter, int color)
 {
 	t_sphere	*sphere;
 
@@ -46,5 +62,30 @@ t_sphere	*set_sphere(t_point *pos, float diameter, int color)
 	sphere->pos = pos;
 	sphere->diameter = diameter;
 	sphere->color = color;
+	sphere->next = NULL;
 	return (sphere);
+}
+
+static t_sphere	*get_last_sphere(t_sphere *sphere)
+{
+	if (!sphere)
+		return (NULL);
+	while (sphere->next)
+		sphere = sphere->next;
+	return (sphere);
+}
+
+void	set_sphere(t_sphere **sphere, t_point *pos, float diam, int clr)
+{
+	t_sphere	*new;
+	t_sphere	*tmp;
+
+	new = new_sphere(pos, diam, clr);
+	if (!*sphere)
+	{
+		*sphere = new;
+		return ;
+	}
+	tmp = get_last_sphere(*sphere);
+	tmp->next = new;
 }

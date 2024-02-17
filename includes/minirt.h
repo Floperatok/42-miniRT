@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 20:48:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/17 21:45:46 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,12 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-    t_point	*pos;
-    t_point	*vector;
-    float	diameter;
-    float	height;
-    int		color;
+    t_point				*pos;
+    t_point				*vector;
+    float				diameter;
+    float				height;
+    int					color;
+	struct s_cylinder	*next;
 }	t_cylinder;
 
 typedef struct s_data
@@ -144,8 +145,8 @@ t_plane		*set_plane(t_point *pos, t_point *vector, int color);
 void		destroy_plane(t_plane *plane);
 t_light		*set_light(t_point *pos, float brightness, int color);
 void		destroy_light(t_light *light);
-t_sphere	*set_sphere(t_point *pos, float diameter, int color);
-void		destroy_sphere(t_sphere *sphere);
+void		set_sphere(t_sphere **sphere, t_point *pos, float diam, int clr);
+void		destroy_sphere(t_sphere **sphere);
 t_cylinder	*set_cylinder(t_point *pos, t_point *vector, float diameter,\
 	float height, int color);
 void		destroy_cylinder(t_cylinder *cylinder);
