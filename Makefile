@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/17 00:54:08 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/17 15:39:10 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,15 @@ SRCS			= utils/float/ft_atof.c \
 				  check_file/ambiant_lightning.c \
 				  check_file/camera.c \
 				  init/create_data_array.c \
-				  init/mlx.c \
+				  init/window.c \
+				  init/image.c \
+				  init/camera.c \
+				  init/light.c \
+				  init/ambient_light.c \
+				  init/point.c \
+				  init/sphere.c \
+				  init/cylinder.c \
+				  init/plane.c \
 				  input/input_handling.c \
 				  draw/pixel_put.c \
 				  draw/draw_image.c
