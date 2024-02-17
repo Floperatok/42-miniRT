@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 15:40:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:11:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,19 @@ t_window	*get_window(void);
 void		destroy_window(t_window *win);
 t_image		*get_image(t_window *win);
 void		destroy_image(t_image *img, void *mlx);
-t_point		*get_point(double x, double y, double z);
+t_point		*set_point(double x, double y, double z);
 void		destroy_point(t_point *point);
-t_camera	*get_camera(t_point *pos, t_point *direction, int fov);
+t_camera	*set_camera(t_point *pos, t_point *direction, int fov);
 void		destroy_camera(t_camera *camera);
-t_alight	*get_alight(double brightness, int color);
+t_alight	*set_alight(double brightness, int color);
 void		destroy_alight(t_alight *alight);
-t_plane		*get_plane(t_point *pos, t_point *vector, int color);
+t_plane		*set_plane(t_point *pos, t_point *vector, int color);
 void		destroy_plane(t_plane *plane);
-t_light		*get_light(t_point *pos, double brightness, int color);
+t_light		*set_light(t_point *pos, double brightness, int color);
 void		destroy_light(t_light *light);
-t_sphere	*get_sphere(t_point *pos, double diameter, int color);
+t_sphere	*set_sphere(t_point *pos, double diameter, int color);
 void		destroy_sphere(t_sphere *sphere);
-t_cylinder	*get_cylinder(t_point *pos, t_point *vector, double diameter,\
+t_cylinder	*set_cylinder(t_point *pos, t_point *vector, double diameter,\
 	double height, int color);
 void		destroy_cylinder(t_cylinder *cylinder);
 
@@ -152,6 +152,7 @@ int			user_input(int keycode, t_minirt *data);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, int color);
+void		draw_sphere(t_sphere *sphere, t_camera *cam, t_image *img);
 void		draw_image(void *args, t_image *img);
 
 #endif

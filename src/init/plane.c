@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:34:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 16:11:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:09:44 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	destroy_plane(t_plane *plane)
 }
 
 /*
- *	Create and return plane struct.
+ *	Create, set the values and return plane struct.
 */
-t_plane	*get_plane(t_point *pos, t_point *vector, int color)
+t_plane	*set_plane(t_point *pos, t_point *vector, int color)
 {
 	t_plane	*plane;
 

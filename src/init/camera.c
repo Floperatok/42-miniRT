@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:29:17 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 16:10:48 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:09:08 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	destroy_camera(t_camera *camera)
 }
 
 /*
- *	Create and return camera struct.
+ *	Create, set the values and return camera struct.
 */
-t_camera	*get_camera(t_point *pos, t_point *direction, int fov)
+t_camera	*set_camera(t_point *pos, t_point *direction, int fov)
 {
 	t_camera	*camera;
 
