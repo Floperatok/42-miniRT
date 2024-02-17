@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:47:09 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:09:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:22:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	destroy_light(t_light *light)
 /*
  *	Create, set the values and return light struct.
 */
-t_light	*set_light(t_point *pos, double brightness, int color)
+t_light	*set_light(t_point *pos, float brightness, int color)
 {
 	t_light	*light;
 

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:54:10 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:09:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:22:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	destroy_cylinder(t_cylinder *cylinder)
 /*
  *	Create, set the values and return cylinder struct.
 */
-t_cylinder	*set_cylinder(t_point *pos, t_point *vector, double diameter,\
-	double height, int color)
+t_cylinder	*set_cylinder(t_point *pos, t_point *vector, float diameter,\
+	float height, int color)
 {
 	t_cylinder	*cylinder;
 

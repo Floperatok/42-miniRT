@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:31:47 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:09:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:22:57 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	destroy_point(t_point *point)
 /*
  *	Create, set the values and return point struct.
 */
-t_point	*set_point(double x, double y, double z)
+t_point	*set_point(float x, float y, float z)
 {
 	t_point	*point;
 
