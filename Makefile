@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/17 19:42:07 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/17 20:57:15 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,19 +55,22 @@ SRCS			= utils/float/ft_atof.c \
 				  check_file/identifier.c \
 				  check_file/ambiant_lightning.c \
 				  check_file/camera.c \
+				  check_file/light.c \
+				  check_file/plane.c \
+				  check_file/sphere.c \
+				  check_file/cylinder.c \
 				  init/create_data_array.c \
 				  init/window.c \
 				  init/image.c \
+				  init/ambient_light.c \
 				  init/camera.c \
 				  init/light.c \
-				  init/ambient_light.c \
 				  init/point.c \
 				  init/sphere.c \
 				  init/cylinder.c \
 				  init/plane.c \
 				  input/input_handling.c \
 				  draw/pixel_put.c \
-				  draw/draw_sphere.c \
 				  draw/draw_image.c
 
 MAIN			= main.c
@@ -89,13 +92,13 @@ OBJ_MAIN			= $(addprefix objs/, ${MAIN:$(FILE_EXTENSION)=.o})
 
 TITLE_COLOR	= \033[0;34m
 COM_COLOR   = \033[0;36m
-OBJ_COLOR   = \033[0;33m
+OBJ_COLOR   = \033[m
 OK_COLOR    = \033[0;32m
 ERROR_COLOR = \033[0;31m
 WARN_COLOR  = \033[0;33m
 NO_COLOR    = \033[m
 
-COM_STRING   = "Compiling"
+COM_STRING   = "Compiled"
 
 HASH	= 
 
@@ -127,13 +130,13 @@ endif
 define run_and_test
 printf "%b%-46b" "$(COM_COLOR)$(COM_STRING) " "$(OBJ_COLOR)$(@F)$(NO_COLOR)"; \
 $(RUN_CMD); \
-if [ $$RESULT -ne 0 ]; then \
+if [[ $$RESULT -ne 0 ]]; then \
 	printf "%b\n" "$(ERROR_COLOR)[✖]$(NO_COLOR)"; \
 	rm -rf .files_changed; \
-	if [ $(NOVISU) -eq 0 ]; then \
+	if [[ $(NOVISU) -eq 0 ]]; then \
 		echo; \
 	fi; \
-elif [ -s $@.log ]; then \
+elif [[ -s $@.log ]]; then \
 	printf "%b\n" "$(WARN_COLOR)[⚠]$(NO_COLOR)"; \
 else  \
 	printf "%b\n" "$(OK_COLOR)[✓]$(NO_COLOR)"; \
@@ -150,20 +153,20 @@ define save_files_changed
 	TO_COMPILE=`echo $$FILE_CPP | wc -w`; \
 	for FILE in $$FILE_CPP; do \
 		for OBJ in $$FILE_OBJ; do \
-			if [ $${FILE%$(FILE_EXTENSION)} = $${OBJ%.o} ]; then \
-				if [ $(SRCS_PATH)/$$FILE -ot objs/$$OBJ ]; then \
+			if [[ $${FILE%$(FILE_EXTENSION)} = $${OBJ%.o} ]]; then \
+				if [[ $(SRCS_PATH)/$$FILE -ot objs/$$OBJ ]]; then \
 					RECOMPILE=0; \
-					if [ $$RECOMPILE -eq 0 ]; then \
+					if [[ $$RECOMPILE -eq 0 ]]; then \
 						((TO_COMPILE=$$TO_COMPILE-1)); \
 					fi; \
 				fi; \
 			fi; \
 		done; \
 		for LIB in $$FILE_LIB; do \
-			if [ $${FILE%$(FILE_EXTENSION)} = $${LIB%.a} ]; then \
-				if [ $(SRCS_PATH)/$$FILE -ot $$LIB ]; then \
+			if [[ $${FILE%$(FILE_EXTENSION)} = $${LIB%.a} ]]; then \
+				if [[ $(SRCS_PATH)/$$FILE -ot $$LIB ]]; then \
 					RECOMPILE=0; \
-					if [ $$RECOMPILE -eq 0 ]; then \
+					if [[ $$RECOMPILE -eq 0 ]]; then \
 						((TO_COMPILE=$$TO_COMPILE-1)); \
 					fi; \
 				fi; \
@@ -176,7 +179,7 @@ endef
 define draw_bar
 	FILE_TOTAL=`bash -c 'cat .files_changed | cut -d"/" -f2'`; \
 	FILE_DONE=`bash -c 'cat .files_changed | cut -d"/" -f1'`; \
-	if [ $$FILE_TOTAL -eq 0 ]; then \
+	if [[ $$FILE_TOTAL -eq 0 ]]; then \
 		FILE_TOTAL=1; \
 		FILE_DONE=1; \
 	fi; \
@@ -185,7 +188,7 @@ define draw_bar
 	printf "$(OBJ_COLOR)[$(NO_COLOR)"; \
 	i=0; \
 	while [ $$i -lt 48 ]; do \
-		if [ $$i -lt $$RES ]; then \
+		if [[ $$i -lt $$RES ]]; then \
 			printf "$(OK_COLOR)█$(NO_COLOR)"; \
 		else \
 			printf "$(COM_COLOR)▒$(NO_COLOR)"; \
@@ -200,7 +203,7 @@ define draw_bar
 endef
 
 define display_progress_bar
-	if [ $(NOVISU) -eq 0 ]; then \
+	if [[ $(NOVISU) -eq 0 ]]; then \
 		line=`bash -c 'oldstty=$$(stty -g); \
 		stty raw -echo min 0; tput u7 > /dev/tty; IFS=";" \
 		read -r -d R -a pos; stty $$oldstty; \
@@ -215,7 +218,7 @@ define display_progress_bar
 			((i=$$i+1)); \
 		done; \
 		tput rc; \
-		if [ $$line -gt $$max_line ]; then \
+		if [[ $$line -gt $$max_line ]]; then \
 			new_line=1; \
 			echo ; \
 		else \
@@ -224,7 +227,7 @@ define display_progress_bar
 		tput sc; \
 		tput cup $$line; \
 		$(draw_bar) \
-		if [ $$new_line -eq 1 ]; then \
+		if [[ $$new_line -eq 1 ]]; then \
 			((line=$$line-1));\
 			tput cup $$line; \
 		else \
@@ -327,13 +330,13 @@ clean:		header
 			@make clean -sC $(LIBFT_PATH)
 			@make clean -sC $(MLX_PATH)
 			@rm -rf objs $(LIBFT) $(MLX)
-			@printf "%-53b%b" "$(COM_COLOR)clean:" "$(OK_COLOR)[✓]$(NO_COLOR)\n"
+			@printf "%-56b%b" "$(COM_COLOR)clean:" "$(OK_COLOR)[✓]$(NO_COLOR)\n"
 
 ##################################### FCLEAN ####################################
 .PHONY:																		fclean
 fclean:		header clean
 			@rm -rf $(NAME)
-			@printf "%-53b%b" "$(COM_COLOR)fclean:" "$(OK_COLOR)[✓]$(NO_COLOR)\n"
+			@printf "%-56b%b" "$(COM_COLOR)fclean:" "$(OK_COLOR)[✓]$(NO_COLOR)\n"
 
 ####################################### RE ######################################
 .PHONY:																		re

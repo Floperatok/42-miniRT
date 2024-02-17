@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:31:47 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:22:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 20:22:21 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_point	*str_to_point(char *str)
+{
+	char	**split;
+	t_point	*point;
+
+	split = ft_split(str, ',');
+	point = set_point(ft_atof(split[0]), ft_atof(split[1]), ft_atof(split[2]));
+	free_double_array(split);
+	return (point);
+}
 
 /*
  *	Point struct destroyer.

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 20:31:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/16 23:12:52 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:57:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_camera(char **data)
 		return (print_error("Error: Camera: Wrong coordinates.\n"));
 	if (!check_orientation_vector(data[2]))
 		return (print_error("Error: Camera: Wrong orientation vector. It "),
-			print_error("must be in range [-1.0,1.0] for ecach axis.\n"));
+			print_error("must be in range [-1.0,1.0] for each axis.\n"));
 	if (!check_horizontal_field(data[3]))
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:40:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/16 22:15:55 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:25:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ static int	check_line(char *line)
 	if (!ft_strcmp(data[0], "A") && !check_ambiant_lightning(data))
 		return (free_double_array(data), 0);
 	if (!ft_strcmp(data[0], "C") && !check_camera(data))
+		return (free_double_array(data), 0);
+	if (!ft_strcmp(data[0], "L") && !check_light(data))
+		return (free_double_array(data), 0);
+	if (!ft_strcmp(data[0], "pl") && !check_plane(data))
+		return (free_double_array(data), 0);
+	if (!ft_strcmp(data[0], "sp") && !check_sphere(data))
+		return (free_double_array(data), 0);
+	if (!ft_strcmp(data[0], "cy") && !check_cylinder(data))
 		return (free_double_array(data), 0);
 	return (free_double_array(data), 1);
 }

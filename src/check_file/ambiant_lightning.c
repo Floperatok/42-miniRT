@@ -6,30 +6,29 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:07:50 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/15 20:44:10 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:09:03 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	check_ratio(char *ratio)
+static int	check_ratio(char *ratio)
 {
-	int	i;
-	int	error;
+	float	value;
 
-	error = 0;
-	i = 0;
-	if (ratio[i] < '0' || ratio[i++] > '1')
-		error = 1;
-	if (ratio[i++] != '.')
-		error = 1;
-	if (ratio[i] < '0' || ratio[i++] > '9')
-		error = 1;
-	if (ratio[i])
-		error = 1;
-	if (error)
-		return (print_error("Error: Wrong syntax for Ambient lightning.\n"),
-			print_error("Ratio must be in range [0.0,1.0]. Example: 0.2\n"));
+	if (!check_float(ratio))
+	{
+		print_error("Error: Ambiant lightning: Ratio must be in range ");
+		print_error("[0.0,1.0]. Example: 0.2\n");
+		return (0);
+	}
+	value = ft_atof(ratio);
+	if (value < 0.0 || value > 1.0)
+	{
+		print_error("Error: Ambiant lightning: Ratio must be in range ");
+		print_error("[0.0,1.0]. Example: 0.2\n");
+		return (0);
+	}
 	return (1);
 }
 
@@ -46,8 +45,8 @@ int check_ambiant_lightning(char **data)
 		return (0);
 	if (!check_rgb(data[2]))
 	{
-		print_error("Error: Wrong syntax for Ambient lighting.\nRGB colors ");
-		print_error("must be in range [0-255].\nExample: 255,255,255\n");
+		print_error("Error: Ambient lighting: RGB colors ");
+		print_error("must be in range [0-255]. Example: 255,255,255\n");
 		return (0);
 	}
 	return (1);

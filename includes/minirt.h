@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:40:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 20:48:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,18 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-    t_point	*pos;
-    float	diameter;
-    int		color;
+    t_point			*pos;
+    float			diameter;
+    int				color;
+    struct s_sphere *next;
 }	t_sphere;
 
 typedef struct s_plane
 {
-    t_point	*pos;
-    t_point	*vector;
-    int		color;
+    t_point			*pos;
+    t_point			*vector;
+    int				color;
+	struct s_plane	*next;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -86,21 +88,21 @@ typedef struct s_cylinder
     int		color;
 }	t_cylinder;
 
-typedef struct s_shapes
+typedef struct s_data
 {
     t_alight	*a_lights;
     t_camera	*cameras;
-    t_light		*lights;
+    t_light		*light;
     t_sphere	*spheres;
     t_plane		*planes;
     t_cylinder	*cylinders;
-}	t_shapes;
+}	t_data;
 
 typedef struct s_minirt
 {
 	t_window	*win;
 	t_image		*img;
-	t_shapes	*shapes;
+	t_data	*shapes;
 }	t_minirt;
 
 /* UTILS */
@@ -121,12 +123,17 @@ int			check_coordinates(char *coord);
 int			check_orientation_vector(char *coord);
 int 		check_ambiant_lightning(char **data);
 int			check_camera(char **data);
+int	        check_light(char **data);
+int	        check_plane(char **data);
+int         check_sphere(char **data);
+int	        check_cylinder(char **data);
 
 /* INIT STRUCTURES */
 t_window	*get_window(void);
 void		destroy_window(t_window *win);
 t_image		*get_image(t_window *win);
 void		destroy_image(t_image *img, void *mlx);
+t_point	    *str_to_point(char *str);
 t_point		*set_point(float x, float y, float z);
 void		destroy_point(t_point *point);
 t_camera	*set_camera(t_point *pos, t_point *direction, int fov);
