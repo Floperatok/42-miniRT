@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:21:45 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:40:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int			double_array_len(char **array);
 void		free_double_array(char **array);
 int			print_error(char *msg);
 int			is_empty(char *line);
+int			format_color(char *colors_str);
 
 /* CHECK CONFIG FILE*/
 int			check_file(char *file);

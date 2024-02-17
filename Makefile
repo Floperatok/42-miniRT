@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/17 15:39:10 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/17 19:42:07 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS			= utils/float/ft_atof.c \
 				  utils/str/free_double_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
+				  utils/colors.c \
 				  check_file/check_file.c \
 				  check_file/check_float.c \
 				  check_file/rgb.c \
@@ -66,6 +67,7 @@ SRCS			= utils/float/ft_atof.c \
 				  init/plane.c \
 				  input/input_handling.c \
 				  draw/pixel_put.c \
+				  draw/draw_sphere.c \
 				  draw/draw_image.c
 
 MAIN			= main.c
