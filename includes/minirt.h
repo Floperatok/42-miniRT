@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:11:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:21:45 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ typedef struct s_image
 
 typedef struct s_point
 {
-    double	x;
-    double	y;
-    double	z;
+    float	x;
+    float	y;
+    float	z;
 }	t_point;
 
 typedef struct s_alight
 {
-    double	brightness;    
+    float	brightness;    
     int		color;
 }	t_alight;
 
@@ -59,14 +59,14 @@ typedef struct s_camera
 typedef struct s_light
 {
     t_point	*pos;
-    double	brightness;
+    float	brightness;
     int		color;
 }	t_light;
 
 typedef struct s_sphere
 {
     t_point	*pos;
-    double	diameter;
+    float	diameter;
     int		color;
 }	t_sphere;
 
@@ -81,8 +81,8 @@ typedef struct s_cylinder
 {
     t_point	*pos;
     t_point	*vector;
-    double	diameter;
-    double	height;
+    float	diameter;
+    float	height;
     int		color;
 }	t_cylinder;
 
@@ -126,20 +126,20 @@ t_window	*get_window(void);
 void		destroy_window(t_window *win);
 t_image		*get_image(t_window *win);
 void		destroy_image(t_image *img, void *mlx);
-t_point		*set_point(double x, double y, double z);
+t_point		*set_point(float x, float y, float z);
 void		destroy_point(t_point *point);
 t_camera	*set_camera(t_point *pos, t_point *direction, int fov);
 void		destroy_camera(t_camera *camera);
-t_alight	*set_alight(double brightness, int color);
+t_alight	*set_alight(float brightness, int color);
 void		destroy_alight(t_alight *alight);
 t_plane		*set_plane(t_point *pos, t_point *vector, int color);
 void		destroy_plane(t_plane *plane);
-t_light		*set_light(t_point *pos, double brightness, int color);
+t_light		*set_light(t_point *pos, float brightness, int color);
 void		destroy_light(t_light *light);
-t_sphere	*set_sphere(t_point *pos, double diameter, int color);
+t_sphere	*set_sphere(t_point *pos, float diameter, int color);
 void		destroy_sphere(t_sphere *sphere);
-t_cylinder	*set_cylinder(t_point *pos, t_point *vector, double diameter,\
-	double height, int color);
+t_cylinder	*set_cylinder(t_point *pos, t_point *vector, float diameter,\
+	float height, int color);
 void		destroy_cylinder(t_cylinder *cylinder);
 
 char		**create_data_array(char *line);
