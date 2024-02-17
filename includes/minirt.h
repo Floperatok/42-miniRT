@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 14:02:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 15:40:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 
+# define SCREEN_H 700
+# define SCREEN_W 700
+
 typedef struct s_window
 {
 	void	*mlx;
 	void	*window;
-	int		screen_width;
-	int		screen_height;
 }		t_window;
 
 typedef struct s_image
@@ -33,8 +34,6 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		image_width;
-	int		image_height;
 }		t_image;
 
 typedef struct s_point
@@ -99,9 +98,9 @@ typedef struct s_shapes
 
 typedef struct s_minirt
 {
-	t_window	win;
-	t_image		img;
-	t_shapes	shapes;
+	t_window	*win;
+	t_image		*img;
+	t_shapes	*shapes;
 }	t_minirt;
 
 /* UTILS */
@@ -123,8 +122,10 @@ int 		check_ambiant_lightning(char **data);
 int			check_camera(char **data);
 
 /* INIT STRUCTURES */
-void		init_window(t_window *win);
-void		init_image(t_image *img, t_window win);
+t_window	*get_window(void);
+void		destroy_window(t_window *win);
+t_image		*get_image(t_window *win);
+void		destroy_image(t_image *img, void *mlx);
 t_point		*get_point(double x, double y, double z);
 void		destroy_point(t_point *point);
 t_camera	*get_camera(t_point *pos, t_point *direction, int fov);

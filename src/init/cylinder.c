@@ -6,11 +6,23 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:54:10 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 14:16:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:11:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+ *	Cylinder struct destroyer.
+*/
+void	destroy_cylinder(t_cylinder *cylinder)
+{
+	if (!cylinder)
+		return ;
+	destroy_point(cylinder->pos);
+	destroy_point(cylinder->vector);
+	free(cylinder);
+}
 
 /*
  *	Create and return cylinder struct.
@@ -22,7 +34,11 @@ t_cylinder	*get_cylinder(t_point *pos, t_point *vector, double diameter,\
 
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
+	{
+		print_error("Fatal error: cylinder struct initialization: ");
+		print_error("Out of memory\n");
 		return (NULL);
+	}
 	if (!pos || !vector)
 	{
 		free(cylinder);
@@ -36,16 +52,4 @@ t_cylinder	*get_cylinder(t_point *pos, t_point *vector, double diameter,\
 	cylinder->height = height;
 	cylinder->color = color;
 	return (cylinder);
-}
-
-/*
- *	Cylinder struct destroyer.
-*/
-void	destroy_cylinder(t_cylinder *cylinder)
-{
-	if (!cylinder)
-		return ;
-	destroy_point(cylinder->pos);
-	destroy_point(cylinder->vector);
-	free(cylinder);
 }

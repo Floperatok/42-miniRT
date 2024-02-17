@@ -1,40 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 00:42:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/17 15:53:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_window(t_window *win)
+void	destroy_image(t_image *img, void *mlx)
 {
-	win->mlx = mlx_init();
-	win->screen_height = 700;
-	win->screen_width = 700;
-	win->window = mlx_new_window(win->mlx, win->screen_width,\
-		win->screen_height, "miniRT");
+	if (!img)
+		return ;
+	if (!mlx)
+	{
+		free(img);
+		return ;
+	}
+	if (img->image)
+		mlx_destroy_image(mlx, img->image);
+	free(img);
 }
 
-void	init_image(t_image *img, t_window win)
+t_image	*get_image(t_window *win)
 {
-	img->image_width = win.screen_width;
-	img->image_height = win.screen_height;
-	img->image = mlx_new_image(win.mlx, img->image_width, img->image_height);
+	t_image	*img;
+
+	img = malloc(sizeof(t_image));
+	if (!img)
+	{
+		print_error("Fatal error: image initialization: Out of memory\n");
+		return (NULL);
+	}
+	img->image = mlx_new_image(win->mlx, SCREEN_W, SCREEN_H);
+	if (!img->image)
+	{
+		print_error("Fatal error: image initialization failed\n");
+		return (destroy_image(img, win->mlx), NULL);
+	}
 	img->addr = mlx_get_data_addr(img->image, &img->bits_per_pixel,\
 		&img->line_length, &img->endian);
-}
-
-int	exit_handling(t_minirt *data)
-{
-	mlx_destroy_image(data->win.mlx, data->img.image);
-	mlx_destroy_window(data->win.mlx, data->win.window);
-	mlx_destroy_display(data->win.mlx);
-	free(data->win.mlx);
-	exit(EXIT_SUCCESS);
+	if (!img->addr)
+	{
+		print_error("Fatal error: image initialization failed\n");
+		return (destroy_image(img, win->mlx), NULL);
+	}
+	return (img);
 }
