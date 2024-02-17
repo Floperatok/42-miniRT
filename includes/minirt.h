@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/16 22:13:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/17 00:52:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,92 @@
 # include <math.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*window;
+	int		screen_width;
+	int		screen_height;
+}		t_window;
+
+typedef struct s_image
+{
+	void	*image;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		image_width;
+	int		image_height;
+}		t_image;
+
+typedef struct s_point
+{
+    double	x;
+    double	y;
+    double	z;
+}	t_point;
+
+typedef struct s_alight
+{
+    double	brightness;    
+    int		color;
+}	t_alight;
+
+typedef struct s_camera
+{
+    t_point	pos;
+    t_point	direction;
+    int		fov;
+}	t_camera;
+
+typedef struct s_light
+{
+    t_point	pos;
+    double	brightness;
+    int		color;
+}	t_light;
+
+typedef struct s_sphere
+{
+    t_point	pos;
+    double	diameter;
+    int		color;
+}	t_sphere;
+
+typedef struct s_plane
+{
+    t_point	pos;
+    t_point	vector;
+    int		color;
+}	t_plane;
+
+typedef struct s_cylinder
+{
+    t_point	pos;
+    t_point	vector;
+    double	diameter;
+    double	height;
+    int		color;
+}	t_cylinder;
+
+typedef struct s_shapes
+{
+    t_alight	*a_lights;
+    t_camera	*cameras;
+    t_light		*lights;
+    t_sphere	*spheres;
+    t_plane		*planes;
+    t_cylinder	*cylinders;
+}	t_shapes;
+
+typedef struct s_minirt
+{
+	t_window	win;
+	t_image		img;
+	t_shapes	shapes;
+}	t_minirt;
 
 /* UTILS */
 int		ft_strcmp(const char *s1, const char *s2);
@@ -37,6 +123,18 @@ int 	check_ambiant_lightning(char **data);
 int		check_camera(char **data);
 
 /* INIT STRUCTURES */
+void	init_window(t_window *win);
+void	init_image(t_image *img, t_window win);
 char	**create_data_array(char *line);
+
+/* EXIT */
+int		exit_handling(t_minirt *data);
+
+/* INPUTS */
+int		user_input(int keycode, t_minirt *data);
+
+/* DRAWING */
+void	pixel_put(t_image *img, int x, int y, int color);
+void	draw_image(t_image *img, void *args);
 
 #endif
