@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/18 16:47:14 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/18 18:53:35 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SRCS			= utils/double/ft_atod.c \
 				  utils/str/print_error.c \
 				  utils/maths/distance.c \
 				  utils/maths/vector_operations.c \
-				  utils/maths/lenght.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \
 				  utils/print_data.c \
