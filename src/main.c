@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:13:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 04:21:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int main(int ac, char **av)
 {
 	t_minirt	*mem;
 
-	if (ac != 2)
-		return (print_error("Error: One argument needed.\n"), 1);
-	if (!check_file(av[1]))
-		return (1);
+	(void)ac;
+	(void)av;
+	// if (ac != 2)
+	// 	return (print_error("Error: One argument needed.\n"), 1);
+	// if (!check_file(av[1]))
+	// 	return (1);
 	mem = init_mem();
 	mem->win = get_window();
 	if (!mem->win)
@@ -57,7 +59,7 @@ int main(int ac, char **av)
 	// get_values()
 	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
 	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
-	draw_image(NULL, mem->img);
+	raytracing(mem->img);
 	mlx_put_image_to_window(mem->win->mlx, mem->win->window,\
 		mem->img->image, 0, 0);
 	mlx_loop(mem->win->mlx);

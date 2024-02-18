@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   lenght.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 23:55:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 16:04:19 by nsalles          ###   ########.fr       */
+/*   Created: 2024/02/18 02:01:03 by nsalles           #+#    #+#             */
+/*   Updated: 2024/02/18 04:05:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	draw_image(void *args, t_image *img)
+double ft_lenght(t_point vect)
 {
-	// t_plane *plane;
-	// t_camera *camera;
-
-	(void)args;
-	(void)img;
-	// camera = get_camera(get_point(0, 0, 0), get_point(1, 0, 0), 0);
-	// draw_plane(plane, camera);
+	return (sqrt(pow(vect.x, 2) + pow(vect.y, 2) + pow(vect.z, 2)));
 }

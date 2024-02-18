@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 02:13:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 04:17:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 
-# define SCREEN_H 700
-# define SCREEN_W 700
+# define SCREEN_H 300
+# define SCREEN_W 300
 
 typedef struct s_window
 {
@@ -106,9 +106,17 @@ typedef struct s_minirt
 	t_data	*shapes;
 }	t_minirt;
 
+t_sphere	*new_sphere(t_point *pos, double diameter, int color);
+void	raytracing(t_image *img);
+
+
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
 float		ft_atof(char *str);
+double		ft_lenght(t_point vect);
+double		ft_distance(t_point vect1, t_point vect2);
+void		vect_multiply(t_point *vect, double scalar);
+t_point		soustract_vect(t_point vect1, t_point vect2);
 int			double_array_len(char **array);
 void		free_double_array(char **array);
 int			print_error(char *msg);

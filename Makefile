@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/17 20:57:15 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/18 03:00:10 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,11 @@ SRCS			= utils/float/ft_atof.c \
 				  utils/str/free_double_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
+				  utils/maths/distance.c \
+				  utils/maths/vector_operations.c \
+				  utils/maths/lenght.c \
 				  utils/colors.c \
+				  utils/pixel_put.c \
 				  check_file/check_file.c \
 				  check_file/check_float.c \
 				  check_file/rgb.c \
@@ -70,8 +74,7 @@ SRCS			= utils/float/ft_atof.c \
 				  init/cylinder.c \
 				  init/plane.c \
 				  input/input_handling.c \
-				  draw/pixel_put.c \
-				  draw/draw_image.c
+				  computations/raytracing.c
 
 MAIN			= main.c
 
