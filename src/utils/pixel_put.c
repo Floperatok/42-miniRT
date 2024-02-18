@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 23:55:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 11:23:57 by drenassi         ###   ########.fr       */
+/*   Created: 2024/02/16 23:48:57 by nsalles           #+#    #+#             */
+/*   Updated: 2024/02/18 20:29:23 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	draw_image(void *args, t_image *img)
+/*
+ *	Write on the image a colored pixel of the coordinate x and y.
+ *	Origin is on the top left corner.
+ *	Color format : 0xRRGGBB
+*/
+void	pixel_put(t_image *img, int x, int y, int color)
 {
-	// t_plane *plane;
-	// t_camera *camera;
+	char	*dst;
 
-	(void)args;
-	(void)img;
-	// camera = get_camera(get_point(0, 0, 0), get_point(1, 0, 0), 0);
-	// draw_plane(plane, camera);
+	if (x > 0 && x < SCREEN_W && y > 0 && y < SCREEN_H)
+	{
+		dst = (char *)img->addr + (y * img->line_length + x * \
+			(img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }

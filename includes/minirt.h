@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 15:01:28 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 20:27:03 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 
-# define SCREEN_H 700
-# define SCREEN_W 700
+# define SCREEN_H 800
+# define SCREEN_W 1200
 
 typedef struct s_window
 {
@@ -106,6 +106,7 @@ typedef struct s_minirt
 	t_data	    *data;
 }	t_minirt;
 
+
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
 double		ft_atod(char *str);
@@ -162,9 +163,20 @@ int			exit_handling(t_minirt *data);
 /* INPUTS */
 int			user_input(int keycode, t_minirt *data);
 
+/* RAYTRACING */
+void		raytracing(t_image *img, t_data *data);
+
+/* VECTORS */
+double		ft_lenght(t_point vect);
+double		ft_distance(t_point vect1, t_point vect2);
+void		vect_multiply(t_point *vect, double scalar);
+t_point		soustract_vect(t_point vect1, t_point vect2);
+void		expand_vect(t_point *vect, t_point normalized_vect);
+void		normalize_vect(t_point *vect);
+t_point		copy_vect(t_point vect);
+void		print_vect(t_point vect);
+
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, int color);
-void		draw_sphere(t_sphere *sphere, t_camera *cam, t_image *img);
-void		draw_image(void *args, t_image *img);
 
 #endif

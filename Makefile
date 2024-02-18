@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/18 12:21:02 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/18 20:28:06 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,10 @@ SRCS			= utils/double/ft_atod.c \
 				  utils/str/free_double_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
+				  utils/maths/distance.c \
+				  utils/maths/vector_operations.c \
 				  utils/colors.c \
+				  utils/pixel_put.c \
 				  utils/print_data.c \
 				  check_file/check_file.c \
 				  check_file/check_double.c \
@@ -72,8 +75,7 @@ SRCS			= utils/double/ft_atod.c \
 				  init/cylinder.c \
 				  init/plane.c \
 				  input/input_handling.c \
-				  draw/pixel_put.c \
-				  draw/draw_image.c
+				  computations/raytracing.c
 
 MAIN			= main.c
 

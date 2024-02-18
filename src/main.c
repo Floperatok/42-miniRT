@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 15:02:53 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 20:28:21 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int main(int ac, char **av)
 	if (!mem->img)
 		exit_handling(mem);
 	mem->data = set_data(av[1]);
-	print_data(*(mem->data));
+	// print_data(*(mem->data));
 	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
 	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
-	draw_image(NULL, mem->img);
+	raytracing(mem->img, mem->data);
 	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
 		mem->img->image, 0, 0);
 	mlx_loop(mem->win->mlx);

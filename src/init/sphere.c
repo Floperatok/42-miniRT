@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:50:50 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 13:08:57 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 20:29:14 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	destroy_sphere(t_sphere **sphere)
 /*
  *	Create, set the values and return sphere struct.
 */
-static t_sphere	*new_sphere(t_point *pos, double diameter, int color)
+t_sphere	*new_sphere(t_point *pos, double diameter, int color)
 {
 	t_sphere	*sphere;
 
