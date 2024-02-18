@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/17 20:57:15 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/18 12:21:02 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,15 +41,16 @@ LIBFT			= libs/libft.a
 INCLUDE_PATH	= includes
 
 SRCS_PATH		= src
-SRCS			= utils/float/ft_atof.c \
+SRCS			= utils/double/ft_atod.c \
 				  utils/str/ft_strcmp.c \
 				  utils/str/double_array_len.c \
 				  utils/str/free_double_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
 				  utils/colors.c \
+				  utils/print_data.c \
 				  check_file/check_file.c \
-				  check_file/check_float.c \
+				  check_file/check_double.c \
 				  check_file/rgb.c \
 				  check_file/coordinates.c \
 				  check_file/identifier.c \
@@ -60,6 +61,7 @@ SRCS			= utils/float/ft_atof.c \
 				  check_file/sphere.c \
 				  check_file/cylinder.c \
 				  init/create_data_array.c \
+				  init/set_data.c \
 				  init/window.c \
 				  init/image.c \
 				  init/ambient_light.c \

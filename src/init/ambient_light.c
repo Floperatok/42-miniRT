@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambient_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:59:15 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 02:09:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:10:24 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_alight	*set_alight(double brightness, int color)
 {
 	t_alight	*alight;
 
-	alight = malloc(sizeof(t_alight));
+	alight = ft_calloc(1, sizeof(t_alight));
 	if (!alight)
 	{
 		print_error("Fatal error: ambient lightning struct initialization: ");

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:07:50 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/17 18:09:03 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 11:20:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static int	check_ratio(char *ratio)
 {
 	float	value;
 
-	if (!check_float(ratio))
+	if (!check_double(ratio))
 	{
 		print_error("Error: Ambiant lightning: Ratio must be in range ");
 		print_error("[0.0,1.0]. Example: 0.2\n");
 		return (0);
 	}
-	value = ft_atof(ratio);
+	value = ft_atod(ratio);
 	if (value < 0.0 || value > 1.0)
 	{
 		print_error("Error: Ambiant lightning: Ratio must be in range ");

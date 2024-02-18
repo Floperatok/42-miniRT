@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:13:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 15:02:53 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	exit_handling(t_minirt *mem)
 	if (mem->win)
 		destroy_image(mem->img, mem->win->mlx);
 	destroy_window(mem->win);
+	destroy_data(mem->data);
 	free(mem);
 	exit(EXIT_SUCCESS);
 }
@@ -35,7 +36,7 @@ t_minirt	*init_mem(void)
 	}
 	mem->img = NULL;
 	mem->win = NULL;
-	mem->shapes = NULL;
+	mem->data = NULL;
 	return (mem);
 }
 
@@ -54,11 +55,12 @@ int main(int ac, char **av)
 	mem->img = get_image(mem->win);
 	if (!mem->img)
 		exit_handling(mem);
-	// get_values()
+	mem->data = set_data(av[1]);
+	print_data(*(mem->data));
 	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
 	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
 	draw_image(NULL, mem->img);
-	mlx_put_image_to_window(mem->win->mlx, mem->win->window,\
+	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
 		mem->img->image, 0, 0);
 	mlx_loop(mem->win->mlx);
 	return (0);

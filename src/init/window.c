@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:18:56 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:10:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:09:25 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_window	*get_window(void)
 {
 	t_window	*win;
 
-	win = malloc(sizeof(t_window));
+	win = ft_calloc(1, sizeof(t_window));
 	if (!win)
 	{
 		print_error("Fatal error: window initialization: Out of memory\n");

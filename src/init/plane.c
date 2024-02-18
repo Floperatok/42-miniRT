@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:34:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:09:44 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:09:40 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  *	Plane struct destroyer.
 */
-void	destroy_plane(t_plane *plane)
+static void	destroy_one_plane(t_plane *plane)
 {
 	if (!plane)
 		return ;
@@ -24,14 +24,30 @@ void	destroy_plane(t_plane *plane)
 	free(plane);
 }
 
+void	destroy_plane(t_plane **plane)
+{
+	t_plane	*tmp;
+
+	if (!plane)
+		return ;
+	tmp = *plane;
+	while (*plane)
+	{
+		tmp = (*plane)->next;
+		destroy_one_plane(*plane);
+		*plane = tmp;
+	}
+	plane = NULL;
+}
+
 /*
  *	Create, set the values and return plane struct.
 */
-t_plane	*set_plane(t_point *pos, t_point *vector, int color)
+static t_plane	*new_plane(t_point *pos, t_point *vector, int color)
 {
 	t_plane	*plane;
 
-	plane = malloc(sizeof(plane));
+	plane = ft_calloc(1, sizeof(t_plane));
 	if (!plane)
 	{
 		print_error("Fatal error: plane struct initialization: ");
@@ -48,5 +64,30 @@ t_plane	*set_plane(t_point *pos, t_point *vector, int color)
 	plane->pos = pos;
 	plane->vector = vector;
 	plane->color = color;
+	plane->next = NULL;
 	return (plane);
+}
+
+static t_plane	*get_last_plane(t_plane *plane)
+{
+	if (!plane)
+		return (NULL);
+	while (plane->next)
+		plane = plane->next;
+	return (plane);
+}
+
+void	set_plane(t_plane **plane, t_point *pos, t_point *vector, int clr)
+{
+	t_plane	*new;
+	t_plane	*tmp;
+
+	new = new_plane(pos, vector, clr);
+	if (!*plane)
+	{
+		*plane = new;
+		return ;
+	}
+	tmp = get_last_plane(*plane);
+	tmp->next = new;
 }

@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 18:13:12 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/17 18:23:47 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 11:22:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	check_cylinder(char **data)
 	if (!check_orientation_vector(data[2]))
 		return (print_error("Error: Cylinder: Wrong orientation vector. It "),
 			print_error("must be in range [-1.0,1.0] for each axis.\n"));
-	if (!check_float(data[3]) || ft_atof(data[3]) < 0.0)
+	if (!check_double(data[3]) || ft_atod(data[3]) < 0.0)
 		return (print_error("Error: Cylinder: Invalid diameter.\n"));
-	if (!check_float(data[4]) || ft_atof(data[4]) < 0.0)
+	if (!check_double(data[4]) || ft_atod(data[4]) < 0.0)
 		return (print_error("Error: Cylinder: Invalid height.\n"));
 	if (!check_rgb(data[5]))
 	{
