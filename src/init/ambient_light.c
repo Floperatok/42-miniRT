@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:59:15 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:22:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 02:09:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	destroy_alight(t_alight *alight)
 /*
  *	Create, set the values and return ambient lightning struct.
 */
-t_alight	*set_alight(float brightness, int color)
+t_alight	*set_alight(double brightness, int color)
 {
 	t_alight	*alight;
 

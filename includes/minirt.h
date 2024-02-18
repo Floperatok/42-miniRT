@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 21:45:46 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 02:13:20 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ typedef struct s_image
 
 typedef struct s_point
 {
-    float	x;
-    float	y;
-    float	z;
+    double	x;
+    double	y;
+    double	z;
 }	t_point;
 
 typedef struct s_alight
 {
-    float	brightness;    
+    double	brightness;    
     int		color;
 }	t_alight;
 
@@ -59,14 +59,14 @@ typedef struct s_camera
 typedef struct s_light
 {
     t_point	*pos;
-    float	brightness;
+    double	brightness;
     int		color;
 }	t_light;
 
 typedef struct s_sphere
 {
     t_point			*pos;
-    float			diameter;
+    double			diameter;
     int				color;
     struct s_sphere *next;
 }	t_sphere;
@@ -83,8 +83,8 @@ typedef struct s_cylinder
 {
     t_point				*pos;
     t_point				*vector;
-    float				diameter;
-    float				height;
+    double				diameter;
+    double				height;
     int					color;
 	struct s_cylinder	*next;
 }	t_cylinder;
@@ -135,20 +135,20 @@ void		destroy_window(t_window *win);
 t_image		*get_image(t_window *win);
 void		destroy_image(t_image *img, void *mlx);
 t_point	    *str_to_point(char *str);
-t_point		*set_point(float x, float y, float z);
+t_point		*set_point(double x, double y, double z);
 void		destroy_point(t_point *point);
 t_camera	*set_camera(t_point *pos, t_point *direction, int fov);
 void		destroy_camera(t_camera *camera);
-t_alight	*set_alight(float brightness, int color);
+t_alight	*set_alight(double brightness, int color);
 void		destroy_alight(t_alight *alight);
 t_plane		*set_plane(t_point *pos, t_point *vector, int color);
 void		destroy_plane(t_plane *plane);
-t_light		*set_light(t_point *pos, float brightness, int color);
+t_light		*set_light(t_point *pos, double brightness, int color);
 void		destroy_light(t_light *light);
-void		set_sphere(t_sphere **sphere, t_point *pos, float diam, int clr);
+void		set_sphere(t_sphere **sphere, t_point *pos, double diam, int clr);
 void		destroy_sphere(t_sphere **sphere);
-t_cylinder	*set_cylinder(t_point *pos, t_point *vector, float diameter,\
-	float height, int color);
+t_cylinder	*set_cylinder(t_point *pos, t_point *vector, double diameter,\
+	double height, int color);
 void		destroy_cylinder(t_cylinder *cylinder);
 
 char		**create_data_array(char *line);
