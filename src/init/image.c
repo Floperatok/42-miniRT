@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:11:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:10:00 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_image	*get_image(t_window *win)
 {
 	t_image	*img;
 
-	img = malloc(sizeof(t_image));
+	img = ft_calloc(1, sizeof(t_image));
 	if (!img)
 	{
 		print_error("Fatal error: image initialization: Out of memory\n");

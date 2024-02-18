@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 04:19:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 17:07:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ double	sd_sphere(t_point vect, double radius)
 	return (ft_lenght(vect) - radius);
 }
 
-void	raytracing(t_image *img)
+void	raytracing(t_image *img, t_data *data)
 {
-	// t_camera	*cam = set_camera(set_point(0, 0, 0), set_point(0, 0, 1), 90);
-	t_sphere	*sph = new_sphere(set_point(150, 150, 0), 10, 0xFF0000);
-	t_point		vect;
+	t_point		ray;
+	t_sphere	sph = *data->spheres;
 
 	int	x = -1;
 	int	y;
@@ -30,14 +29,14 @@ void	raytracing(t_image *img)
 		y = -1;
 		while (++y < SCREEN_H)
 		{
-			vect.x = x;
-			vect.y = y;
-			vect.z = 0;
-			while (++vect.z < 100)
+			ray.x = x;
+			ray.y = y;
+			ray.z = 0;
+			while (++ray.z < 100)
 			{
-				if (sd_sphere(soustract_vect(vect, *sph->pos), sph->diameter) < 0)
+				if (sd_sphere(soustract_vect(ray, *sph.pos), sph.diameter) < 0)
 				{
-					pixel_put(img, x, y, sph->color);
+					pixel_put(img, x, y, sph.color);
 					break ;
 				}
 			}

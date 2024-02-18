@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:31:47 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 02:12:14 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 12:54:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_point	*str_to_point(char *str)
 	t_point	*point;
 
 	split = ft_split(str, ',');
-	point = set_point(ft_atof(split[0]), ft_atof(split[1]), ft_atof(split[2]));
+	point = set_point(ft_atod(split[0]), ft_atod(split[1]), ft_atod(split[2]));
 	free_double_array(split);
 	return (point);
 }
@@ -40,7 +40,7 @@ t_point	*set_point(double x, double y, double z)
 {
 	t_point	*point;
 
-	point = malloc(sizeof(t_point));
+	point = ft_calloc(1, sizeof(t_point));
 	if (!point)
 	{
 		print_error("Fatal error: point struct initialization: ");

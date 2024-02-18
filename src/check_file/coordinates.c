@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 20:43:26 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/16 21:58:51 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/18 12:16:56 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_coordinates(char *coord)
 	i = 0;
 	while (i < 3)
 	{
-		if (!check_float(vector[i]))
+		if (!check_double(vector[i]))
 		return (free_double_array(vector), 0);
 		i++;
 	}
@@ -36,7 +36,7 @@ int	check_orientation_vector(char *coord)
 {
 	int		i;
 	char	**vector;
-	float	value;
+	double	value;
 
 	if (!check_coordinates(coord))
 		return (0);
@@ -44,7 +44,7 @@ int	check_orientation_vector(char *coord)
 	i = 0;
 	while (i < 3)
 	{
-		value = atof(vector[i]);
+		value = ft_atod(vector[i]);
 		if (value < -1.0 || value > 1.0)
 			return (free_double_array(vector), 0);
 		i++;

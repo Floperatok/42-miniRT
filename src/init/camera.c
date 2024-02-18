@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:29:17 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/17 19:09:08 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 12:58:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_camera	*set_camera(t_point *pos, t_point *direction, int fov)
 {
 	t_camera	*camera;
 
-	camera = malloc(sizeof(camera));
+	camera = ft_calloc(1, sizeof(t_camera));
 	if (!camera)
 	{
 		print_error("Fatal error: camera struct initialization: ");

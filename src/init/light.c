@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:47:09 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 02:12:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:09:52 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_light	*set_light(t_point *pos, double brightness, int color)
 {
 	t_light	*light;
 
-	light = malloc(sizeof(light));
+	light = ft_calloc(1, sizeof(t_light));
 	if (!light)
 	{
 		print_error("Fatal error: light struct initialization: ");

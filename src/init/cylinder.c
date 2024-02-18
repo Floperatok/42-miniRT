@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:54:10 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 02:09:45 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 13:10:10 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  *	Cylinder struct destroyer.
 */
-void	destroy_cylinder(t_cylinder *cylinder)
+static void	destroy_one_cylinder(t_cylinder *cylinder)
 {
 	if (!cylinder)
 		return ;
@@ -24,32 +24,73 @@ void	destroy_cylinder(t_cylinder *cylinder)
 	free(cylinder);
 }
 
+void	destroy_cylinder(t_cylinder **cylinder)
+{
+	t_cylinder	*tmp;
+
+	if (!cylinder)
+		return ;
+	tmp = *cylinder;
+	while (*cylinder)
+	{
+		tmp = (*cylinder)->next;
+		destroy_one_cylinder(*cylinder);
+		*cylinder = tmp;
+	}
+	cylinder = NULL;
+}
+
 /*
  *	Create, set the values and return cylinder struct.
 */
-t_cylinder	*set_cylinder(t_point *pos, t_point *vector, double diameter,\
-	double height, int color)
+static t_cylinder	*new_cylinder(t_point *pos_vect[2], double diam_height[2], int clr)
 {
 	t_cylinder	*cylinder;
 
-	cylinder = malloc(sizeof(t_cylinder));
+	cylinder = ft_calloc(1, sizeof(t_cylinder));
 	if (!cylinder)
 	{
 		print_error("Fatal error: cylinder struct initialization: ");
 		print_error("Out of memory\n");
 		return (NULL);
 	}
-	if (!pos || !vector)
+	if (!pos_vect[0] || !pos_vect[1])
 	{
 		free(cylinder);
-		destroy_point(pos);
-		destroy_point(vector);
+		destroy_point(pos_vect[0]);
+		destroy_point(pos_vect[1]);
 		return (NULL);
 	}
-	cylinder->pos = pos;
-	cylinder->vector = vector;
-	cylinder->diameter = diameter;
-	cylinder->height = height;
-	cylinder->color = color;
+	cylinder->pos = pos_vect[0];
+	cylinder->vector = pos_vect[1];
+	cylinder->diameter = diam_height[0];
+	cylinder->height = diam_height[1];
+	cylinder->color = clr;
+	cylinder->next = NULL;
 	return (cylinder);
+}
+
+static t_cylinder	*get_last_cylinder(t_cylinder *cylinder)
+{
+	if (!cylinder)
+		return (NULL);
+	while (cylinder->next)
+		cylinder = cylinder->next;
+	return (cylinder);
+}
+
+void	set_cylinder(t_cylinder **cylinder, t_point *pos_vect[2], \
+	double diam_height[2], int clr)
+{
+	t_cylinder	*new;
+	t_cylinder	*tmp;
+
+	new = new_cylinder(pos_vect, diam_height, clr);
+	if (!*cylinder)
+	{
+		*cylinder = new;
+		return ;
+	}
+	tmp = get_last_cylinder(*cylinder);
+	tmp->next = new;
 }
