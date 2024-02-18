@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 17:06:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/18 18:26:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 
-# define SCREEN_H 300
-# define SCREEN_W 300
+# define SCREEN_H 1000
+# define SCREEN_W 1000
 
 typedef struct s_window
 {
@@ -114,6 +114,7 @@ double		ft_lenght(t_point vect);
 double		ft_distance(t_point vect1, t_point vect2);
 void		vect_multiply(t_point *vect, double scalar);
 t_point		soustract_vect(t_point vect1, t_point vect2);
+void		expand_vect(t_point *vect, t_point normalized_vect);
 int			double_array_len(char **array);
 void		free_double_array(char **array);
 int			print_error(char *msg);
