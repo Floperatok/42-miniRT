@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 02:14:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:17:29 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct s_image
 	int		line_length;
 	int		endian;
 }		t_image;
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}		t_color;
 
 typedef struct s_point
 {
@@ -115,6 +122,8 @@ void		free_double_array(char **array);
 int			print_error(char *msg);
 int			is_empty(char *line);
 int			format_color(char *colors_str);
+t_color		int_to_rgb(int color);
+int		    rgb_to_int(int r, int g, int b);
 void	    print_data(t_data data);
 
 /* CHECK CONFIG FILE*/
@@ -165,6 +174,9 @@ int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
 void		raytracing(t_image *img, t_data *data);
+
+/* AMBIENT LIGHTNING */
+void	    apply_ambient_lightning(t_data *data);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);

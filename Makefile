@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
+#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/19 11:42:45 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/19 20:05:07 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRCS			= utils/double/ft_atod.c \
 				  check_file/rgb.c \
 				  check_file/coordinates.c \
 				  check_file/identifier.c \
-				  check_file/ambiant_lightning.c \
+				  check_file/ambient_lightning.c \
 				  check_file/camera.c \
 				  check_file/light.c \
 				  check_file/plane.c \
@@ -74,7 +74,8 @@ SRCS			= utils/double/ft_atod.c \
 				  init/cylinder.c \
 				  init/plane.c \
 				  input/input_handling.c \
-				  computations/raytracing.c
+				  computations/raytracing.c \
+				  computations/ambient_lightning.c
 
 MAIN			= main.c
 

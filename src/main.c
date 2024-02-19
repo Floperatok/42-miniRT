@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 20:28:21 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:33:49 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,14 @@ int main(int ac, char **av)
 	mlx_loop(mem->win->mlx);
 	return (0);
 }
+
+// int	main()
+// {
+// 	int		color = 0x967850;
+// 	// int 	lcolor = 0xffffff;
+// 	// double	ratio = 0.5;
+// 	t_color	res;
+
+// 	res = color_to_rgb(color);
+// 	printf("rgb = %d %d %d\n", res.r, res.g, res.b);
+// }
