@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 20:27:03 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/19 02:14:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ void		raytracing(t_image *img, t_data *data);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);
-double		ft_distance(t_point vect1, t_point vect2);
 void		vect_multiply(t_point *vect, double scalar);
 t_point		soustract_vect(t_point vect1, t_point vect2);
 void		expand_vect(t_point *vect, t_point normalized_vect);

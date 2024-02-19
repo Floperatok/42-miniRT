@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 19:06:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/19 02:04:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double ft_lenght(t_point vect)
 {
-	return (sqrt(pow(vect.x, 2) + pow(vect.y, 2) + pow(vect.z, 2)));
+	return (sqrt(vect.x * vect.x + vect.y * vect.y + vect.z * vect.z));
 }
 
 /*

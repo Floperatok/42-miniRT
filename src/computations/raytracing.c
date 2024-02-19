@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 19:25:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/19 02:27:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ double	sd_sphere(t_point vect, double radius)
 
 void	raytracing(t_image *img, t_data *data)
 {
+	// clean screen for next frame; one pixel is 4 bits.
+	ft_bzero(img->addr, 4 * SCREEN_H * SCREEN_W);
+
 	t_point		ray;
 	t_point		normalized;
 	t_camera	cam = *data->camera;
@@ -27,18 +30,20 @@ void	raytracing(t_image *img, t_data *data)
 	//	Shifting the camera pos to the center of the screen
 	cam.pos->x += SCREEN_W / 2;
 	cam.pos->y += SCREEN_H / 2;
+	double	farest_obj = ft_lenght(*sph.pos) + sph.diameter;
 
 	int	x;
 	int	y = -(SCREEN_H / 2);
+	int	ray_step;
 
-	//	Loading display
+	//	Progress display setup
 	int			percentage = SCREEN_H / 100;
 	int			counter = 0;
 	ft_printf("Rendering:\t0%%");
 
 	while (y < SCREEN_H / 2)
 	{
-		//	Loading update
+		//	Progress display update
 		if (counter % percentage == 0)
 			ft_printf("\b\b\b\b\t%d%%", counter / percentage);
 		counter++;
@@ -49,10 +54,12 @@ void	raytracing(t_image *img, t_data *data)
 			ray.x = x;
 			ray.y = y;
 			ray.z = 500; // distance between the camera and the viewport pixels
+			ray_step = 0;
 			normalize_vect(&ray);
 			normalized = copy_vect(ray);
-			while (ray.z < 100)
+			while (ray_step < farest_obj)
 			{
+				ray_step++;
 				expand_vect(&ray, normalized); // expand the ray step by step until a shape is found
 				if (sd_sphere(soustract_vect(ray, *sph.pos), sph.diameter) < 0)
 				{

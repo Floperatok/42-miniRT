@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:48:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 20:29:23 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/19 02:17:18 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	pixel_put(t_image *img, int x, int y, int color)
 
 	if (x > 0 && x < SCREEN_W && y > 0 && y < SCREEN_H)
 	{
-		dst = (char *)img->addr + (y * img->line_length + x * \
-			(img->bits_per_pixel / 8));
+		dst = (char *)img->addr + (y * img->line_length + x * 4);
 		*(unsigned int *)dst = color;
 	}
 }
