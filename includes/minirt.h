@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:16:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:45:19 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
     t_point			*pos;
-    t_point			*vector;
+    t_point			*normal;
     int				color;
 	struct s_plane	*next;
 }	t_plane;
@@ -189,7 +189,9 @@ int			user_input(int keycode, t_minirt *data);
 /* RAYTRACING */
 void		render(t_minirt *mem);
 void		raytracing(t_data *data, t_image *img);
+t_point 	set_ray(t_point pixel, t_point cam_direction);
 double		detect_shapes(t_data *data, t_image *img, t_point *ray, t_point *pixel);
+double	    sd_sphere(t_point vect, double radius);
 
 /* AMBIENT LIGHTNING */
 void	    apply_ambient_lightning(t_data *data);
@@ -197,11 +199,15 @@ void	    apply_ambient_lightning(t_data *data);
 /* VECTORS */
 double		ft_lenght(t_point vect);
 t_point		vect_multiply(t_point *vect, double scalar);
+double	    vector_scalar_product(t_point v1, t_point v2);
 t_point		soustract_vect(t_point vect1, t_point vect2);
 t_point		add_vect(t_point vect1, t_point vect2);
 t_point		normalize_vect(t_point vect);
 t_point		copy_vect(t_point vect);
 void		print_vect(t_point vect);
+
+void	raytracing_david(t_data *data, t_image *img);
+int 	is_on_sphere(t_point point, t_sphere sphere);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, int color);
