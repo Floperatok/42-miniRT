@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:16:39 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:29:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 
-# define SCREEN_H 800
-# define SCREEN_W 1500
-# define VIEWPORT_DIST 500
-
 typedef struct s_window
 {
 	void	*mlx;
 	void	*window;
+	int		height;
+	int		width;
 }		t_window;
 
 typedef struct s_image
@@ -36,6 +34,9 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
+	double	aspect_ratio;
 }		t_image;
 
 typedef struct s_color

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 13:10:00 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:33:13 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ t_image	*get_image(t_window *win)
 	t_image	*img;
 
 	img = ft_calloc(1, sizeof(t_image));
+	img->height = win->height;
+	img->width = win->width;
 	if (!img)
 	{
 		print_error("Fatal error: image initialization: Out of memory\n");
 		return (NULL);
 	}
-	img->image = mlx_new_image(win->mlx, SCREEN_W, SCREEN_H);
+	img->image = mlx_new_image(win->mlx, img->width, img->height);
 	if (!img->image)
 	{
 		print_error("Fatal error: image initialization failed\n");
@@ -49,5 +51,6 @@ t_image	*get_image(t_window *win)
 		print_error("Fatal error: image initialization failed\n");
 		return (destroy_image(img, win->mlx), NULL);
 	}
+	img->aspect_ratio = img->width / img->height;
 	return (img);
 }
