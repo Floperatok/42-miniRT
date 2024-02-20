@@ -6,7 +6,11 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
+<<<<<<< Updated upstream
 #    Updated: 2024/02/19 20:05:07 by drenassi         ###   ########.fr        #
+=======
+#    Updated: 2024/02/19 16:37:44 by nsalles          ###   ########.fr        #
+>>>>>>> Stashed changes
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +55,7 @@ SRCS			= utils/double/ft_atod.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \
 				  utils/print_data.c \
+				  utils/loading_display.c \
 				  check_file/check_file.c \
 				  check_file/check_double.c \
 				  check_file/rgb.c \
@@ -74,8 +79,13 @@ SRCS			= utils/double/ft_atod.c \
 				  init/cylinder.c \
 				  init/plane.c \
 				  input/input_handling.c \
+<<<<<<< Updated upstream
 				  computations/raytracing.c \
 				  computations/ambient_lightning.c
+=======
+				  computations/sdf.c \
+				  computations/raytracing.c
+>>>>>>> Stashed changes
 
 MAIN			= main.c
 

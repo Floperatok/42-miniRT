@@ -6,18 +6,98 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 12:32:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:01:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	sd_sphere(t_point vect, double radius)
+double	farest_obj_distance(t_data *data)
 {
-	return (ft_lenght(vect) - radius);
+	// placeholder
+	return fmax(ft_lenght(*data->spheres->pos) + data->spheres->radius,
+		ft_lenght(*data->spheres->next->pos) + data->spheres->next->radius);
 }
 
-void	raytracing(t_image *img, t_data *data)
+// t_values	compute_values(t_data *data)
+// {
+// 	t_values	values;
+
+// 	values.farest_obj = farest_obj_distance(data);
+// 	values.half_screen_h = SCREEN_H / 2;
+// 	values.half_screen_w = SCREEN_W / 2;
+// 	values.viewport_dist = VIEWPORT_DIST // change to takes fov as input
+// 	values.
+// }
+
+/*
+ *	Computes and returns the ray vector for the corresponding screen pixel.
+*/
+ // je ne sais pas si c'est get_ray ou set_ray je te laisse choisir
+t_point	get_set_ray(t_point pixel, t_point cam_direction)
+{
+	t_point	ray;
+	int	half_screen_h;
+	int	half_screen_w;
+
+	half_screen_h = SCREEN_H / 2;
+	half_screen_w = SCREEN_W / 2;
+
+	ray.x = (pixel.x - half_screen_w) / half_screen_w;
+	ray.y = (pixel.y - half_screen_h) / half_screen_h;
+	ray.z = 1;
+
+	ray.y = (ray.y * cos(cam_direction.x)) - (ray.z * sin(cam_direction.x));
+	ray.z = (ray.y * sin(cam_direction.x)) + (ray.z * cos(cam_direction.x));
+	ray.x = (ray.z * sin(cam_direction.y)) + (ray.x * cos(cam_direction.y));
+	ray.z = (ray.z * cos(cam_direction.y)) - (ray.x * sin(cam_direction.y));
+	ray.x = (ray.x * cos(cam_direction.x)) - (ray.y * sin(cam_direction.x));
+	ray.y = (ray.x * sin(cam_direction.x)) + (ray.y * cos(cam_direction.x));
+	return (ray);
+}
+
+void	raytracing(t_data *data, t_image *img)
+{
+	t_point	pixel;
+	t_point	ray;
+	t_point	normalized;
+	double	distance[2];
+	double	farest_obj;
+
+	farest_obj = farest_obj_distance(data);
+	pixel.y = -1;
+	while (++pixel.y < SCREEN_H)
+	{
+		display_loading("Rendering:", 0, pixel.y + 1, SCREEN_H / 100);
+		pixel.x = -1;
+		while (++pixel.x < SCREEN_W)
+		{
+			ray = get_set_ray(pixel, *data->camera->direction);
+			normalized = ray;
+			distance[0] = 0;
+			distance[1] = 0;
+			while (distance[0] != -1 && distance[1] < farest_obj)
+			{
+				distance[0] = detect_shapes(data, img, &ray, &pixel); // should return -1 if no shape are found
+				distance[1] += distance[0] + 1;
+				ray = add_vect(ray, vect_multiply(&normalized, distance[0] + 1));
+			}
+		}
+	}
+}
+
+void	render(t_minirt *mem)
+{
+	// t_values	values;
+
+	// values = compute_values(mem->data);
+	ft_bzero(mem->img->addr, 4 * SCREEN_H * SCREEN_W);
+	raytracing(mem->data, mem->img);
+	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
+		mem->img->image, 0, 0);	
+}
+/*
+void	legacy(t_image *img, t_data *data)
 {
 	// clean screen for next frame; one pixel is 4 bits.
 	ft_bzero(img->addr, 4 * SCREEN_H * SCREEN_W);
@@ -59,13 +139,13 @@ void	raytracing(t_image *img, t_data *data)
 			ray.x = x;
 			ray.y = y;
 			ray.z = 500; // distance between the camera and the viewport pixels
-			ray_step = 0;
+			ray_step = 0;							// affecting the fov
 			normalize_vect(&ray);
 			normalized = copy_vect(ray);
 			while (ray_step < farest_obj)
 			{
 				ray_step++;
-				expand_vect(&ray, normalized); // expand the ray step by step until a shape is found
+				add_vect(&ray, normalized); // expand the ray step by step until a shape is found
 				distance = sd_sphere(soustract_vect(ray, *sph.pos), sph.diameter);
 				distance2 = sd_sphere(soustract_vect(ray, *sph2.pos), sph2.diameter);
 				min_dist = fmin(distance, distance2);
@@ -92,3 +172,4 @@ void	raytracing(t_image *img, t_data *data)
 	}
 	ft_printf("\b\b\b\b\t100%%\n");
 }
+*/

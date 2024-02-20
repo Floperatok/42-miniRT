@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 20:33:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:03:16 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ int main(int ac, char **av)
 	if (!mem->img)
 		exit_handling(mem);
 	mem->data = set_data(av[1]);
+	mem->data->camera->pos->x += SCREEN_W / 2;
+	mem->data->camera->pos->y += SCREEN_H / 2;
 	// print_data(*(mem->data));
 	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
 	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
-	raytracing(mem->img, mem->data);
-	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
-		mem->img->image, 0, 0);
+	render(mem);
+	mlx_put_image_to_window(mem->win->mlx, mem->win->window, mem->img->image, 0, 0);
 	mlx_loop(mem->win->mlx);
 	return (0);
 }

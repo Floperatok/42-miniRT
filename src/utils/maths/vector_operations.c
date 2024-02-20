@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 02:04:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/20 04:35:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@ double ft_lenght(t_point vect)
 }
 
 /*
- *	Multiplies a vector by a scalar.
+ *	Multiplies a vector by a scalar and returns the result.
 */
-void	vect_multiply(t_point *vect, double scalar)
+t_point	vect_multiply(t_point *vect, double scalar)
 {
-	vect->x *= scalar;
-	vect->y *= scalar;
-	vect->z *= scalar;
+	t_point res;
+
+	res.x = vect->x * scalar;
+	res.y = vect->y * scalar;
+	res.z = vect->z * scalar;
+	return (res);
 }
 
 /*
- *	Soustract the components of the first vector by the components of 
- *	the second. Return the result.
+ *	Subtracts the components of the first vector by the components of 
+ *	the second and returns the result.
 */
 t_point	soustract_vect(t_point vect1, t_point vect2)
 {
@@ -42,23 +45,29 @@ t_point	soustract_vect(t_point vect1, t_point vect2)
 }
 
 /*
- *	Expand the magnitude of the vector by the normalized vector components.
+ *	Adds the second vector to the first and returns the result.
 */
-void	expand_vect(t_point *vect, t_point normalized_vect)
+t_point	add_vect(t_point vect1, t_point vect2)
 {
-	vect->x += normalized_vect.x;
-	vect->y += normalized_vect.y;
-	vect->z += normalized_vect.z;
+	vect1.x += vect2.x;
+	vect1.y += vect2.y;
+	vect1.z += vect2.z;
+	return (vect1);
 }
 
-void	normalize_vect(t_point *vect)
+/*
+ *	Normalize the vector and return the result.
+*/
+t_point normalize_vect(t_point vect)
 {
+	t_point	normalized;
 	double	lenght;
 
-	lenght = ft_lenght(*vect);
-	vect->x /= lenght;
-	vect->y /= lenght;
-	vect->z /= lenght;
+	lenght = ft_lenght(vect);
+	normalized.x = vect.x / lenght;
+	normalized.y = vect.y / lenght;
+	normalized.z = vect.z / lenght;
+	return (normalized);
 }
 
 t_point	copy_vect(t_point vect)
