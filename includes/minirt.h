@@ -6,9 +6,10 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:02:36 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:16:39 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINIRT_H
 # define MINIRT_H
@@ -19,7 +20,8 @@
 # include "../libs/minilibx-linux/mlx.h"
 
 # define SCREEN_H 800
-# define SCREEN_W 1200
+# define SCREEN_W 1500
+# define VIEWPORT_DIST 500
 
 typedef struct s_window
 {
@@ -113,6 +115,13 @@ typedef struct s_minirt
 	t_data	    *data;
 }	t_minirt;
 
+typedef struct s_values
+{
+	double	farest_obj;
+	int		half_screen_h;
+	int		half_screen_w;
+}	t_values;
+
 
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
@@ -123,6 +132,7 @@ int			print_error(char *msg);
 int			is_empty(char *line);
 /* COLORS UTILS */
 int			format_color(char *colors_str);
+void		display_loading(char *msg, int start, int pos, int percent_size);
 t_color		int_to_rgb(int color);
 int		    rgb_to_int(int r, int g, int b);
 void	    protect_colors(t_color *color);
@@ -177,17 +187,19 @@ int			exit_handling(t_minirt *data);
 int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
-void		raytracing(t_image *img, t_data *data);
+void		render(t_minirt *mem);
+void		raytracing(t_data *data, t_image *img);
+double		detect_shapes(t_data *data, t_image *img, t_point *ray, t_point *pixel);
 
 /* AMBIENT LIGHTNING */
 void	    apply_ambient_lightning(t_data *data);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);
-void		vect_multiply(t_point *vect, double scalar);
+t_point		vect_multiply(t_point *vect, double scalar);
 t_point		soustract_vect(t_point vect1, t_point vect2);
-void		expand_vect(t_point *vect, t_point normalized_vect);
-void		normalize_vect(t_point *vect);
+t_point		add_vect(t_point vect1, t_point vect2);
+t_point		normalize_vect(t_point vect);
 t_point		copy_vect(t_point vect);
 void		print_vect(t_point vect);
 
