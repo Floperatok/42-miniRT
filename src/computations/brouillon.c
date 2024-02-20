@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:03:01 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/20 22:30:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:57:01 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static double	farest_cylinder_distance(t_data *data)
 	return (farest_distance);
 }
 
-double	farest_obj_distance(t_data *data)
+double	farest_object_distance(t_data *data)
 {
 	double	farest_distance;
 
