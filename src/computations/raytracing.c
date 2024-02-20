@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:01:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:21:22 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double	farest_obj_distance(t_data *data)
  *	Computes and returns the ray vector for the corresponding screen pixel.
 */
  // je ne sais pas si c'est get_ray ou set_ray je te laisse choisir
-t_point	get_set_ray(t_point pixel, t_point cam_direction)
+t_point	set_ray(t_point pixel, t_point cam_direction)
 {
 	t_point	ray;
 	int	half_screen_h;
@@ -72,7 +72,7 @@ void	raytracing(t_data *data, t_image *img)
 		pixel.x = -1;
 		while (++pixel.x < SCREEN_W)
 		{
-			ray = get_set_ray(pixel, *data->camera->direction);
+			ray = set_ray(pixel, *data->camera->direction);
 			normalized = ray;
 			distance[0] = 0;
 			distance[1] = 0;
