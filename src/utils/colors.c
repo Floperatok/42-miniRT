@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 20:16:56 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:06:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ t_color	int_to_rgb(int color)
 	res.g = g;
 	res.r = r;
 	return (res);
+}
+
+void	protect_colors(t_color *color)
+{
+	if (color->r > 255)
+		color->r = 255;
+	if (color->g > 255)
+		color->g = 255;
+	if (color->b > 255)
+		color->b = 255;
 }

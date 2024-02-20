@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:57:48 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/18 14:59:47 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:00:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_sphere_data(t_sphere *spheres)
 	{
 		printf("|    Sphere\t|\t%.1f\t%.1f\t%.1f\t|\t\t\t|", ptr->pos->x, \
 			ptr->pos->y, ptr->pos->z);
-		printf("    #%06x\t| %.1f\t|\t\t|\n", ptr->color , ptr->diameter);
+		printf("    #%06x\t| %.1f\t|\t\t|\n", ptr->color , ptr->radius * 2);
 		print_separator();
 		ptr = ptr->next;
 	}
@@ -61,7 +61,7 @@ static void	print_cylinder_data(t_cylinder *cylinders)
 			ptr->pos->y, ptr->pos->z);
 		printf("   %.1f  %.1f  %.1f\t|", ptr->vector->x, \
 		ptr->vector->y, ptr->vector->z);
-		printf("    #%06x\t| %.1f\t|", ptr->color, ptr->diameter);
+		printf("    #%06x\t| %.1f\t|", ptr->color, ptr->radius * 2);
 		printf("   H: %.1f\t|\n", ptr->height);
 		print_separator();
 		ptr = ptr->next;
@@ -76,7 +76,7 @@ void	print_data(t_data data)
 	printf("\t|\n|_______________|_______________________________|_");
 	printf("______________________|_______________|_______|_______________|\n");
 	printf("|  Amb. light.\t|\t\t\t\t|\t\t\t|    #%06x", data.a_light->color);
-	printf("\t|\t|   Ratio: %.1f\t|\n", data.a_light->brightness);
+	printf("\t|\t|   Ratio: %.1f\t|\n", data.a_light->ratio);
 	print_separator();
 	printf("|    Camera \t|\t%.1f\t%.1f\t%.1f", data.camera->pos->x, \
 		data.camera->pos->y, data.camera->pos->z);

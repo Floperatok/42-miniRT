@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:59:15 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 13:10:24 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:32:43 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	destroy_alight(t_alight *alight)
 /*
  *	Create, set the values and return ambient lightning struct.
 */
-t_alight	*set_alight(double brightness, int color)
+t_alight	*set_alight(double ratio, int color)
 {
 	t_alight	*alight;
 
@@ -36,7 +36,7 @@ t_alight	*set_alight(double brightness, int color)
 		print_error("Out of memory\n");
 		return (NULL);
 	}
-	alight->brightness = brightness;
+	alight->ratio = ratio;
 	alight->color = color;
 	return (alight);
 }

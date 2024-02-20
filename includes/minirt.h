@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 20:17:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:02:36 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_point
 
 typedef struct s_alight
 {
-    double	brightness;    
+    double	ratio;    
     int		color;
 }	t_alight;
 
@@ -73,7 +73,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
     t_point			*pos;
-    double			diameter;
+    double			radius;
     int				color;
     struct s_sphere *next;
 }	t_sphere;
@@ -90,7 +90,7 @@ typedef struct s_cylinder
 {
     t_point				*pos;
     t_point				*vector;
-    double				diameter;
+    double				radius;
     double				height;
     int					color;
 	struct s_cylinder	*next;
@@ -121,9 +121,12 @@ int			double_array_len(char **array);
 void		free_double_array(char **array);
 int			print_error(char *msg);
 int			is_empty(char *line);
+/* COLORS UTILS */
 int			format_color(char *colors_str);
 t_color		int_to_rgb(int color);
 int		    rgb_to_int(int r, int g, int b);
+void	    protect_colors(t_color *color);
+/* PRINT DATAS UTIL */
 void	    print_data(t_data data);
 
 /* CHECK CONFIG FILE*/
@@ -152,14 +155,15 @@ t_camera	*set_camera(t_point *pos, t_point *direction, int fov);
 void		destroy_camera(t_camera *camera);
 t_alight	*set_alight(double brightness, int color);
 void		destroy_alight(t_alight *alight);
-t_light		*set_light(t_point *pos, double brightness, int color);
+t_light		*set_light(t_point *pos, double ratio, int color);
 void		destroy_light(t_light *light);
 void    	set_plane(t_plane **plane, t_point *pos, t_point *vector, int color);
 void	    destroy_plane(t_plane **plane);
-void		set_sphere(t_sphere **sphere, t_point *pos, double diam, int clr);
+void		set_sphere(t_sphere **sphere, t_point *pos, \
+        double radius, int color);
 void		destroy_sphere(t_sphere **sphere);
 void    	set_cylinder(t_cylinder **cylinder, t_point *pos_vect[2], \
-        double diam_height[2], int color);
+        double rad_height[2], int color);
 void		destroy_cylinder(t_cylinder **cylinder);
 
 char		**create_data_array(char *line);

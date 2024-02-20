@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 20:33:49 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:22:36 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,10 @@ int main(int ac, char **av)
 	// print_data(*(mem->data));
 	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
 	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
+	apply_ambient_lightning(mem->data);
 	raytracing(mem->img, mem->data);
 	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
 		mem->img->image, 0, 0);
 	mlx_loop(mem->win->mlx);
 	return (0);
 }
-
-// int	main()
-// {
-// 	int		color = 0x967850;
-// 	// int 	lcolor = 0xffffff;
-// 	// double	ratio = 0.5;
-// 	t_color	res;
-
-// 	res = color_to_rgb(color);
-// 	printf("rgb = %d %d %d\n", res.r, res.g, res.b);
-// }

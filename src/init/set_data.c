@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 18:58:35 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/18 13:12:41 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:04:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	destroy_data(t_data *data)
 static void	set_line_data2(t_data *data, char **datas)
 {
 	t_point	*pos_vect[2];
-	double	diam_height[2];
+	double	rad_height[2];
 
 	if (!ft_strcmp(datas[0], "pl"))
 		set_plane(&(data->planes), str_to_point(datas[1]), \
 			str_to_point(datas[2]), format_color(datas[3]));
 	if (!ft_strcmp(datas[0], "sp"))
 		set_sphere(&(data->spheres), str_to_point(datas[1]), \
-			ft_atod(datas[2]), format_color(datas[3]));
+			ft_atod(datas[2]) / 2, format_color(datas[3]));
 	if (!ft_strcmp(datas[0], "cy"))
 	{
 		pos_vect[0] = str_to_point(datas[1]);
 		pos_vect[1] = str_to_point(datas[2]);
-		diam_height[0] = ft_atod(datas[3]);
-		diam_height[1] = ft_atod(datas[4]);
-		set_cylinder(&(data->cylinders), pos_vect, diam_height, \
+		rad_height[0] = ft_atod(datas[3]) / 2;
+		rad_height[1] = ft_atod(datas[4]);
+		set_cylinder(&(data->cylinders), pos_vect, rad_height, \
 			format_color(datas[5]));
 	}
 }
