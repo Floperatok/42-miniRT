@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 04:35:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/21 00:07:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,16 @@ t_point normalize_vect(t_point vect)
 	return (normalized);
 }
 
-t_point	copy_vect(t_point vect)
+t_point	set_vect(double x, double y, double z)
 {
-	t_point copy;
+	t_point vect;
 
-	copy.x = vect.x;
-	copy.y = vect.y;
-	copy.z = vect.z;
-	return (copy);
+	vect.x = x;
+	vect.y = y;
+	vect.z = z;
+	return (vect);
 }
+
 
 void	print_vect(t_point vect)
 {

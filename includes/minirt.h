@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 23:29:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/21 00:07:45 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_camera
     t_point	*pos;
     t_point	*direction;
     int		fov;
+	double	plane_distance;
 }	t_camera;
 
 typedef struct s_light
@@ -116,12 +117,13 @@ typedef struct s_minirt
 	t_data	    *data;
 }	t_minirt;
 
-typedef struct s_values
+typedef struct s_viewport_plane
 {
-	double	farest_obj;
-	int		half_screen_h;
-	int		half_screen_w;
-}	t_values;
+	double	height;
+	double	width;
+	t_point	bottom_left;
+}	t_viewport_plane;
+
 
 
 /* UTILS */
@@ -201,7 +203,7 @@ t_point		vect_multiply(t_point *vect, double scalar);
 t_point		soustract_vect(t_point vect1, t_point vect2);
 t_point		add_vect(t_point vect1, t_point vect2);
 t_point		normalize_vect(t_point vect);
-t_point		copy_vect(t_point vect);
+t_point		set_vect(double x, double y, double z);
 void		print_vect(t_point vect);
 
 /* DRAWING */
