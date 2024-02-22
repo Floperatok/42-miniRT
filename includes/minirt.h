@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 17:45:19 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:19:21 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_color
 	int	r;
 	int	g;
 	int	b;
+    int sum;
 }		t_color;
 
 typedef struct s_point
@@ -98,6 +99,15 @@ typedef struct s_cylinder
 	struct s_cylinder	*next;
 }	t_cylinder;
 
+/* BROUILLON 2 TEST NEW STRUCT OBJS */
+typedef struct s_obj
+{
+	t_plane			*pl;
+	t_sphere		*sp;
+	t_cylinder		*cy;
+	struct s_obj	*next;
+}	t_obj;
+
 typedef struct s_data
 {
     t_alight	*a_light;
@@ -105,6 +115,7 @@ typedef struct s_data
     t_light		*light;
     t_sphere	*spheres;
     t_plane		*planes;
+    t_obj       *objs;
     t_cylinder	*cylinders;
 }	t_data;
 
@@ -198,7 +209,7 @@ void	    apply_ambient_lightning(t_data *data);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);
-t_point		vect_multiply(t_point *vect, double scalar);
+t_point		vect_multiply(t_point vect, double scalar);
 double	    vector_scalar_product(t_point v1, t_point v2);
 t_point		soustract_vect(t_point vect1, t_point vect2);
 t_point		add_vect(t_point vect1, t_point vect2);
@@ -211,5 +222,9 @@ int 	is_on_sphere(t_point point, t_sphere sphere);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, int color);
+
+
+/* TEST BROUILLON 2 */
+void	    rendering(t_data *data, t_image *img);
 
 #endif

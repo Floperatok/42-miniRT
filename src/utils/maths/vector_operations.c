@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 16:24:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:24:18 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ double ft_lenght(t_point vect)
 /*
  *	Multiplies a vector by a scalar and returns the result.
 */
-t_point	vect_multiply(t_point *vect, double scalar)
+t_point	vect_multiply(t_point vect, double scalar)
 {
 	t_point res;
 
-	res.x = vect->x * scalar;
-	res.y = vect->y * scalar;
-	res.z = vect->z * scalar;
+	res.x = vect.x * scalar;
+	res.y = vect.y * scalar;
+	res.z = vect.z * scalar;
 	return (res);
 }
 

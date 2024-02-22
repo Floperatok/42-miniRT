@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:34:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/18 13:09:40 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:20:30 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	destroy_one_plane(t_plane *plane)
 	if (!plane)
 		return ;
 	destroy_point(plane->pos);
-	destroy_point(plane->vector);
+	destroy_point(plane->normal);
 	free(plane);
 }
 
@@ -62,7 +62,7 @@ static t_plane	*new_plane(t_point *pos, t_point *vector, int color)
 		return (NULL);
 	}
 	plane->pos = pos;
-	plane->vector = vector;
+	plane->normal = vector;
 	plane->color = color;
 	plane->next = NULL;
 	return (plane);

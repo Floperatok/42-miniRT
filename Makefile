@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/20 15:26:51 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/21 17:21:07 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,8 @@ SRCS			= utils/double/ft_atod.c \
 				  computations/raytracing.c \
 				  computations/ambient_lightning.c \
 				  computations/sdf.c \
-				  computations/brouillon.c
+				  computations/brouillon.c \
+				  computations/brouillon2.c
 
 MAIN			= main.c
 

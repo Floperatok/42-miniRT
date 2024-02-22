@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:21:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:21:26 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	raytracing(t_data *data, t_image *img)
 			{
 				distance[0] = detect_shapes(data, img, &ray, &pixel); // should return -1 if no shape are found
 				distance[1] += distance[0] + 1;
-				ray = add_vect(ray, vect_multiply(&normalized, distance[0] + 1));
+				ray = add_vect(ray, vect_multiply(normalized, distance[0] + 1));
 			}
 		}
 	}
@@ -92,7 +92,7 @@ void	render(t_minirt *mem)
 
 	// values = compute_values(mem->data);
 	ft_bzero(mem->img->addr, 4 * SCREEN_H * SCREEN_W);
-	raytracing(mem->data, mem->img);
+	rendering(mem->data, mem->img);
 	mlx_put_image_to_window(mem->win->mlx, mem->win->window,
 		mem->img->image, 0, 0);	
 }

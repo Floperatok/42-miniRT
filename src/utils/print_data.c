@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:57:48 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/20 14:00:30 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:20:07 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	print_plane_data(t_plane *planes)
 	{
 		printf("|    Plane\t|\t%.1f\t%.1f\t%.1f\t|", ptr->pos->x, \
 			ptr->pos->y, ptr->pos->z);
-		printf("   %.1f  %.1f  %.1f\t|", ptr->vector->x, \
-		ptr->vector->y, ptr->vector->z);
+		printf("   %.1f  %.1f  %.1f\t|", ptr->normal->x, \
+		ptr->normal->y, ptr->normal->z);
 		printf("    #%06x\t|\t|\t\t|\n", ptr->color);
 		print_separator();
 		ptr = ptr->next;

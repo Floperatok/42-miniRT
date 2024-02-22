@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:03:01 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/20 22:57:01 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:51:28 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	ray_trace_plane(t_data *data, t_point pixel,
 			}
 			distance[1] += distance[0] + 1.0;
 			if (distance[0] > 1.0)
-				ray = add_vect(ray, vect_multiply(&nray, distance[0]));
+				ray = add_vect(ray, vect_multiply(nray, distance[0]));
 			else
 				ray = add_vect(ray, nray);
 		}
@@ -260,7 +260,7 @@ void	ray_trace_sphere(t_data *data, t_point pixel,
 			}
 			distance[1] += distance[0] + 1.0;
 			if (distance[0] > 1.0)
-				ray = add_vect(ray, vect_multiply(&nray, distance[0]));
+				ray = add_vect(ray, vect_multiply(nray, distance[0]));
 			else
 				ray = add_vect(ray, nray);
 		}

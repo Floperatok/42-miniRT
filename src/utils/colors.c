@@ -6,7 +6,7 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 13:06:30 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:15:41 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ t_color	int_to_rgb(int color)
 	g = (color & 0x00ff00) >> 8;
 	r = color >> 16;
 	
-	res.b = b;
-	res.g = g;
 	res.r = r;
+	res.g = g;
+	res.b = b;
+	res.sum = r + g + b;
 	return (res);
 }
 
