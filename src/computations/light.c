@@ -6,33 +6,59 @@
 /*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:25:40 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/20 13:42:18 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/22 11:51:10 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// void	apply_light_plane(float distance, t_plane *plane)
-// {
-	
-// }
-
-void	apply_light_sphere(float distance, float min_distance,
-	t_data *data, t_plane *sphere)
+/*
+*	Returns the base color of an object.
+*/
+t_color	get_obj_color(t_obj *obj)
 {
-	int		sum;
-	t_color	color;
-	t_point	light;
-
-	color = int_to_rgb(data->light->color);
-	sum = color.r + color.g + color.b;
-	light.x = 3 * color.r * data->a_light->ratio / sum;
-	light.y = 3 * color.g * data->a_light->ratio / sum;
-	light.z = 3 * color.b * data->a_light->ratio / sum;
+	if (obj->pl)
+		return (int_to_rgb(obj->pl->color));
+	else if (obj->sp)
+		return (int_to_rgb(obj->sp->color));
+	else if (obj->cy)
+		return (int_to_rgb(obj->cy->color));
+	else
+		return ((t_color){0, 0, 0, 0});
 }
 
-// void	apply_light(float distance, t_data *data, char *shape)
-// {
-// 	if (!ft_strcmp(shape, "plane"))
-		
-// }
+/*
+*	Returns the light intensity.
+*/
+t_point	light_intensity(t_data *data)
+{
+	t_point			light_color;
+	t_point			max_sum;
+
+	light_color.x = int_to_rgb(data->light->color).r;
+	light_color.y = int_to_rgb(data->light->color).g;
+	light_color.z = int_to_rgb(data->light->color).b;
+	max_sum = multiply_vect(light_color, \
+		data->light->brightness / int_to_rgb(data->light->color).sum);
+	return ((t_point){1 / max_sum.x, 1 / max_sum.y, 1 / max_sum.z});
+}
+
+/*
+*	Returns the color resulting from a colored light applied
+*	on a colored pixel.
+*/
+t_color	apply_light(t_data *data, t_closest_obj closest)
+{
+	t_color		obj_color;
+	t_color		color;
+	t_point		intensity;
+
+	obj_color = get_obj_color(closest.obj);
+	intensity = light_intensity(data);
+	color.r = obj_color.r * intensity.x;
+	color.g = obj_color.g * intensity.y;
+	color.b = obj_color.b * intensity.z;
+	color.sum = color.r + color.g + color.b;
+	protect_colors(&color);
+	return (color);
+}

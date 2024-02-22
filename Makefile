@@ -6,7 +6,7 @@
 #    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/21 17:21:07 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/22 12:10:48 by drenassi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,12 @@ SRCS			= utils/double/ft_atod.c \
 				  utils/str/free_double_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
-				  utils/maths/vector_operations.c \
+				  utils/maths/vectors.c \
+				  utils/maths/vectors2.c \
+				  utils/maths/intersections.c \
+				  utils/maths/rotations.c \
 				  utils/colors.c \
-				  utils/pixel_put.c \
 				  utils/print_data.c \
-				  utils/loading_display.c \
 				  check_file/check_file.c \
 				  check_file/check_double.c \
 				  check_file/rgb.c \
@@ -69,17 +70,25 @@ SRCS			= utils/double/ft_atod.c \
 				  init/image.c \
 				  init/ambient_light.c \
 				  init/camera.c \
+				  init/viewport.c \
 				  init/light.c \
 				  init/point.c \
 				  init/sphere.c \
 				  init/cylinder.c \
 				  init/plane.c \
+				  init/objects_list.c \
+				  init/init_objects.c \
 				  input/input_handling.c \
 				  computations/raytracing.c \
+				  computations/ray.c \
 				  computations/ambient_lightning.c \
+				  computations/light.c \
+				  computations/reflection.c \
+				  computations/intersections.c \
 				  computations/sdf.c \
-				  computations/brouillon.c \
-				  computations/brouillon2.c
+				  rendering/draw_pixels.c \
+				  rendering/loading_display.c \
+				  rendering/rendering.c
 
 MAIN			= main.c
 
