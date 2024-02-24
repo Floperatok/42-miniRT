@@ -3,67 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 14:08:42 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/24 12:45:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	exit_handling(t_minirt *mem)
+int	exit_handling(t_minirt *data)
 {
-	if (!mem)
-		exit(EXIT_FAILURE);
-	if (mem->win)
-		destroy_image(mem->img, mem->win->mlx);
-	destroy_window(mem->win);
-	destroy_data(mem->data);
-	free(mem);
+	destroy_image(&data->img, data->win.mlx);
+	destroy_window(&data->win);
+	// destroy_objs(&data->objs);
 	exit(EXIT_SUCCESS);
-}
-
-t_minirt	*init_mem(void)
-{
-	t_minirt *mem;
-
-	mem = malloc(sizeof(t_minirt));
-	if (!mem)
-	{
-		print_error("Fatal error: mem initialization: Out of memory\n");
-		exit_handling(mem);
-	}
-	mem->img = NULL;
-	mem->win = NULL;
-	mem->data = NULL;
-	return (mem);
 }
 
 int main(int ac, char **av)
 {
-	t_minirt	*mem;
+	t_minirt	data;
 
 	if (ac != 2)
 		return (print_error("Error: One argument needed.\n"), 1);
 	if (!check_file(av[1]))
 		return (1);
-	mem = init_mem();
-	mem->win = get_window();
-	if (!mem->win)
-		exit_handling(mem);
-	mem->img = get_image(mem->win);
-	if (!mem->img)
-		exit_handling(mem);
-	mem->data = set_data(av[1]);
-	mem->data->camera->pos->x += SCREEN_W / 2;
-	mem->data->camera->pos->y += SCREEN_H / 2;
-	// print_data(*(mem->data));
-	mlx_hook(mem->win->window, 17, 0L, &exit_handling, mem);
-	mlx_hook(mem->win->window, 2, 1L << 0, &user_input, mem);
-	apply_ambient_lightning(mem->data);
-	render(mem);
-	mlx_put_image_to_window(mem->win->mlx, mem->win->window, mem->img->image, 0, 0);
-	mlx_loop(mem->win->mlx);
+	if (!get_window(&data.win))
+		return (1);
+	if (!get_image(&data.img, data.win))
+		return (destroy_window(&data.win), 1);
+	// if (!get_objects(&data.objs, av[1]))
+		// return (destroy_image(&data.img, data.win.mlx), destroy_window(&data.win), 1);
+	mlx_hook(data.win.window, 17, 0L, &exit_handling, &data);
+	mlx_hook(data.win.window, 2, 1L << 0, &user_input, &data);
+	// render(&data);
+	mlx_put_image_to_window(data.win.mlx, data.win.window, data.img.image, 0, 0);
+	mlx_loop(data.win.mlx);
 	return (0);
 }

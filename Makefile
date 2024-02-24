@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drenassi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/20 15:26:51 by drenassi         ###   ########.fr        #
+#    Updated: 2024/02/24 12:41:38 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LIBFT			= libs/libft.a
 INCLUDE_PATH	= includes
 
 SRCS_PATH		= src
-SRCS			= utils/double/ft_atod.c \
+SRCS			= utils/str/ft_atod.c \
 				  utils/str/ft_strcmp.c \
 				  utils/str/double_array_len.c \
 				  utils/str/free_double_array.c \
@@ -50,7 +50,6 @@ SRCS			= utils/double/ft_atod.c \
 				  utils/maths/vector_operations.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \
-				  utils/print_data.c \
 				  utils/loading_display.c \
 				  check_file/check_file.c \
 				  check_file/check_double.c \
@@ -63,22 +62,11 @@ SRCS			= utils/double/ft_atod.c \
 				  check_file/plane.c \
 				  check_file/sphere.c \
 				  check_file/cylinder.c \
-				  init/create_data_array.c \
-				  init/set_data.c \
+				  input/input_handling.c \
 				  init/window.c \
 				  init/image.c \
-				  init/ambient_light.c \
-				  init/camera.c \
-				  init/light.c \
-				  init/point.c \
-				  init/sphere.c \
-				  init/cylinder.c \
-				  init/plane.c \
-				  input/input_handling.c \
-				  computations/raytracing.c \
-				  computations/ambient_lightning.c \
-				  computations/sdf.c \
-				  computations/brouillon.c
+				  init/create_data_array.c \
+				  computations/raytracing.c 
 
 MAIN			= main.c
 

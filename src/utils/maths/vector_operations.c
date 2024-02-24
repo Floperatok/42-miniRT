@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 16:24:29 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/02/24 12:13:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ double ft_lenght(t_point vect)
 /*
  *	Multiplies a vector by a scalar and returns the result.
 */
-t_point	vect_multiply(t_point *vect, double scalar)
+t_point	multiply_vect(t_point vect, double scalar)
 {
 	t_point res;
 
-	res.x = vect->x * scalar;
-	res.y = vect->y * scalar;
-	res.z = vect->z * scalar;
+	res.x = vect.x * scalar;
+	res.y = vect.y * scalar;
+	res.z = vect.z * scalar;
 	return (res);
 }
 
@@ -61,18 +61,16 @@ t_point	add_vect(t_point vect1, t_point vect2)
 }
 
 /*
- *	Normalize the vector and return the result.
+ *	Normalize the vector.
 */
-t_point normalize_vect(t_point vect)
+void	normalize_vect(t_point *vect)
 {
-	t_point	normalized;
 	double	lenght;
 
-	lenght = ft_lenght(vect);
-	normalized.x = vect.x / lenght;
-	normalized.y = vect.y / lenght;
-	normalized.z = vect.z / lenght;
-	return (normalized);
+	lenght = ft_lenght(*vect);
+	vect->x /= lenght;
+	vect->y /= lenght;
+	vect->z /= lenght;
 }
 
 t_point	copy_vect(t_point vect)
@@ -85,7 +83,27 @@ t_point	copy_vect(t_point vect)
 	return (copy);
 }
 
-void	print_vect(t_point vect)
+t_point	new_vect(double x, double y, double z)
 {
-	printf("x = %f ; y = %f ; z = %f\n", vect.x, vect.y, vect.z);
+	t_point	vect;
+
+	vect.x = x;
+	vect.y = y;
+	vect.z = z;
+	return (vect);
+}
+
+t_point cross_product(t_point vect1, t_point vect2)
+{
+    t_point	result;
+
+    result.x = vect1.y * vect2.z - vect1.z * vect2.y;
+    result.y = vect1.z * vect2.x - vect1.x * vect2.z;
+    result.z = vect1.x * vect2.y - vect1.y * vect2.x;
+    return (result);
+}
+
+void	print_vect(char *msg, t_point vect)
+{
+	printf("%sx = %f ; y = %f ; z = %f\n", msg, vect.x, vect.y, vect.z);
 }
