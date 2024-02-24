@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:42:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 12:47:56 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	destroy_image(t_image *img, void *mlx)
 {
-	if (!mlx)
-	{
-		free(img);
-		return ;
-	}
-	if (img->image)
+	if (mlx && img->image)
 		mlx_destroy_image(mlx, img->image);
 }
 
