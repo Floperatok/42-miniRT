@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 15:48:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 19:25:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,12 @@ static char	***get_data_objects(char *filecontent)
 			line = ft_substr(filecontent, 0, j);
 			data_objs[i] = create_data_array(line);
 			free(line);
+			i++;
 		}
-		else
-			i--;
 		filecontent += j + 1;
-		i++;
 	}
-	printf("i = %d\n", i);
 	data_objs[i] = NULL;
 	return (data_objs);
-}
-
-void	print_data_objs(char ***data_objs)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data_objs[++i])
-	{
-		j = -1;
-		printf("{");
-		while (data_objs[i][++j])
-			printf("[%s] ", data_objs[i][j]);
-		printf("}\n");
-	}
 }
 
 int	get_objects(t_objects *objs, char *filename)
@@ -91,7 +72,6 @@ int	get_objects(t_objects *objs, char *filename)
 		return (perror(""), 0);
 	filecontent = readfile(fd);
 	data_objs = get_data_objects(filecontent);
-	print_data_objs(data_objs);
 	get_alight(data_objs, &objs->a_light);
 	get_camera(data_objs, &objs->camera);
 	get_light(data_objs, &objs->light);
