@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/24 15:01:26 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/24 23:42:24 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SRCS			= utils/str/ft_atod.c \
 				  init/plane.c \
 				  init/point.c \
 				  init/sphere.c \
-				  computations/raytracing.c 
+				  computations/raytracing.c
 
 MAIN			= main.c
 

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:47:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 23:40:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	destroy_image(t_image *img, void *mlx)
 
 int	get_image(t_image *img, t_window win)
 {
+	img->height = win.height;
+	img->width = win.width;
 	img->image = mlx_new_image(win.mlx, win.width, win.height);
 	if (!img->image)
 	{
@@ -33,5 +35,6 @@ int	get_image(t_image *img, t_window win)
 		print_error("Fatal error: image initialization failed\n");
 		return (destroy_image(img, win.mlx), 0);
 	}
+	img->aspect_ratio = img->width / img->height;
 	return (1);
 }

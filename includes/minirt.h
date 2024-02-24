@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 15:15:47 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 23:03:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_camera
 	t_point	dir_y;
 	t_point	dir_z;
     int		fov;
-	double	plane_distance;
+	double	viewport_distance;
 }	t_camera;
 
 typedef struct s_light
@@ -196,6 +196,7 @@ int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
 void		render(t_minirt *mem);
+double		sd_sphere(t_point pos, double radius);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);

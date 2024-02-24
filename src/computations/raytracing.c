@@ -5,15 +5,104 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 12:40:30 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:41:03 by nsalles          ###   ########.fr       */
+/*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
+/*   Updated: 2024/02/24 23:41:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		render(t_minirt *mem)
+
+static void	setup_camera(t_camera *cam)
 {
-	(void)mem;
-	return ;
+	cam->viewport_distance = 1;
+	
+	// double	rot = 0.01745329 * 90;
+
+	// cam->dir_x.x = (cam->direction.z * sin(rot)) + (cam->direction.x * cos(rot));
+	// cam->dir_x.y = 0;
+	// cam->dir_x.z = (cam->direction.z * cos(rot)) - (cam->direction.x * sin(rot));
+
+	/* dont work with rotation such as {1, 0, 0} */
+	// cam->dir_y.x = -cam->direction.x;
+	// cam->dir_y.y = fmax(cam->direction.x, cam->direction.z);
+	// cam->dir_y.z = -cam->direction.y;
+	
+	// cam->dir_z = cam->direction;
+
+	cam->dir_x = new_vect(1, 0, 0);
+	cam->dir_y = new_vect(0, 1, 0);
+	cam->dir_z = new_vect(0, 0, 1);
+	
+	// printf("cam   : x=%f ; y=%f ; z=%f\n\n", cam->direction.x, cam->direction.y, cam->direction.z);
+	// printf("dir_x : x=%f ; y=%f ; z=%f\n", cam->dir_x.x, cam->dir_x.y, cam->dir_x.z);
+	// printf("dir_y : x=%f ; y=%f ; z=%f\n", cam->dir_y.x, cam->dir_y.y, cam->dir_y.z);
+	// printf("dir_z : x=%f ; y=%f ; z=%f\n", cam->dir_z.x, cam->dir_z.y, cam->dir_z.z);
+}
+
+/*
+ *	Computes the position and the sizes of the viewport plane where all the
+ *	rays will be launched. These values are calculated from fov and 
+ *	screen dimensions.
+*/
+static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
+{
+	t_viewport_plane plane;
+
+	plane.height = cam->viewport_distance * tan(cam->fov * 0.01745329 / 2) * 2;
+	plane.width = plane.height * img->aspect_ratio;
+	plane.bottom_left = new_vect(-plane.width / 2, -plane.height / 2,\
+		cam->viewport_distance);
+	return (plane);
+}
+
+/*
+ *	Launches a ray and returns the color of the shape encountered, black if
+ *	no shape are encountered.
+*/
+int	launch_ray(t_ray ray, t_objects *objs)
+{
+	(void)ray;
+	(void)objs;
+	return (0x000000);
+}
+
+/*
+ *	Goes through all the pixels and launch a ray in the direction of the camera
+ *	for each of them. 
+*/
+void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs, t_image *img)
+{
+	t_point	pixel;
+	t_ray	ray;
+	t_point	point;
+
+	pixel.y = -1;
+	while (++pixel.y < img->height)
+	{
+		display_loading("Rendering:", 0, pixel.y + 1, img->height / 100);
+		pixel.x = -1;
+		while (++pixel.x < img->width)
+		{
+			point = add_vect(plane->bottom_left, 
+				new_vect(plane->width * pixel.x / (img->width - 1), 
+				plane->height * pixel.y / (img->height - 1), 0));
+			ray.vect.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
+			ray.vect.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
+			ray.vect.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
+			normalize_vect(&ray.vect);
+			// printf("ray(%d, %d) : x=%f ; y=%f ; z=%f\n", (int)pixel.x, (int)pixel.y, ray.vect.x, ray.vect.y, ray.vect.z);
+			ray.pos = add_vect(ray.vect, cam->pos);
+			pixel_put(img, pixel.x, pixel.y, launch_ray(ray, objs));
+		}
+	}
+}
+
+void	render(t_minirt *mem)
+{
+	t_viewport_plane plane;
+
+	setup_camera(&mem->objs.camera);
+	plane = set_viewport_plane(&mem->objs.camera, &mem->img);
+	camera_ray(&mem->objs.camera, &plane, &mem->objs, &mem->img);
 }
