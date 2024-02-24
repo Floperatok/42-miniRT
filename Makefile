@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/02/24 12:41:38 by nsalles          ###   ########.fr        #
+#    Updated: 2024/02/24 15:01:26 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,10 @@ SRCS			= utils/str/ft_atod.c \
 				  utils/str/ft_strcmp.c \
 				  utils/str/double_array_len.c \
 				  utils/str/free_double_array.c \
+				  utils/str/free_triple_array.c \
 				  utils/str/is_empty.c \
 				  utils/str/print_error.c \
+				  utils/str/readfile.c \
 				  utils/maths/vector_operations.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \
@@ -66,6 +68,14 @@ SRCS			= utils/str/ft_atod.c \
 				  init/window.c \
 				  init/image.c \
 				  init/create_data_array.c \
+				  init/objects.c \
+				  init/ambient_lightning.c \
+				  init/camera.c \
+				  init/cylinder.c \
+				  init/light.c \
+				  init/plane.c \
+				  init/point.c \
+				  init/sphere.c \
 				  computations/raytracing.c 
 
 MAIN			= main.c

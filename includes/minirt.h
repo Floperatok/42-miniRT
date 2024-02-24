@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:45:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:15:47 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
     t_point	pos;
-    double	radius;
+    double	diameter;
     int		color;
 }	t_sphere;
 
@@ -97,8 +97,8 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
     t_point	pos;
-    t_point	vector;
-    double	radius;
+    t_point	direction;
+    double	diameter;
     double	height;
     int		color;
 }	t_cylinder;
@@ -107,10 +107,13 @@ typedef struct s_objects
 {
     t_alight	a_light;
     t_camera	camera;
-    t_light		*light;
+    t_light		light;
     t_sphere	*spheres;
+	int			number_of_spheres;
     t_plane		*planes;
+	int			number_of_planes;
     t_cylinder	*cylinders;
+	int			number_of_cylinders;
 }	t_objects;
 
 typedef struct s_minirt
@@ -139,6 +142,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 double		ft_atod(char *str);
 int			double_array_len(char **array);
 void		free_double_array(char **array);
+void		free_triple_array(char ***array);
 int			print_error(char *msg);
 int			is_empty(char *line);
 char		*readfile(int fd);
@@ -166,12 +170,23 @@ int         check_sphere(char **data);
 int	        check_cylinder(char **data);
 
 /* INIT STRUCTURES */
+t_point		get_point(double x, double y, double z);
+t_point		get_point_from_string(char *string, char delimiter);
 int			get_window(t_window *win);
 void		destroy_window(t_window *win);
 int			get_image(t_image *img, t_window win);
 void		destroy_image(t_image *img, void *mlx);
 int			get_objects(t_objects *objs, char *filename);
-void		destroy_objs(t_objects *objs);
+void		destroy_objects(t_objects *objs);
+void		get_alight(char ***objs, t_alight *alight);
+void		get_camera(char ***objs, t_camera *camera);
+void		get_light(char ***objs, t_light *light);
+int			get_spheres(char ***objs, t_sphere **spheres);
+void		destroy_spheres(t_sphere *spheres);
+int			get_cylinders(char ***objs, t_cylinder **cylinders);
+void		destroy_cylinders(t_cylinder *cylinders);
+int			get_planes(char ***objs, t_plane **planes);
+void		destroy_planes(t_plane *planes);
 
 /* EXIT */
 int			exit_handling(t_minirt *data);

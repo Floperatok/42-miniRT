@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:45:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:19:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exit_handling(t_minirt *data)
 {
 	destroy_image(&data->img, data->win.mlx);
 	destroy_window(&data->win);
-	// destroy_objs(&data->objs);
+	destroy_objects(&data->objs);
 	exit(EXIT_SUCCESS);
 }
 
@@ -32,8 +32,8 @@ int main(int ac, char **av)
 		return (1);
 	if (!get_image(&data.img, data.win))
 		return (destroy_window(&data.win), 1);
-	// if (!get_objects(&data.objs, av[1]))
-		// return (destroy_image(&data.img, data.win.mlx), destroy_window(&data.win), 1);
+	if (!get_objects(&data.objs, av[1]))
+		return (destroy_image(&data.img, data.win.mlx), destroy_window(&data.win), 1);
 	mlx_hook(data.win.window, 17, 0L, &exit_handling, &data);
 	mlx_hook(data.win.window, 2, 1L << 0, &user_input, &data);
 	// render(&data);
