@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:08:13 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 14:57:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/25 15:03:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_spheres(char ***objs, t_sphere **spheres)
 	*spheres = malloc(sizeof(t_sphere) * counter);
 	i = -1;
 	j = 0;
-	while (++i < counter)
+	while (++i < counter + 1)
 	{
 		if (!ft_strcmp(objs[i][0], "sp"))
 		{
