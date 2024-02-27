@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:13:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/26 21:35:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ t_point	multiply_vect(t_point vect, double scalar)
 	res.y = vect.y * scalar;
 	res.z = vect.z * scalar;
 	return (res);
-}
-
-double	vector_scalar_product(t_point v1, t_point v2)
-{
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
 /*
@@ -83,7 +78,7 @@ t_point	copy_vect(t_point vect)
 	return (copy);
 }
 
-t_point	new_vect(double x, double y, double z)
+t_point	get_vect(double x, double y, double z)
 {
 	t_point	vect;
 
@@ -101,6 +96,11 @@ t_point cross_product(t_point vect1, t_point vect2)
     result.y = vect1.z * vect2.x - vect1.x * vect2.z;
     result.z = vect1.x * vect2.y - vect1.y * vect2.x;
     return (result);
+}
+
+double	dot(t_point vect1, t_point vect2)
+{
+    return (vect1.x * vect2.x + vect1.y * vect2.y + vect1.z * vect2.z);
 }
 
 void	print_vect(char *msg, t_point vect)

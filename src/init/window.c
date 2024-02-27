@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:18:56 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 12:24:59 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/25 15:11:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	destroy_window(t_window *win)
 	free(win->mlx);
 }
 
-int	get_window(t_window *win)
+int	init_window(t_window *win, int width, int height)
 {
-	win->height = 800;
-	win->width = 1200;
+	win->height = height;
+	win->width = width;
 	win->window = NULL;
 	win->mlx = mlx_init();
 	if (!win->mlx)

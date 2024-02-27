@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 23:41:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 15:00:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	setup_camera(t_camera *cam)
 {
-	cam->viewport_distance = 1;
+	cam->viewport_dst = 1;
 	
 	// double	rot = 0.01745329 * 90;
 
@@ -30,9 +30,9 @@ static void	setup_camera(t_camera *cam)
 	
 	// cam->dir_z = cam->direction;
 
-	cam->dir_x = new_vect(1, 0, 0);
-	cam->dir_y = new_vect(0, 1, 0);
-	cam->dir_z = new_vect(0, 0, 1);
+	cam->dir_x = get_vect(1, 0, 0);
+	cam->dir_y = get_vect(0, 1, 0);
+	cam->dir_z = get_vect(0, 0, 1);
 	
 	// printf("cam   : x=%f ; y=%f ; z=%f\n\n", cam->direction.x, cam->direction.y, cam->direction.z);
 	// printf("dir_x : x=%f ; y=%f ; z=%f\n", cam->dir_x.x, cam->dir_x.y, cam->dir_x.z);
@@ -49,29 +49,34 @@ static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
 {
 	t_viewport_plane plane;
 
-	plane.height = cam->viewport_distance * tan(cam->fov * 0.01745329 / 2) * 2;
+	plane.height = cam->viewport_dst * tan(cam->fov * 0.01745329 / 2) * 2;
 	plane.width = plane.height * img->aspect_ratio;
-	plane.bottom_left = new_vect(-plane.width / 2, -plane.height / 2,\
-		cam->viewport_distance);
+	plane.bottom_left = get_vect(-plane.width / 2, -plane.height / 2,\
+		cam->viewport_dst);
 	return (plane);
 }
 
 /*
- *	Launches a ray and returns the color of the shape encountered, black if
- *	no shape are encountered.
+ *	Launches a ray and returns the color of the first shape encountered, 
+ *	black if no shape are encountered.
 */
 int	launch_ray(t_ray ray, t_objects *objs)
 {
-	(void)ray;
-	(void)objs;
+	t_hitinfo hit;
+
+	hit = ray_collision(ray, objs);
+	if (hit.did_hit)
+		return (hit.color);
 	return (0x000000);
 }
 
 /*
  *	Goes through all the pixels and launch a ray in the direction of the camera
- *	for each of them. 
+ *	for each of them. Colors the pixel with the color of the first object 
+ *	encountered.
 */
-void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs, t_image *img)
+void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
+	t_image *img)
 {
 	t_point	pixel;
 	t_ray	ray;
@@ -80,29 +85,29 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs, t_image
 	pixel.y = -1;
 	while (++pixel.y < img->height)
 	{
-		display_loading("Rendering:", 0, pixel.y + 1, img->height / 100);
+		display_loading("Rendering:", 0, pixel.y + 1, (double)img->height / 100);
 		pixel.x = -1;
 		while (++pixel.x < img->width)
 		{
 			point = add_vect(plane->bottom_left, 
-				new_vect(plane->width * pixel.x / (img->width - 1), 
+				get_vect(plane->width * pixel.x / (img->width - 1), 
 				plane->height * pixel.y / (img->height - 1), 0));
-			ray.vect.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
-			ray.vect.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
-			ray.vect.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
-			normalize_vect(&ray.vect);
-			// printf("ray(%d, %d) : x=%f ; y=%f ; z=%f\n", (int)pixel.x, (int)pixel.y, ray.vect.x, ray.vect.y, ray.vect.z);
-			ray.pos = add_vect(ray.vect, cam->pos);
+			ray.dir.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
+			ray.dir.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
+			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
+			// normalize_vect(&ray.dir);
+			ray.origin = cam->pos;
 			pixel_put(img, pixel.x, pixel.y, launch_ray(ray, objs));
 		}
 	}
 }
 
-void	render(t_minirt *mem)
+void	render(t_objects *objs, t_image *img, t_window *win)
 {
 	t_viewport_plane plane;
 
-	setup_camera(&mem->objs.camera);
-	plane = set_viewport_plane(&mem->objs.camera, &mem->img);
-	camera_ray(&mem->objs.camera, &plane, &mem->objs, &mem->img);
+	setup_camera(objs->camera);
+	plane = set_viewport_plane(objs->camera, img);
+	camera_ray(objs->camera, &plane, objs, img);
+	mlx_put_image_to_window(win->mlx, win->window, img->image, 0, 0);
 }

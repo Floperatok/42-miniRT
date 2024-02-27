@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 12:56:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 14:49:47 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_camera
 	t_point	dir_y;
 	t_point	dir_z;
     int		fov;
-	double	viewport_distance;
+	double	viewport_dst;
 }	t_camera;
 
 typedef struct s_light
@@ -127,10 +127,18 @@ typedef struct	s_viewport_plane
 	double	width;
 }	t_viewport_plane;
 
+typedef struct s_hitinfo
+{
+	int		did_hit;
+	t_point	hit_point;
+	double	dst;
+	int		color;
+}	t_hitinfo;
+
 typedef struct s_ray
 {
-	t_point	origin;
-	t_point	dir;
+	t_point		origin;
+	t_point		dir;
 }	t_ray;
 
 
@@ -195,7 +203,17 @@ int			exit_handling(t_minirt *data);
 int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
-void	render(t_objects *objs, t_image *img, t_window *win);
+void		render(t_objects *objs, t_image *img, t_window *win);
+
+/* COLLISIONS */
+t_hitinfo	ray_collision(t_ray ray, t_objects *objs);
+void		spheres_collision(t_ray ray, t_sphere **spheres, 
+	t_hitinfo *closest_hit);
+void		cylinders_collision(t_ray ray, t_cylinder **cylinders, 
+	t_hitinfo *closest_hit);
+void	planes_collision(t_ray ray, t_plane **planes, 
+	t_hitinfo *closest_hit);
+
 
 /* VECTORS */
 double		ft_lenght(t_point vect);

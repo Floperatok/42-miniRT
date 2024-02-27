@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 19:27:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 13:20:20 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int ac, char **av)
 		return (print_error("Error: One argument needed.\n"), 1);
 	if (!check_file(av[1]))
 		return (1);
-	if (!get_window(&data.win))
+	if (!init_window(&data.win, 500, 500))
 		return (1);
 	if (!get_image(&data.img, data.win))
 		return (destroy_window(&data.win), 1);
@@ -36,8 +36,7 @@ int main(int ac, char **av)
 		return (destroy_image(&data.img, data.win.mlx), destroy_window(&data.win), 1);
 	mlx_hook(data.win.window, 17, 0L, &exit_handling, &data);
 	mlx_hook(data.win.window, 2, 1L << 0, &user_input, &data);
-	render(&data);
-	mlx_put_image_to_window(data.win.mlx, data.win.window, data.img.image, 0, 0);
+	render(&data.objs, &data.img, &data.win);
 	mlx_loop(data.win.mlx);
 	return (0);
 }

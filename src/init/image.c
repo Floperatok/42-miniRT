@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 23:40:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/26 13:46:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	get_image(t_image *img, t_window win)
 		print_error("Fatal error: image initialization failed\n");
 		return (destroy_image(img, win.mlx), 0);
 	}
-	img->aspect_ratio = img->width / img->height;
+	img->aspect_ratio = (double)img->width / (double)img->height;
 	return (1);
 }
