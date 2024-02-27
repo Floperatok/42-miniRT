@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 19:25:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 13:04:25 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	destroy_objects(t_objects *objs)
 {
+	destroy_alight(objs->a_light);
+	destroy_camera(objs->camera);
+	destroy_light(objs->light);
 	destroy_cylinders(objs->cylinders);
 	destroy_planes(objs->planes);
 	destroy_spheres(objs->spheres);
@@ -61,6 +64,23 @@ static char	***get_data_objects(char *filecontent)
 	return (data_objs);
 }
 
+// for debuging
+void   print_data_objs(char ***data_objs)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data_objs[++i])
+	{
+		j = -1;
+		printf("{");
+		while (data_objs[i][++j])
+			printf("[%s] ", data_objs[i][j]);
+		printf("}\n");
+	}
+}
+
 int	get_objects(t_objects *objs, char *filename)
 {
 	int		fd;
@@ -72,12 +92,12 @@ int	get_objects(t_objects *objs, char *filename)
 		return (perror(""), 0);
 	filecontent = readfile(fd);
 	data_objs = get_data_objects(filecontent);
-	get_alight(data_objs, &objs->a_light);
-	get_camera(data_objs, &objs->camera);
-	get_light(data_objs, &objs->light);
-	objs->number_of_cylinders = get_cylinders(data_objs, &objs->cylinders);
-	objs->number_of_planes = get_planes(data_objs, &objs->planes);
-	objs->number_of_spheres = get_spheres(data_objs, &objs->spheres);
+	objs->a_light = get_alight(data_objs);
+	objs->camera = get_camera(data_objs);
+	objs->light = get_light(data_objs);
+	objs->cylinders = get_cylinders(data_objs);
+	objs->planes = get_planes(data_objs);
+	objs->spheres = get_spheres(data_objs);
 	free(filecontent);
 	free_triple_array(data_objs);
 	return (1);

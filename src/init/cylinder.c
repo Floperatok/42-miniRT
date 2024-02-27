@@ -6,43 +6,59 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/25 15:03:26 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 13:06:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	destroy_cylinders(t_cylinder *cylinders)
+void	destroy_cylinders(t_cylinder **cylinders)
 {
-	if (cylinders)
-		free(cylinders);
+	int	i;
+
+	if (!cylinders)
+		return ;
+	i = -1;
+	while (cylinders[++i])
+		free(cylinders[i]);
+	free(cylinders);
 }
 
-int	get_cylinders(char ***objs, t_cylinder **cylinders)
+static t_cylinder	*new_cylinder(char **obj)
+{
+	t_cylinder	*cylinder;
+
+	cylinder = malloc(sizeof(t_cylinder));
+	cylinder->pos = get_point_from_string(obj[1], ',');
+	cylinder->direction = get_point_from_string(obj[2], ',');
+	cylinder->diameter = ft_atod(obj[3]);
+	cylinder->height = ft_atod(obj[4]);
+	cylinder->color = format_color(obj[5]);
+	return (cylinder);
+}
+
+/*
+ *	Creates an array of t_cylinder structs with all the cylinders 
+ *	found in the array objs. Returns the array.
+*/
+t_cylinder	**get_cylinders(char ***objs)
 {
 	int			i;
 	int			j;
 	int			counter;
+	t_cylinder	**cylinders;
 
 	i = -1;
 	counter = 0;
 	while (objs[++i])
 		if (!ft_strcmp(objs[i][0], "cy"))
 			counter++;
-	*cylinders = malloc(sizeof(t_cylinder) * counter);
+	cylinders = malloc(sizeof(t_cylinder *) * (counter + 1));
 	i = -1;
 	j = 0;
 	while (++i < counter + 1)
-	{
 		if (!ft_strcmp(objs[i][0], "cy"))
-		{
-			cylinders[j]->pos = get_point_from_string(objs[i][1], ',');
-			cylinders[j]->direction = get_point_from_string(objs[i][2], ',');
-			cylinders[j]->diameter = ft_atod(objs[i][3]);
-			cylinders[j]->height = ft_atod(objs[i][4]);
-			cylinders[j]->color = format_color(objs[i][5]);
-			j++;	
-		}		
-	}
-	return (counter);
+			cylinders[j++] = new_cylinder(objs[i]);
+	cylinders[j] = NULL;
+	return (cylinders);
 }

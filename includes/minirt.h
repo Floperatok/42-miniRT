@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/24 23:03:27 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 12:56:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
     t_point	pos;
-    double	diameter;
+    double	radius;
     int		color;
 }	t_sphere;
 
@@ -105,15 +105,12 @@ typedef struct s_cylinder
 
 typedef struct s_objects
 {
-    t_alight	a_light;
-    t_camera	camera;
-    t_light		light;
-    t_sphere	*spheres;
-	int			number_of_spheres;
-    t_plane		*planes;
-	int			number_of_planes;
-    t_cylinder	*cylinders;
-	int			number_of_cylinders;
+    t_alight	*a_light;
+    t_camera	*camera;
+    t_light		*light;
+    t_sphere	**spheres;
+    t_plane		**planes;
+    t_cylinder	**cylinders;
 }	t_objects;
 
 typedef struct s_minirt
@@ -132,8 +129,8 @@ typedef struct	s_viewport_plane
 
 typedef struct s_ray
 {
-	t_point	pos;
-	t_point	vect;
+	t_point	origin;
+	t_point	dir;
 }	t_ray;
 
 
@@ -149,7 +146,7 @@ char		*readfile(int fd);
 
 /* COLORS UTILS */
 int			format_color(char *colors_str);
-void		display_loading(char *msg, int start, int pos, int percent_size);
+void		display_loading(char *msg, int start, int pos, double percent_size);
 t_color		int_to_rgb(int color);
 int		    rgb_to_int(int r, int g, int b);
 void	    protect_colors(t_color *color);
@@ -172,21 +169,24 @@ int	        check_cylinder(char **data);
 /* INIT STRUCTURES */
 t_point		get_point(double x, double y, double z);
 t_point		get_point_from_string(char *string, char delimiter);
-int			get_window(t_window *win);
+int			init_window(t_window *win, int width, int height);
 void		destroy_window(t_window *win);
 int			get_image(t_image *img, t_window win);
 void		destroy_image(t_image *img, void *mlx);
 int			get_objects(t_objects *objs, char *filename);
 void		destroy_objects(t_objects *objs);
-void		get_alight(char ***objs, t_alight *alight);
-void		get_camera(char ***objs, t_camera *camera);
-void		get_light(char ***objs, t_light *light);
-int			get_spheres(char ***objs, t_sphere **spheres);
-void		destroy_spheres(t_sphere *spheres);
-int			get_cylinders(char ***objs, t_cylinder **cylinders);
-void		destroy_cylinders(t_cylinder *cylinders);
-int			get_planes(char ***objs, t_plane **planes);
-void		destroy_planes(t_plane *planes);
+t_alight	*get_alight(char ***objs);
+void		destroy_alight(t_alight *alight);
+t_camera	*get_camera(char ***objs);
+void		destroy_camera(t_camera *camera);
+t_light		*get_light(char ***objs);
+void		destroy_light(t_light *light);
+t_sphere	**get_spheres(char ***objs);
+void		destroy_spheres(t_sphere **spheres);
+t_cylinder	**get_cylinders(char ***objs);
+void		destroy_cylinders(t_cylinder **cylinders);
+t_plane		**get_planes(char ***objs);
+void		destroy_planes(t_plane **planes);
 
 /* EXIT */
 int			exit_handling(t_minirt *data);
@@ -195,8 +195,7 @@ int			exit_handling(t_minirt *data);
 int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
-void		render(t_minirt *mem);
-double		sd_sphere(t_point pos, double radius);
+void	render(t_objects *objs, t_image *img, t_window *win);
 
 /* VECTORS */
 double		ft_lenght(t_point vect);
@@ -207,7 +206,8 @@ t_point		add_vect(t_point vect1, t_point vect2);
 void		normalize_vect(t_point *vect);
 t_point		copy_vect(t_point vect);
 t_point 	cross_product(t_point vect1, t_point vect2);
-t_point		new_vect(double x, double y, double z);
+double		dot(t_point vect1, t_point vect2);
+t_point		get_vect(double x, double y, double z);
 void		print_vect(char *msg, t_point vect);
 
 /* DRAWING */
