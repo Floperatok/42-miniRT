@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 14:49:47 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:32:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <math.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
-
-# define SCREEN_H 800
-# define SCREEN_W 1500
 
 typedef struct s_window
 {
@@ -133,6 +130,7 @@ typedef struct s_hitinfo
 	t_point	hit_point;
 	double	dst;
 	int		color;
+	t_point	normal_dir;
 }	t_hitinfo;
 
 typedef struct s_ray
@@ -157,7 +155,7 @@ int			format_color(char *colors_str);
 void		display_loading(char *msg, int start, int pos, double percent_size);
 t_color		int_to_rgb(int color);
 int		    rgb_to_int(int r, int g, int b);
-void	    protect_colors(t_color *color);
+int			combine_colors(int color1, int color2);
 
 /* CHECK CONFIG FILE*/
 char		**create_data_array(char *line);
@@ -227,6 +225,7 @@ t_point 	cross_product(t_point vect1, t_point vect2);
 double		dot(t_point vect1, t_point vect2);
 t_point		get_vect(double x, double y, double z);
 void		print_vect(char *msg, t_point vect);
+double		ft_random(unsigned int *seed);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:48:57 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/19 02:17:18 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/27 16:27:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x > 0 && x < SCREEN_W && y > 0 && y < SCREEN_H)
+	if (x > 0 && x < img->width && y > 0 && y < img->height)
 	{
 		dst = (char *)img->addr + (y * img->line_length + x * 4);
 		*(unsigned int *)dst = color;
