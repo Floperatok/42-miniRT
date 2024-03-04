@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 13:06:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:34:41 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_cylinder	*new_cylinder(char **obj)
  *	Creates an array of t_cylinder structs with all the cylinders 
  *	found in the array objs. Returns the array.
 */
-t_cylinder	**get_cylinders(char ***objs)
+t_cylinder	**get_cylinders(char ***objs, int num_objects)
 {
 	int			i;
 	int			j;
@@ -56,7 +56,7 @@ t_cylinder	**get_cylinders(char ***objs)
 	cylinders = malloc(sizeof(t_cylinder *) * (counter + 1));
 	i = -1;
 	j = 0;
-	while (++i < counter + 1)
+	while (++i < num_objects)
 		if (!ft_strcmp(objs[i][0], "cy"))
 			cylinders[j++] = new_cylinder(objs[i]);
 	cylinders[j] = NULL;

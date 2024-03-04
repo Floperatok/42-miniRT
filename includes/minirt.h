@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/01 15:32:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:31:35 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,11 @@ t_camera	*get_camera(char ***objs);
 void		destroy_camera(t_camera *camera);
 t_light		*get_light(char ***objs);
 void		destroy_light(t_light *light);
-t_sphere	**get_spheres(char ***objs);
+t_sphere	**get_spheres(char ***objs, int num_objects);
 void		destroy_spheres(t_sphere **spheres);
-t_cylinder	**get_cylinders(char ***objs);
+t_cylinder	**get_cylinders(char ***objs, int num_objects);
 void		destroy_cylinders(t_cylinder **cylinders);
-t_plane		**get_planes(char ***objs);
+t_plane		**get_planes(char ***objs, int num_objects);
 void		destroy_planes(t_plane **planes);
 
 /* EXIT */

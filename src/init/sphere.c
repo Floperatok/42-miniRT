@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:08:13 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 13:07:08 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:28:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_sphere	*new_sphere(char **obj)
  *	Creates an array of t_sphere structs with all the spheres 
  *	found in the array objs. Returns the array.
 */
-t_sphere	**get_spheres(char ***objs)
+t_sphere	**get_spheres(char ***objs, int num_objects)
 {
 	int			i;
 	int			j;
@@ -52,7 +52,7 @@ t_sphere	**get_spheres(char ***objs)
 	spheres = malloc(sizeof(t_sphere *) * (counter + 1));
 	i = -1;
 	j = 0;
-	while (++i < counter + 1)
+	while (++i < num_objects)
 		if (!ft_strcmp(objs[i][0], "sp"))
 			spheres[j++] = new_sphere(objs[i]);
 	spheres[j] = NULL;

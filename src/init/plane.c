@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:45:22 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 13:07:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:28:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_plane	*new_plane(char **obj)
  *	Creates an array of t_plane structs with all the planes 
  *	found in the array objs. Returns the array.
 */
-t_plane	**get_planes(char ***objs)
+t_plane	**get_planes(char ***objs, int num_objects)
 {
 	int			i;
 	int			j;
@@ -54,7 +54,7 @@ t_plane	**get_planes(char ***objs)
 	planes = malloc(sizeof(t_plane *) * (counter + 1));
 	i = -1;
 	j = 0;
-	while (++i < counter + 1)
+	while (++i < num_objects)
 		if (!ft_strcmp(objs[i][0], "pl"))
 			planes[j++] = new_plane(objs[i]);
 	planes[j] = NULL;
