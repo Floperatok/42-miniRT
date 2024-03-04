@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:32:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:54:56 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
 void		render(t_objects *objs, t_image *img, t_window *win);
+int			apply_ambient_lightning(t_alight *alight, int color_int);
 int			apply_light(t_light *light, t_hitinfo *hit);
 
 /* COLLISIONS */

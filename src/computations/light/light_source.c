@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.c                                            :+:      :+:    :+:   */
+/*   light_source.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:57:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 18:01:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	apply_light(t_light *light, t_hitinfo *hit)
 	normalize_vect(&offset_pos);
 	doted = dot(hit->normal_dir, offset_pos);
 	if (doted < 0)
-		doted = 0;
+		return (hit->color);
+	doted *= 5;
+	doted++;
 	color = int_to_rgb(hit->color);
 	color.r *= doted;
 	color.g *= doted;

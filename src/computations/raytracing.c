@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:13:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 17:55:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	launch_ray(t_ray ray, t_objects *objs)
 	ray.origin = hit.hit_point;
 	ray.dir = soustract_vect(ray.dir, multiply_vect(hit.normal_dir,\
 		dot(ray.dir, hit.normal_dir) * 2));
+	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
 	color = apply_light(objs->light, &hit);
 	return(color);
 }
