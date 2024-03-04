@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 13:20:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:29:20 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int ac, char **av)
 		return (print_error("Error: One argument needed.\n"), 1);
 	if (!check_file(av[1]))
 		return (1);
-	if (!init_window(&data.win, 500, 500))
+	if (!init_window(&data.win, 1500, 800))
 		return (1);
 	if (!get_image(&data.img, data.win))
 		return (destroy_window(&data.win), 1);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 14:47:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:13:48 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	get_objects(t_objects *objs, char *filename)
 	objs->cylinders = get_cylinders(data_objs, num_objects);
 	objs->planes = get_planes(data_objs, num_objects);
 	objs->spheres = get_spheres(data_objs, num_objects);
-	print_vect("", objs->planes[0]->pos);
 	free(filecontent);
 	free_triple_array(data_objs);
 	return (1);

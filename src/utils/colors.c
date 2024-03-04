@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/20 13:06:30 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:12:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_color	int_to_rgb(int color)
 	int		b;
 	t_color	res;
 
-	b = color & 0x0000ff;
+	b = color & 0xff;
 	g = (color & 0x00ff00) >> 8;
 	r = color >> 16;
 	

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/02 13:44:58 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:13:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
 int	launch_ray(t_ray ray, t_objects *objs)
 {
 	t_hitinfo hit;
+	int	color;
 
 	hit = ray_collision(ray, objs);
 	if (!hit.did_hit)
@@ -70,7 +71,8 @@ int	launch_ray(t_ray ray, t_objects *objs)
 	ray.origin = hit.hit_point;
 	ray.dir = soustract_vect(ray.dir, multiply_vect(hit.normal_dir,\
 		dot(ray.dir, hit.normal_dir) * 2));
-	return(hit.color);
+	color = apply_light(objs->light, &hit);
+	return(color);
 }
 
 /*
