@@ -6,31 +6,33 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 18:01:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:22:31 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	apply_light(t_light *light, t_hitinfo *hit)
+int	apply_light(t_light *light, t_hitinfo *hit, t_objects *objs)
 {
-	t_point	offset_pos;
-	t_color	color;
-	double	doted;
+	t_point		light_dir;
+	t_color		color;
+	double		exposure;
 
 	if (!light)
 		return (hit->color);
-	offset_pos = soustract_vect(light->pos, hit->hit_point);
-	normalize_vect(&offset_pos);
-	doted = dot(hit->normal_dir, offset_pos);
-	if (doted < 0)
+	light_dir = soustract_vect(light->pos, hit->hit_point);
+	normalize_vect(&light_dir);
+	exposure = dot(hit->normal_dir, light_dir);
+	if (exposure < 0)
 		return (hit->color);
-	doted *= 5;
-	doted++;
+	if (is_in_shadow(hit->hit_point, light_dir, objs))
+		return (hit->color);
+	exposure *= 5;
+	exposure++;
 	color = int_to_rgb(hit->color);
-	color.r *= doted;
-	color.g *= doted;
-	color.b *= doted;
+	color.r *= exposure;
+	color.g *= exposure;
+	color.b *= exposure;
 	protect_colors(&color);
 	return (rgb_to_int(color.r, color.g, color.b));
 }

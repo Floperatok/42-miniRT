@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 17:55:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:12:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,14 @@ static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
 */
 int	launch_ray(t_ray ray, t_objects *objs)
 {
-	t_hitinfo hit;
-	int	color;
+	t_hitinfo	hit;
 
 	hit = ray_collision(ray, objs);
 	if (!hit.did_hit)
 		return (0x000000);
-	ray.origin = hit.hit_point;
-	ray.dir = soustract_vect(ray.dir, multiply_vect(hit.normal_dir,\
-		dot(ray.dir, hit.normal_dir) * 2));
 	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
-	color = apply_light(objs->light, &hit);
-	return(color);
+	hit.color = apply_light(objs->light, &hit, objs);
+	return(hit.color);
 }
 
 /*
