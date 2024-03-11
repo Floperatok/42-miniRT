@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/05 17:00:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 15:04:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_point
 typedef struct s_alight
 {
     double	ratio;    
-    int		color;
+    t_color	color;
 }	t_alight;
 
 typedef struct s_camera
@@ -74,21 +74,21 @@ typedef struct s_light
 {
     t_point	pos;
     double	brightness;
-    int		color;
+    t_color	color;
 }	t_light;
 
 typedef struct s_sphere
 {
     t_point	pos;
     double	radius;
-    int		color;
+    t_color	color;
 }	t_sphere;
 
 typedef struct s_plane
 {
     t_point	pos;
     t_point	normal;
-    int		color;
+    t_color	color;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -97,7 +97,7 @@ typedef struct s_cylinder
     t_point	direction;
     double	diameter;
     double	height;
-    int		color;
+    t_color	color;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -129,7 +129,7 @@ typedef struct s_hitinfo
 	int		did_hit;
 	t_point	hit_point;
 	double	dst;
-	int		color;
+	t_color	color;
 	t_point	normal_dir;
 }	t_hitinfo;
 
@@ -151,12 +151,12 @@ int			is_empty(char *line);
 char		*readfile(int fd);
 
 /* COLORS UTILS */
-int			format_color(char *colors_str);
+t_color		format_color(char *colors_str);
 void		display_loading(char *msg, int start, int pos, double percent_size);
 t_color		int_to_rgb(int color);
-int		    rgb_to_int(int r, int g, int b);
-int			combine_colors(int color1, int color2);
+int			color_to_int(t_color color);
 void		protect_colors(t_color *color);
+t_color		reflection_color(t_color color, t_color reflective, double ratio);
 
 /* CHECK CONFIG FILE*/
 char		**create_data_array(char *line);
@@ -203,10 +203,10 @@ int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
 void		render(t_objects *objs, t_image *img, t_window *win);
-int			apply_ambient_lightning(t_alight *alight, int color_int);
+t_color		apply_ambient_lightning(t_alight *alight, t_color color);
 int			is_in_shadow(t_point start_pos, t_point light_dir, double light_dst,
 	t_objects *objs);
-int			apply_light(t_light *light, t_hitinfo *hit, t_objects *objs);
+t_color		apply_light(t_light *light, t_hitinfo *hit, t_objects *objs);
 
 /* COLLISIONS */
 t_hitinfo	ray_collision(t_ray ray, t_objects *objs);
@@ -233,6 +233,6 @@ void		print_vect(char *msg, t_point vect);
 double		ft_random(unsigned int *seed);
 
 /* DRAWING */
-void		pixel_put(t_image *img, int x, int y, int color);
+void		pixel_put(t_image *img, int x, int y, t_color color);
 
 #endif

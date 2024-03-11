@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/05 16:12:51 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:50:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
  *	Launches a ray and returns the color of the first shape encountered, 
  *	black if no shape are encountered.
 */
-int	launch_ray(t_ray ray, t_objects *objs)
+t_color	launch_ray(t_ray ray, t_objects *objs)
 {
 	t_hitinfo	hit;
 
 	hit = ray_collision(ray, objs);
 	if (!hit.did_hit)
-		return (0x000000);
+		return (int_to_rgb(0x000000));
 	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
 	hit.color = apply_light(objs->light, &hit, objs);
 	return(hit.color);
@@ -97,7 +97,7 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			ray.dir.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
 			ray.dir.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
 			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
-			normalize_vect(&ray.dir);
+			// normalize_vect(&ray.dir);
 			ray.origin = cam->pos;
 			pixel_put(img, pixel.x, pixel.y, launch_ray(ray, objs));
 		}

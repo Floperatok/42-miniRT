@@ -6,30 +6,28 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:12:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 15:04:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	format_color(char *colors_str)
+t_color	format_color(char *colors_str)
 {
-	char	**colors;
-	int		r;
-	int		g;
-	int		b;
+	char	**color_split;
+	t_color	color;
 
-	colors = ft_split(colors_str, ',');
-	r = ft_atoi(colors[0]);	
-	g = ft_atoi(colors[1]);	
-	b = ft_atoi(colors[2]);
-	free_double_array(colors);
-	return ((r << 16) | (g << 8) | b);
+	color_split = ft_split(colors_str, ',');
+	color.r = ft_atoi(color_split[0]);	
+	color.g = ft_atoi(color_split[1]);	
+	color.b = ft_atoi(color_split[2]);
+	free_double_array(color_split);
+	return (color);
 }
 
-int		rgb_to_int(int r, int g, int b)
+int	color_to_int(t_color color)
 {
-	return ((r << 16) | (g << 8) | b);
+	return ((color.r << 16) | (color.g << 8) | color.b);
 }
 
 t_color	int_to_rgb(int color)
@@ -57,4 +55,16 @@ void	protect_colors(t_color *color)
 		color->g = 255;
 	if (color->b > 255)
 		color->b = 255;
+}
+
+t_color	reflection_color(t_color color, t_color reflective, double ratio)
+{
+	t_color	res;
+
+	ratio *= 0.75;
+	res.r = color.r * (1.0 - ratio) + reflective.r * ratio;
+	res.g = color.g * (1.0 - ratio) + reflective.g * ratio;
+	res.b = color.b * (1.0 - ratio) + reflective.b * ratio;
+	protect_colors(&res);
+	return (res);
 }

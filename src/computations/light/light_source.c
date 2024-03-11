@@ -6,17 +6,16 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/05 17:00:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:48:14 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	apply_light(t_light *light, t_hitinfo *hit, t_objects *objs)
+t_color	apply_light(t_light *light, t_hitinfo *hit, t_objects *objs)
 {
 	t_point		light_dir;
 	double		light_dst;
-	t_color		color;
 	double		exposure;
 
 	if (!light)
@@ -31,10 +30,9 @@ int	apply_light(t_light *light, t_hitinfo *hit, t_objects *objs)
 		return (hit->color);
 	exposure *= 5;
 	exposure++;
-	color = int_to_rgb(hit->color);
-	color.r *= exposure;
-	color.g *= exposure;
-	color.b *= exposure;
-	protect_colors(&color);
-	return (rgb_to_int(color.r, color.g, color.b));
+	hit->color.r *= exposure;
+	hit->color.g *= exposure;
+	hit->color.b *= exposure;
+	protect_colors(&hit->color);
+	return (hit->color);
 }
