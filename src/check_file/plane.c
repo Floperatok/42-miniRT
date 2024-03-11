@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 18:09:21 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/17 18:16:45 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:37:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_plane(char **data)
 {
-	if (double_array_len(data) != 4)
-		return (print_error("Error: Plane needs 3 arguments.\n"));
+	if (double_array_len(data) != 5)
+		return (print_error("Error: Plane needs 4 arguments.\n"));
 	if (!check_coordinates(data[1]))
 		return (print_error("Error: Plane: Wrong coordinates.\n"));
 	if (!check_orientation_vector(data[2]))

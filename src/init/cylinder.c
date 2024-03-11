@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 14:34:41 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:33:20 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static t_cylinder	*new_cylinder(char **obj)
 	cylinder->diameter = ft_atod(obj[3]);
 	cylinder->height = ft_atod(obj[4]);
 	cylinder->color = format_color(obj[5]);
+	cylinder->reflect_ratio = ft_atod(obj[6]);
 	return (cylinder);
 }
 

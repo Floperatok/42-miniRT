@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:45:22 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 14:28:55 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:32:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_plane	*new_plane(char **obj)
 	plane->pos = get_point_from_string(obj[1], ',');
 	plane->normal = get_point_from_string(obj[2], ',');
 	plane->color = format_color(obj[3]);
+	plane->reflect_ratio = ft_atod(obj[4]);
 	return (plane);
 }
 

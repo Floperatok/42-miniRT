@@ -6,12 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 14:50:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:58:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+# define REFLECTION_DEPTH 2
 
 static void	setup_camera(t_camera *cam)
 {
@@ -60,16 +61,22 @@ static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
  *	Launches a ray and returns the color of the first shape encountered, 
  *	black if no shape are encountered.
 */
-t_color	launch_ray(t_ray ray, t_objects *objs)
+t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 {
 	t_hitinfo	hit;
+	t_color		reflection_color;
 
 	hit = ray_collision(ray, objs);
 	if (!hit.did_hit)
-		return (int_to_rgb(0x000000));
+		return ((t_color){0, 0, 0});
 	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
 	hit.color = apply_light(objs->light, &hit, objs);
-	return(hit.color);
+	if (depth == 1 || hit.reflect_ratio <= 0)
+		return (multiplies_color(hit.color, (1 - hit.reflect_ratio)));
+	ray.origin = hit.hit_point;
+	ray = bounce_ray(ray.dir, hit.normal_dir, hit.hit_point);
+	reflection_color = launch_ray(ray, objs, depth - 1);
+	return (combine_colors(hit.color, reflection_color, hit.reflect_ratio));
 }
 
 /*
@@ -83,6 +90,7 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 	t_point	pixel;
 	t_ray	ray;
 	t_point	point;
+	t_color	pixel_color;
 
 	pixel.y = -1;
 	while (++pixel.y < img->height)
@@ -99,7 +107,8 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
 			// normalize_vect(&ray.dir);
 			ray.origin = cam->pos;
-			pixel_put(img, pixel.x, pixel.y, launch_ray(ray, objs));
+			pixel_color = launch_ray(ray, objs, REFLECTION_DEPTH);
+			pixel_put(img, pixel.x, pixel.y, pixel_color);
 		}
 	}
 }

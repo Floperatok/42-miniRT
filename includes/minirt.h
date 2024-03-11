@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 15:04:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:57:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_sphere
     t_point	pos;
     double	radius;
     t_color	color;
+	double	reflect_ratio;
 }	t_sphere;
 
 typedef struct s_plane
@@ -89,6 +90,7 @@ typedef struct s_plane
     t_point	pos;
     t_point	normal;
     t_color	color;
+	double	reflect_ratio;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -98,6 +100,7 @@ typedef struct s_cylinder
     double	diameter;
     double	height;
     t_color	color;
+	double	reflect_ratio;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -131,6 +134,7 @@ typedef struct s_hitinfo
 	double	dst;
 	t_color	color;
 	t_point	normal_dir;
+	double	reflect_ratio;
 }	t_hitinfo;
 
 typedef struct s_ray
@@ -156,7 +160,8 @@ void		display_loading(char *msg, int start, int pos, double percent_size);
 t_color		int_to_rgb(int color);
 int			color_to_int(t_color color);
 void		protect_colors(t_color *color);
-t_color		reflection_color(t_color color, t_color reflective, double ratio);
+t_color		combine_colors(t_color color, t_color reflective, double ratio);
+t_color		multiplies_color(t_color color, double factor);
 
 /* CHECK CONFIG FILE*/
 char		**create_data_array(char *line);
@@ -231,6 +236,7 @@ double		dot(t_point vect1, t_point vect2);
 t_point		get_vect(double x, double y, double z);
 void		print_vect(char *msg, t_point vect);
 double		ft_random(unsigned int *seed);
+t_ray		bounce_ray(t_point dir, t_point normal_dir, t_point hit_pos);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, t_color color);

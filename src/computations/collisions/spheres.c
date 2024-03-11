@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:18:44 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/02 13:40:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:30:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	spheres_collision(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
 	closest_hit->normal_dir = soustract_vect(closest_hit->hit_point, closest_sphere->pos);
 	normalize_vect(&closest_hit->normal_dir);
 	closest_hit->color = closest_sphere->color;
+	closest_hit->reflect_ratio = closest_sphere->reflect_ratio;
 }
