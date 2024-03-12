@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/05 16:22:43 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/12 17:59:52 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ CFLAGS		= -Wall -Werror -Wextra
 DEBUG_FLAGS = -g3
 MLXFLAGS	= -Imlx -lX11 -lXext
 MATH_FLAGS	= -lm
+THREADFLAG	= -pthread
 AUTHOR		= drenassi
 DATE		= 09/11/2023
 NOVISU 		= 0 # 1 = no progress bar usefull when tty is not available
@@ -47,7 +48,7 @@ SRCS			= utils/str/ft_atod.c \
 				  utils/str/free_double_array.c \
 				  utils/str/free_triple_array.c \
 				  utils/str/is_empty.c \
-				  utils/str/print_error.c \
+				  utils/str/printing.c \
 				  utils/str/readfile.c \
 				  utils/maths/vector_operations.c \
 				  utils/colors.c \
@@ -65,6 +66,7 @@ SRCS			= utils/str/ft_atod.c \
 				  check_file/sphere.c \
 				  check_file/cylinder.c \
 				  input/input_handling.c \
+				  input/check_input.c \
 				  init/window.c \
 				  init/image.c \
 				  init/create_data_array.c \
@@ -83,7 +85,8 @@ SRCS			= utils/str/ft_atod.c \
 				  computations/collisions/planes.c \
 				  computations/collisions/spheres.c \
 				  computations/collisions/ray_collision.c \
-				  computations/raytracing.c
+				  computations/raytracing.c \
+				  computations/render.c
 
 MAIN			= main.c
 
@@ -315,7 +318,7 @@ setup:
 ################################## NAME'S RULE #################################
 $(NAME):	${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX}
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX} $(MLXFLAGS) $(MATH_FLAGS))
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN} ${LIBFT} ${MLX} $(MLXFLAGS) $(MATH_FLAGS) $(THREADFLAG))
 			@printf "\33[2K\r\n"
 
 ################################# OBJECTS' RULE ################################

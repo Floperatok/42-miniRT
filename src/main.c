@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:29:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/12 18:05:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	exit_handling(t_minirt *data)
 int main(int ac, char **av)
 {
 	t_minirt	data;
+	int			hardware;
 
-	if (ac != 2)
-		return (print_error("Error: One argument needed.\n"), 1);
+	if (!check_input(ac, av, &hardware))
+		return (1);
 	if (!check_file(av[1]))
 		return (1);
 	if (!init_window(&data.win, 1500, 800))
@@ -36,7 +37,10 @@ int main(int ac, char **av)
 		return (destroy_image(&data.img, data.win.mlx), destroy_window(&data.win), 1);
 	mlx_hook(data.win.window, 17, 0L, &exit_handling, &data);
 	mlx_hook(data.win.window, 2, 1L << 0, &user_input, &data);
-	render(&data.objs, &data.img, &data.win);
+	if (hardware == 0)
+		render_one_thread(&data);
+	if (hardware == 1)
+		render_multiple_threads(&data, 6);
 	mlx_loop(data.win.mlx);
 	return (0);
 }

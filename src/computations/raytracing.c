@@ -6,56 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 17:58:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:13:56 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 # define REFLECTION_DEPTH 2
-
-static void	setup_camera(t_camera *cam)
-{
-	cam->viewport_dst = 1;
-	
-	// double	rot = 0.01745329 * 90;
-
-	// cam->dir_x.x = (cam->direction.z * sin(rot)) + (cam->direction.x * cos(rot));
-	// cam->dir_x.y = 0;
-	// cam->dir_x.z = (cam->direction.z * cos(rot)) - (cam->direction.x * sin(rot));
-
-	/* dont work with rotation such as {1, 0, 0} */
-	// cam->dir_y.x = -cam->direction.x;
-	// cam->dir_y.y = fmax(cam->direction.x, cam->direction.z);
-	// cam->dir_y.z = -cam->direction.y;
-	
-	// cam->dir_z = cam->direction;
-
-	cam->dir_x = get_vect(1, 0, 0);
-	cam->dir_y = get_vect(0, 1, 0);
-	cam->dir_z = get_vect(0, 0, 1);
-	
-	// printf("cam   : x=%f ; y=%f ; z=%f\n\n", cam->direction.x, cam->direction.y, cam->direction.z);
-	// printf("dir_x : x=%f ; y=%f ; z=%f\n", cam->dir_x.x, cam->dir_x.y, cam->dir_x.z);
-	// printf("dir_y : x=%f ; y=%f ; z=%f\n", cam->dir_y.x, cam->dir_y.y, cam->dir_y.z);
-	// printf("dir_z : x=%f ; y=%f ; z=%f\n", cam->dir_z.x, cam->dir_z.y, cam->dir_z.z);
-}
-
-/*
- *	Computes the position and the sizes of the viewport plane where all the
- *	rays will be launched. These values are calculated from fov and 
- *	screen dimensions.
-*/
-static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
-{
-	t_viewport_plane plane;
-
-	plane.height = cam->viewport_dst * tan(cam->fov * 0.01745329 / 2) * 2;
-	plane.width = plane.height * img->aspect_ratio;
-	plane.bottom_left = get_vect(-plane.width / 2, -plane.height / 2,\
-		cam->viewport_dst);
-	return (plane);
-}
 
 /*
  *	Launches a ray and returns the color of the first shape encountered, 
@@ -82,9 +39,43 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 /*
  *	Goes through all the pixels and launch a ray in the direction of the camera
  *	for each of them. Colors the pixel with the color of the first object 
+ *	encountered. Designed to work with threads.
+*/
+void	*draw_screen_with_threads(void *arg)
+{
+	t_thread_args *args;
+	t_point	pixel;
+	t_ray	ray;
+	t_point	point;
+	t_color	pixel_color;
+
+	args = (t_thread_args *)arg;
+	pixel.y = args->start_y - 1;
+	while (++pixel.y < args->end_y)
+	{
+		// display_loading("Rendering:", 0, pixel.y + 1, (double)args->img->height / 100);
+		pixel.x = args->start_x - 1;
+		while (++pixel.x < args->end_x)
+		{
+			point = add_vect(args->plane->bottom_left, get_vect(args->plane->width * pixel.x / (args->img->width - 1), args->plane->height * pixel.y / (args->img->height - 1), 0));
+			ray.dir.x = point.x * args->cam->dir_x.x + point.y * -args->cam->dir_y.x + point.z * args->cam->dir_z.x;
+			ray.dir.y = point.x * args->cam->dir_x.y + point.y * -args->cam->dir_y.y + point.z * args->cam->dir_z.y;
+			ray.dir.z = point.x * args->cam->dir_x.z + point.y * -args->cam->dir_y.z + point.z * args->cam->dir_z.z;
+			// normalize_vect(&ray.dir);
+			ray.origin = args->cam->pos;
+			pixel_color = launch_ray(ray, args->objs, REFLECTION_DEPTH);
+			pixel_put(args->img, pixel.x, pixel.y, pixel_color);
+		}
+	}
+	return (NULL);
+}
+
+/*
+ *	Goes through all the pixels and launch a ray in the direction of the camera
+ *	for each of them. Colors the pixel with the color of the first object 
  *	encountered.
 */
-void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
+void	draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 	t_image *img)
 {
 	t_point	pixel;
@@ -102,6 +93,7 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			point = add_vect(plane->bottom_left, 
 				get_vect(plane->width * pixel.x / (img->width - 1), 
 				plane->height * pixel.y / (img->height - 1), 0));
+			// print_vect("", plane->bottom_left);<
 			ray.dir.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
 			ray.dir.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
 			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
@@ -111,14 +103,4 @@ void	camera_ray(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			pixel_put(img, pixel.x, pixel.y, pixel_color);
 		}
 	}
-}
-
-void	render(t_objects *objs, t_image *img, t_window *win)
-{
-	t_viewport_plane plane;
-
-	setup_camera(objs->camera);
-	plane = set_viewport_plane(objs->camera, img);
-	camera_ray(objs->camera, &plane, objs, img);
-	mlx_put_image_to_window(win->mlx, win->window, img->image, 0, 0);
 }

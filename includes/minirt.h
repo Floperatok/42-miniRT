@@ -6,18 +6,20 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 17:57:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:57:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
 # include <stdio.h>
 # include <math.h>
+# include <pthread.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
+
+# define THREADS_GRID_SIZE 6
 
 typedef struct s_window
 {
@@ -143,6 +145,17 @@ typedef struct s_ray
 	t_point		dir;
 }	t_ray;
 
+typedef struct s_thread_args
+{
+	t_camera			*cam;
+	t_objects			*objs;
+	t_image				*img;
+	t_viewport_plane	*plane;
+	int					start_x;
+	int					end_x;
+	int					start_y;
+	int					end_y;
+}	t_thread_args;
 
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
@@ -151,8 +164,10 @@ int			double_array_len(char **array);
 void		free_double_array(char **array);
 void		free_triple_array(char ***array);
 int			print_error(char *msg);
+void		print_usage(void);
 int			is_empty(char *line);
 char		*readfile(int fd);
+int			check_input(int ac, char **av, int *hardware);
 
 /* COLORS UTILS */
 t_color		format_color(char *colors_str);
@@ -207,7 +222,8 @@ int			exit_handling(t_minirt *data);
 int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
-void		render(t_objects *objs, t_image *img, t_window *win);
+void		render_one_thread(t_minirt *data);
+void		render_multiple_threads(t_minirt *data, int grid_size);
 t_color		apply_ambient_lightning(t_alight *alight, t_color color);
 int			is_in_shadow(t_point start_pos, t_point light_dir, double light_dst,
 	t_objects *objs);
@@ -240,5 +256,8 @@ t_ray		bounce_ray(t_point dir, t_point normal_dir, t_point hit_pos);
 
 /* DRAWING */
 void		pixel_put(t_image *img, int x, int y, t_color color);
+void		*draw_screen_with_threads(void *arg);
+void		draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
+	t_image *img);
 
 #endif
