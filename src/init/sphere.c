@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:08:13 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 17:33:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_sphere	*new_sphere(char **obj)
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
-	sphere->pos = get_point_from_string(obj[1], ',');
+	sphere->pos = get_vec_from_string(obj[1], ',');
 	sphere->radius = ft_atod(obj[2]) / 2;
 	sphere->color = format_color(obj[3]);
 	sphere->reflect_ratio = ft_atod(obj[4]);

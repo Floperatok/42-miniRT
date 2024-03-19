@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:18:44 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 02:00:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
  *	Detects whether the ray encounters a sphere. If it does, returns the
  *	distance of the sphere. Else returns -1.
 */
-double	one_sphere_collision(t_ray ray, t_sphere *sphere)
+double	one_sphere_intersection(t_ray ray, t_sphere *sphere)
 {
-	t_point 	offset_ray;
+	t_vec 	offset_ray;
 	double		a;
 	double		b;
 	double		discriminant;
@@ -45,7 +45,7 @@ double	one_sphere_collision(t_ray ray, t_sphere *sphere)
  *	position of the intersection point of the ray with the closest sphere.
  *	If no sphere are encountered, does not change hit_info.
 */
-void	spheres_collision(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
+void	spheres_intersection(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
 {
 	double		dst;
 	t_sphere	*closest_sphere;
@@ -55,7 +55,7 @@ void	spheres_collision(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
 	i = -1;
 	while (spheres[++i])
 	{
-		dst = one_sphere_collision(ray, spheres[i]);
+		dst = one_sphere_intersection(ray, spheres[i]);
 		if (dst != -1 && dst < closest_hit->dst)
 		{
 			closest_sphere = spheres[i];

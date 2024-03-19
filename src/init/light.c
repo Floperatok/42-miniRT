@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:04:12 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 13:07:49 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_light	*get_light(char ***objs)
 	if (!objs[i])
 		return (NULL);
 	light = malloc(sizeof(t_light));
-	light->pos = get_point_from_string(objs[i][1], ',');
+	light->pos = get_vec_from_string(objs[i][1], ',');
 	light->brightness = ft_atod(objs[i][2]);
 	light->color = format_color(objs[i][3]);
 	return (light);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/18 20:20:27 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
  *	Detects whether the ray encounters a plane. If it does, returns the
  *	distance of the plane. Else returns -1.
 */
-static double	one_plane_collision(t_ray ray, t_plane *plane)
+static double	one_plane_intersection(t_ray ray, t_plane *plane)
 {
 	double	scalar;
-	t_point	offset_ray;
+	t_vec	offset_ray;
 
 	scalar = dot(ray.dir, plane->normal);
 	offset_ray = soustract_vect(plane->pos, ray.origin);
@@ -29,7 +29,7 @@ static double	one_plane_collision(t_ray ray, t_plane *plane)
 /*
  *
 */
-void	planes_collision(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
+void	planes_intersection(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
 {
 	double	dst;
 	t_plane	*closest_plane;
@@ -39,7 +39,7 @@ void	planes_collision(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
 	i = -1;
 	while (planes[++i])
 	{
-		dst = one_plane_collision(ray, planes[i]);
+		dst = one_plane_intersection(ray, planes[i]);
 		if (dst > 0.001 && dst < closest_hit->dst)
 		{
 			closest_plane = planes[i];

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:45:11 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 02:55:08 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:36:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static t_cy_values	precompute_cylinder_values(t_ray ray, t_cylinder *cy)
  *	Thanks to https://www.shadertoy.com/view/4lcSRn and 
  *	https://iquilezles.org/articles/intersectors/ for the formula.
 */
-t_point	cylinder_normal(t_cylinder *cy, t_point hitpos, double y, int is_cap)
+t_vec	cylinder_normal(t_cylinder *cy, t_vec hitpos, double y, int is_cap)
 {
-	t_point	normal;
-	t_point	pa;
+	t_vec	normal;
+	t_vec	pa;
 	
 	if (is_cap)
 		normal = divide_vect(multiply_vect(cy->ba, sign(y)), 
@@ -63,7 +63,7 @@ t_point	cylinder_normal(t_cylinder *cy, t_point hitpos, double y, int is_cap)
  *	Thanks to https://www.shadertoy.com/view/4lcSRn and 
  *	https://iquilezles.org/articles/intersectors/ for the formula.
 */
-static t_cy_values one_cylinder_collision(t_ray ray, t_cylinder *cy)
+static t_cy_values one_cylinder_intersection(t_ray ray, t_cylinder *cy)
 {
 	t_cy_values	val;
 
@@ -87,7 +87,7 @@ static t_cy_values one_cylinder_collision(t_ray ray, t_cylinder *cy)
 	return (val);
 }
 
-void	cylinders_collision(t_ray ray, t_cylinder **cylinders,
+void	cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 	t_hitinfo *closest_hit)
 {
 	t_cylinder	*closest_cy;
@@ -99,7 +99,7 @@ void	cylinders_collision(t_ray ray, t_cylinder **cylinders,
 	i = -1;
 	while (cylinders[++i])
 	{
-		val = one_cylinder_collision(ray, cylinders[i]);
+		val = one_cylinder_intersection(ray, cylinders[i]);
 		if (val.dst > 0.0 && val.dst < closest_hit->dst)
 		{
 			closest_cy = cylinders[i];

@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/18 17:13:14 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double ft_lenght(t_point vect)
+double ft_lenght(t_vec vect)
 {
 	return (sqrt(vect.x * vect.x + vect.y * vect.y + vect.z * vect.z));
 }
@@ -20,7 +20,7 @@ double ft_lenght(t_point vect)
 /*
  *	Multiplies a vector by a scalar and returns the result.
 */
-t_point	multiply_vect(t_point vect, double scalar)
+t_vec	multiply_vect(t_vec vect, double scalar)
 {
 	vect.x *= scalar;
 	vect.y *= scalar;
@@ -28,7 +28,7 @@ t_point	multiply_vect(t_point vect, double scalar)
 	return (vect);
 }
 
-t_point	divide_vect(t_point vect, double scalar)
+t_vec	divide_vect(t_vec vect, double scalar)
 {
 	vect.x /= scalar;
 	vect.y /= scalar;
@@ -40,9 +40,9 @@ t_point	divide_vect(t_point vect, double scalar)
  *	Subtracts the components of the first vector by the components of 
  *	the second and returns the result.
 */
-t_point	soustract_vect(t_point vect1, t_point vect2)
+t_vec	soustract_vect(t_vec vect1, t_vec vect2)
 {
-	t_point res;
+	t_vec res;
 
 	res.x = vect1.x - vect2.x;
 	res.y = vect1.y - vect2.y;
@@ -53,7 +53,7 @@ t_point	soustract_vect(t_point vect1, t_point vect2)
 /*
  *	Adds the second vector to the first and returns the result.
 */
-t_point	add_vect(t_point vect1, t_point vect2)
+t_vec	add_vect(t_vec vect1, t_vec vect2)
 {
 	vect1.x += vect2.x;
 	vect1.y += vect2.y;
@@ -64,7 +64,7 @@ t_point	add_vect(t_point vect1, t_point vect2)
 /*
  *	Normalize the vector.
 */
-void	normalize_vect(t_point *vect)
+void	normalize_vect(t_vec *vect)
 {
 	double	lenght;
 
@@ -74,9 +74,9 @@ void	normalize_vect(t_point *vect)
 	vect->z /= lenght;
 }
 
-t_point	copy_vect(t_point vect)
+t_vec	copy_vect(t_vec vect)
 {
-	t_point copy;
+	t_vec copy;
 
 	copy.x = vect.x;
 	copy.y = vect.y;
@@ -84,9 +84,9 @@ t_point	copy_vect(t_point vect)
 	return (copy);
 }
 
-t_point	get_vect(double x, double y, double z)
+t_vec	get_vect(double x, double y, double z)
 {
-	t_point	vect;
+	t_vec	vect;
 
 	vect.x = x;
 	vect.y = y;
@@ -94,9 +94,9 @@ t_point	get_vect(double x, double y, double z)
 	return (vect);
 }
 
-t_point cross_product(t_point vect1, t_point vect2)
+t_vec cross_product(t_vec vect1, t_vec vect2)
 {
-    t_point	result;
+    t_vec	result;
 
     result.x = vect1.y * vect2.z - vect1.z * vect2.y;
     result.y = vect1.z * vect2.x - vect1.x * vect2.z;
@@ -104,17 +104,17 @@ t_point cross_product(t_point vect1, t_point vect2)
     return (result);
 }
 
-double	dot(t_point vect1, t_point vect2)
+double	dot(t_vec vect1, t_vec vect2)
 {
     return (vect1.x * vect2.x + vect1.y * vect2.y + vect1.z * vect2.z);
 }
 
-void	print_vect(char *msg, t_point vect)
+void	print_vect(char *msg, t_vec vect)
 {
 	printf("%sx = %f ; y = %f ; z = %f\n", msg, vect.x, vect.y, vect.z);
 }
 
-t_point	vect_max(t_point vect, double n)
+t_vec	vect_max(t_vec vect, double n)
 {
 	if (vect.x > n)
 		vect.x = n;

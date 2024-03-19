@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/18 17:14:49 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static t_cylinder	*new_cylinder(char **obj)
 	t_cylinder	*cy;
 
 	cy = malloc(sizeof(t_cylinder));
-	cy->pos = get_point_from_string(obj[1], ',');
-	cy->dir = get_point_from_string(obj[2], ',');
+	cy->pos = get_vec_from_string(obj[1], ',');
+	cy->dir = get_vec_from_string(obj[2], ',');
 	cy->radius = ft_atod(obj[3]) * 0.5;
 	cy->height = ft_atod(obj[4]);
 	cy->color = format_color(obj[5]);

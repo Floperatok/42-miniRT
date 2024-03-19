@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 01:54:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 	t_hitinfo	hit;
 	t_color		reflection_color;
 
-	hit = ray_collision(ray, objs);
+	hit = ray_intersection(ray, objs);
 	if (!hit.did_hit)
 		return ((t_color){0, 0, 0});
 	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
@@ -44,9 +44,9 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 void	*draw_screen_with_threads(void *arg)
 {
 	t_thread_args *args;
-	t_point	pixel;
+	t_vec	pixel;
 	t_ray	ray;
-	t_point	point;
+	t_vec	point;
 	t_color	pixel_color;
 
 	args = (t_thread_args *)arg;
@@ -78,9 +78,9 @@ void	*draw_screen_with_threads(void *arg)
 void	draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 	t_image *img)
 {
-	t_point	pixel;
+	t_vec	pixel;
 	t_ray	ray;
-	t_point	point;
+	t_vec	point;
 	t_color	pixel_color;
 
 	pixel.y = -1;
