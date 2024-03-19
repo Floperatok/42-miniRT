@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambiant_lightning.c                                :+:      :+:    :+:   */
+/*   ambient_lightning.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drenassi <@student.42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 19:07:50 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/18 11:20:56 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:14:05 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/*
+ *	Returns 1 if the input string has a ratio format in range [0.0-1.0].
+ *	Returns 0 if not.
+*/
 static int	check_ratio(char *ratio)
 {
 	float	value;
@@ -32,7 +36,10 @@ static int	check_ratio(char *ratio)
 	return (1);
 }
 
-int check_ambiant_lightning(char **data)
+/*
+ *	Returns 1 if ambiant lightning line has no error, or 0 if there is an error.
+*/
+int	check_ambiant_lightning(char **data)
 {
 	static int	a_count = 0;
 

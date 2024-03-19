@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: drenassi <@student.42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 20:31:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/17 17:57:26 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:15:04 by drenassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/*
+ *	Returns 1 if the FOV has the good format in range [0-180], 0 if not.
+*/
 static int	check_horizontal_field(char *field)
 {
 	int	i;
@@ -38,6 +41,9 @@ static int	check_horizontal_field(char *field)
 	return (1);
 }
 
+/*
+ *	Returns 1 if the cameras' parameters are corrects, 0 if not.
+*/
 int	check_camera(char **data)
 {
 	static int	c_count = 0;
