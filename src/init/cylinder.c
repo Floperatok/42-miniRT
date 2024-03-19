@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/11 17:33:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/18 17:14:49 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ void	destroy_cylinders(t_cylinder **cylinders)
 
 static t_cylinder	*new_cylinder(char **obj)
 {
-	t_cylinder	*cylinder;
+	t_cylinder	*cy;
 
-	cylinder = malloc(sizeof(t_cylinder));
-	cylinder->pos = get_point_from_string(obj[1], ',');
-	cylinder->direction = get_point_from_string(obj[2], ',');
-	cylinder->diameter = ft_atod(obj[3]);
-	cylinder->height = ft_atod(obj[4]);
-	cylinder->color = format_color(obj[5]);
-	cylinder->reflect_ratio = ft_atod(obj[6]);
-	return (cylinder);
+	cy = malloc(sizeof(t_cylinder));
+	cy->pos = get_point_from_string(obj[1], ',');
+	cy->dir = get_point_from_string(obj[2], ',');
+	cy->radius = ft_atod(obj[3]) * 0.5;
+	cy->height = ft_atod(obj[4]);
+	cy->color = format_color(obj[5]);
+	cy->reflect_ratio = ft_atod(obj[6]);
+	cy->a = cy->pos;
+	cy->b = add_vect(cy->pos, multiply_vect(cy->dir, cy->height));
+	cy->ba = soustract_vect(cy->b, cy->a);
+	cy->baba = dot(cy->ba, cy->ba);
+	return (cy);
 }
 
 /*

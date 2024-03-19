@@ -6,21 +6,17 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:25:55 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/27 16:26:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/18 18:19:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	ft_random(unsigned int *seed)
+double	sign(double x)
 {
-	unsigned int result;
-	unsigned int x;
-
-	x = *seed;
-	x = x * 747796405 + 2891336453;
-	result = ((x >> ((x >> 28) + 4)) ^ x) * 277803737;
-	result = (result >> 22) ^ result;
-	*seed = result;
-	return (result / 4294967295.0);
+	if (x > 0)
+		return (1.0);
+	if (x == 0)	
+		return (0.0);
+	return (-1.0);
 }

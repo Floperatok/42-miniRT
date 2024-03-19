@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 18:13:12 by drenassi          #+#    #+#             */
-/*   Updated: 2024/02/18 11:22:26 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:38:40 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_cylinder(char **data)
 {
-	if (double_array_len(data) != 6)
-		return (print_error("Error: Cylinder needs 5 arguments.\n"));
+	if (double_array_len(data) != 7)
+		return (print_error("Error: Cylinder needs 6 arguments.\n"));
 	if (!check_coordinates(data[1]))
 		return (print_error("Error: Cylinder: Wrong coordinates.\n"));
 	if (!check_orientation_vector(data[2]))

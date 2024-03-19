@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/12 17:57:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 02:55:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_alight
 typedef struct s_camera
 {
     t_point	pos;
-    t_point	direction;
+    t_point	dir;
 	t_point	dir_x;
 	t_point	dir_y;
 	t_point	dir_z;
@@ -98,12 +98,31 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
     t_point	pos;
-    t_point	direction;
-    double	diameter;
+    t_point	dir;
+    double	radius;
     double	height;
     t_color	color;
 	double	reflect_ratio;
-}	t_cylinder;
+	t_point	a;
+	t_point	b;
+	t_point	ba;
+	double	baba;
+
+}	t_cylinder; // retirer des valeurs et n'utiliser que a et b ?
+
+typedef struct s_cy_values
+{
+	int		is_cap;
+	t_point oc;
+	double	bard;
+	double	baoc;
+	double	k2;
+	double	k1;
+	double	k0;
+	double	discr;
+	double	dst;
+	double	y;
+}	t_cy_values;
 
 typedef struct s_objects
 {
@@ -132,10 +151,10 @@ typedef struct	s_viewport_plane
 typedef struct s_hitinfo
 {
 	int		did_hit;
-	t_point	hit_point;
+	t_point	pos;
 	double	dst;
 	t_color	color;
-	t_point	normal_dir;
+	t_point	normal;
 	double	reflect_ratio;
 }	t_hitinfo;
 
@@ -160,6 +179,7 @@ typedef struct s_thread_args
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
 double		ft_atod(char *str);
+double		sign(double x); // move function file
 int			double_array_len(char **array);
 void		free_double_array(char **array);
 void		free_triple_array(char ***array);
@@ -242,6 +262,7 @@ void	planes_collision(t_ray ray, t_plane **planes,
 /* VECTORS */
 double		ft_lenght(t_point vect);
 t_point		multiply_vect(t_point vect, double scalar);
+t_point		divide_vect(t_point vect, double scalar);
 double	    vector_scalar_product(t_point v1, t_point v2);
 t_point		soustract_vect(t_point vect1, t_point vect2);
 t_point		add_vect(t_point vect1, t_point vect2);

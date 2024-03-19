@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/12 17:59:52 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/18 18:19:17 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS			= utils/str/ft_atod.c \
 				  utils/str/printing.c \
 				  utils/str/readfile.c \
 				  utils/maths/vector_operations.c \
+				  utils/maths/utils.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \
 				  utils/loading_display.c \

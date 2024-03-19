@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/26 21:35:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/18 17:13:14 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ double ft_lenght(t_point vect)
 */
 t_point	multiply_vect(t_point vect, double scalar)
 {
-	t_point res;
+	vect.x *= scalar;
+	vect.y *= scalar;
+	vect.z *= scalar;
+	return (vect);
+}
 
-	res.x = vect.x * scalar;
-	res.y = vect.y * scalar;
-	res.z = vect.z * scalar;
-	return (res);
+t_point	divide_vect(t_point vect, double scalar)
+{
+	vect.x /= scalar;
+	vect.y /= scalar;
+	vect.z /= scalar;
+	return (vect);
 }
 
 /*
@@ -106,4 +112,15 @@ double	dot(t_point vect1, t_point vect2)
 void	print_vect(char *msg, t_point vect)
 {
 	printf("%sx = %f ; y = %f ; z = %f\n", msg, vect.x, vect.y, vect.z);
+}
+
+t_point	vect_max(t_point vect, double n)
+{
+	if (vect.x > n)
+		vect.x = n;
+	if (vect.y > n)
+		vect.y = n;
+	if (vect.z > n)
+		vect.z = n;
+	return (vect);
 }
