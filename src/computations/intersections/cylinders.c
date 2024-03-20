@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:45:11 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:36:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:53:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,5 @@ void	cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 	closest_hit->pos = add_vect(ray.origin, multiply_vect(ray.dir, val_closest_cy.dst));
 	closest_hit->reflect_ratio = closest_cy->reflect_ratio;
 	closest_hit->normal = cylinder_normal(closest_cy, closest_hit->pos, val_closest_cy.y, val_closest_cy.is_cap);
-	// closest_hit->color = (t_color){0, val_closest_cy.is_cap * 255, !val_closest_cy.is_cap * 255};
-	// printf("%d, %d, %d\n", closest_hit->color.r, closest_hit->color.g, closest_hit->color.b);
+	closest_hit->specular = closest_cy->specular;
 }

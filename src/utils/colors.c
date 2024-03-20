@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 18:52:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:01:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ t_color	format_color(char *colors_str)
 	t_color	color;
 
 	color_split = ft_split(colors_str, ',');
-	color.r = ft_atoi(color_split[0]);	
-	color.g = ft_atoi(color_split[1]);	
-	color.b = ft_atoi(color_split[2]);
+	color.r = (double)(ft_atoi(color_split[0])) / 255;	
+	color.g = (double)(ft_atoi(color_split[1])) / 255;
+	color.b = (double)(ft_atoi(color_split[2])) / 255;
 	free_double_array(color_split);
 	return (color);
 }
 
 int	color_to_int(t_color color)
 {
-	return ((color.r << 16) | (color.g << 8) | color.b);
+	return ((int)(255 * color.r) << 16) | ((int)(255 * color.g) << 8) | (int)(255 * color.b);
 }
 
 t_color	int_to_rgb(int color)
@@ -41,20 +41,27 @@ t_color	int_to_rgb(int color)
 	g = (color & 0x00ff00) >> 8;
 	r = color >> 16;
 	
-	res.b = b;
-	res.g = g;
-	res.r = r;
+	res.b = b / 255;
+	res.g = g / 255;
+	res.r = r / 255;
 	return (res);
 }
 
 void	protect_colors(t_color *color)
 {
-	if (color->r > 255)
-		color->r = 255;
-	if (color->g > 255)
-		color->g = 255;
-	if (color->b > 255)
-		color->b = 255;
+	if (color->r > 1)
+		color->r = 1;
+	if (color->g > 1)
+		color->g = 1;
+	if (color->b > 1)
+		color->b = 1;
+	if (color->r < 0)
+		color->r = 0;
+	if (color->g < 0)
+		color->g = 0;
+	if (color->b < 0)
+		color->b = 0;
+
 }
 
 t_color	multiplies_color(t_color color, double factor)

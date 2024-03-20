@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/04 16:13:48 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:40:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	destroy_objects(t_objects *objs)
 {
-	destroy_alight(objs->a_light);
+	destroy_alight(objs->alight);
 	destroy_camera(objs->camera);
 	destroy_light(objs->light);
 	destroy_cylinders(objs->cylinders);
@@ -96,7 +96,7 @@ int	get_objects(t_objects *objs, char *filename)
 	num_objects = 0;
 	while (data_objs[num_objects])
 		num_objects++;
-	objs->a_light = get_alight(data_objs);
+	objs->alight = get_alight(data_objs);
 	objs->camera = get_camera(data_objs);
 	objs->light = get_light(data_objs);
 	objs->cylinders = get_cylinders(data_objs, num_objects);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 15:52:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ t_vec	add_vect(t_vec vect1, t_vec vect2)
 /*
  *	Normalize the vector.
 */
-void	normalize_vect(t_vec *vect)
+t_vec	normalize(t_vec vect)
 {
 	double	lenght;
 
-	lenght = ft_lenght(*vect);
-	vect->x /= lenght;
-	vect->y /= lenght;
-	vect->z /= lenght;
+	lenght = ft_lenght(vect);
+	vect.x /= lenght;
+	vect.y /= lenght;
+	vect.z /= lenght;
+	return (vect);
 }
 
 t_vec	copy_vect(t_vec vect)
@@ -123,4 +124,9 @@ t_vec	vect_max(t_vec vect, double n)
 	if (vect.z > n)
 		vect.z = n;
 	return (vect);
+}
+
+t_vec	reflect(t_vec dir, t_vec normal)
+{
+	return (soustract_vect(dir, multiply_vect(normal, 2 * dot(dir, normal))));
 }

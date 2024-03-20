@@ -12,17 +12,6 @@
 
 #include "minirt.h"
 
-t_ray	bounce_ray(t_vec dir, t_vec normal_dir, t_vec hit_pos)
-{
-	t_ray	ray;
-	double	doted;
-
-	doted = dot(dir, normal_dir);
-	ray.origin = hit_pos;
-	ray.dir = soustract_vect(dir, multiply_vect(normal_dir, 2 * doted));
-	return (ray);
-}
-
 t_hitinfo	ray_intersection(t_ray ray, t_objects *objs)
 {
 	t_hitinfo	closest_hit;

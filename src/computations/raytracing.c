@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 19:07:17 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:01:47 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-# define REFLECTION_DEPTH 200
+# define REFLECTION_DEPTH 1
 
 /*
  *	Launches a ray and returns the color of the first shape encountered, 
@@ -26,12 +26,11 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 	hit = ray_intersection(ray, objs);
 	if (!hit.did_hit)
 		return ((t_color){0, 0, 0});
-	hit.color = apply_ambient_lightning(objs->a_light, hit.color);
-	hit.color = apply_light(objs->light, &hit, objs);
+	hit.reflect = reflect(ray.dir, hit.normal);;
+	hit.color = apply_light(objs->alight, objs->light, &hit, objs);
 	if (depth == 1 || hit.reflect_ratio <= 0)
 		return (multiplies_color(hit.color, (1 - hit.reflect_ratio)));
 	ray.origin = hit.pos;
-	ray = bounce_ray(ray.dir, hit.normal, hit.pos);
 	reflection_color = launch_ray(ray, objs, depth - 1);
 	reflection_color = multiplies_color(reflection_color, 0.95);
 	return (combine_colors(hit.color, reflection_color, hit.reflect_ratio));
@@ -54,7 +53,6 @@ void	*draw_screen_with_threads(void *arg)
 	pixel.y = args->start_y - 1;
 	while (++pixel.y < args->end_y)
 	{
-		// display_loading("Rendering:", 0, pixel.y + 1, (double)args->img->height / 100);
 		pixel.x = args->start_x - 1;
 		while (++pixel.x < args->end_x)
 		{
@@ -62,7 +60,7 @@ void	*draw_screen_with_threads(void *arg)
 			ray.dir.x = point.x * args->cam->dir_x.x + point.y * -args->cam->dir_y.x + point.z * args->cam->dir_z.x;
 			ray.dir.y = point.x * args->cam->dir_x.y + point.y * -args->cam->dir_y.y + point.z * args->cam->dir_z.y;
 			ray.dir.z = point.x * args->cam->dir_x.z + point.y * -args->cam->dir_y.z + point.z * args->cam->dir_z.z;
-			normalize_vect(&ray.dir);
+			ray.dir = normalize(ray.dir);
 			ray.origin = args->cam->pos;
 			pixel_color = launch_ray(ray, args->objs, REFLECTION_DEPTH);
 			pixel_put(args->img, pixel.x, pixel.y, pixel_color);
@@ -94,11 +92,10 @@ void	draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			point = add_vect(plane->bottom_left, 
 				get_vect(plane->width * pixel.x / (img->width - 1), 
 				plane->height * pixel.y / (img->height - 1), 0));
-			// print_vect("", plane->bottom_left);<
 			ray.dir.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
 			ray.dir.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
 			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
-			normalize_vect(&ray.dir);
+			ray.dir = normalize(ray.dir);
 			ray.origin = cam->pos;
 			pixel_color = launch_ray(ray, objs, REFLECTION_DEPTH);
 			pixel_put(img, pixel.x, pixel.y, pixel_color);

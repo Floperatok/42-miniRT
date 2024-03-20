@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:18:44 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:52:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	spheres_intersection(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
 	closest_hit->did_hit = 1;
 	closest_hit->pos = add_vect(ray.origin,
 		multiply_vect(ray.dir, closest_hit->dst));
-	closest_hit->normal = soustract_vect(closest_hit->pos, closest_sphere->pos);
-	normalize_vect(&closest_hit->normal);
+	closest_hit->normal = normalize(soustract_vect(closest_hit->pos, closest_sphere->pos));
 	closest_hit->color = closest_sphere->color;
 	closest_hit->reflect_ratio = closest_sphere->reflect_ratio;
+	closest_hit->specular = closest_sphere->specular;
 }

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:52:41 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	planes_intersection(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
 	closest_hit->did_hit = 1;
 	closest_hit->pos = add_vect(ray.origin,
 		multiply_vect(ray.dir, closest_hit->dst));
-	closest_hit->normal = closest_plane->normal;
-	normalize_vect(&closest_hit->normal);
+	closest_hit->normal = normalize(closest_plane->normal);
 	closest_hit->color = closest_plane->color;
 	closest_hit->reflect_ratio = closest_plane->reflect_ratio;
+	closest_hit->specular = closest_plane->specular;
 }

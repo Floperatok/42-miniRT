@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:38:38 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/12 18:05:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:57:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int main(int ac, char **av)
 
 	if (!check_input(ac, av, &hardware))
 		return (1);
-	if (!check_file(av[1]))
-		return (1);
+	// if (!check_file(av[1]))
+		// return (1);
 	if (!init_window(&data.win, 1500, 800))
 		return (1);
 	if (!get_image(&data.img, data.win))
