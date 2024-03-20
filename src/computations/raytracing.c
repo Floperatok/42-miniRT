@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/19 19:07:17 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-# define REFLECTION_DEPTH 1
+# define REFLECTION_DEPTH 200
 
 /*
  *	Launches a ray and returns the color of the first shape encountered, 
@@ -33,6 +33,7 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 	ray.origin = hit.pos;
 	ray = bounce_ray(ray.dir, hit.normal, hit.pos);
 	reflection_color = launch_ray(ray, objs, depth - 1);
+	reflection_color = multiplies_color(reflection_color, 0.95);
 	return (combine_colors(hit.color, reflection_color, hit.reflect_ratio));
 }
 
