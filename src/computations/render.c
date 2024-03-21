@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:54:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:43:03 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:34:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_thread_args	set_args(t_minirt *data, t_viewport_plane *plane,
 	args.start_x = (data->img.width / grid_size) * (i % grid_size);
 	args.end_x = (data->img.width / grid_size) * ((i % grid_size) + 1);
 	args.start_y = (data->img.height / grid_size) * (i / grid_size);
-	args.end_y = (data->img.height / grid_size) * ((i / grid_size) + 1) + 1;
+	args.end_y = (data->img.height / grid_size) * ((i / grid_size) + 1) + 2;
 	return (args);
 }
 
