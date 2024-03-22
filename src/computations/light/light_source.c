@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 22:19:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/21 17:41:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ t_color	apply_light(t_alight *alight, t_light *light, t_hitinfo *hit,
 	t_vec	light_dir;
 	double	light_dst;
 	double	exposure;
-	double	tmp;
-	(void)objs;
+	double	specular;
 
 	color = hit->color;
 	light_dir = soustract_vect(light->pos, hit->pos);
@@ -57,17 +56,18 @@ t_color	apply_light(t_alight *alight, t_light *light, t_hitinfo *hit,
 	color = apply_ambient_lightning(alight, color);
 	if (is_in_shadow(hit->pos, light_dir, light_dst, objs))
 		return (color);
-	tmp = exposure;
-	exposure *= 5;
+	specular = dot(hit->reflect, light_dir);
+	exposure *= 1 / alight->ratio;
+	if (light_dst > 100)
+		exposure *= 1 / light_dst;
 	exposure++;
-	color.r *= exposure;
-	color.g *= exposure;
-	color.b *= exposure;
-	if (tmp > 0.75)
+	color = multiplies_color(color, exposure * 0.8);
+	if (specular > 0.4)
 	{
-		color.r += pow(tmp, 100) * 0.5;
-		color.g += pow(tmp, 100) * 0.5;
-		color.b += pow(tmp, 100) * 0.5;
+		specular = pow(specular, 70) * 0.5;
+		color.r += specular;
+		color.g += specular;
+		color.b += specular;
 	}
 	protect_colors(&color);
 	return (color);
