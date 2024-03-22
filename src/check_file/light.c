@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <@student.42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:31:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/03/16 09:43:22 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:01:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  *	Returns 1 if the input string has a ratio format in range [0.0-1.0].
  *	Returns 0 if not.
 */
-static int	check_ratio(char *ratio)
+static int	check_light_ratio(char *ratio)
 {
 	double	value;
 
@@ -48,7 +48,7 @@ int	check_light(char **data)
 		return (print_error("Error: Light needs 4 arguments.\n"));
 	if (!check_coordinates(data[1]))
 		return (print_error("Error: Camera: Wrong coordinates.\n"));
-	if (!check_ratio(data[2]))
+	if (!check_light_ratio(data[2]))
 		return (0);
 	if (!check_rgb(data[3]))
 	{

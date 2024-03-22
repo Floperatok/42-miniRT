@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/19 16:36:42 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/22 12:00:40 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS			= utils/str/ft_atod.c \
 				  utils/loading_display.c \
 				  check_file/check_file.c \
 				  check_file/check_double.c \
+				  check_file/check_ratio.c \
 				  check_file/rgb.c \
 				  check_file/coordinates.c \
 				  check_file/identifier.c \

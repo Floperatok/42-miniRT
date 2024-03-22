@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:23:19 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:18:12 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,23 @@ void	destroy_cylinders(t_cylinder **cylinders)
 static t_cylinder	*new_cylinder(char **obj)
 {
 	t_cylinder	*cy;
+	int			size;
 
+	size = double_array_len(obj);
 	cy = malloc(sizeof(t_cylinder));
 	cy->pos = get_vec_from_string(obj[1], ',');
 	cy->dir = get_vec_from_string(obj[2], ',');
 	cy->radius = ft_atod(obj[3]) * 0.5;
 	cy->height = ft_atod(obj[4]);
 	cy->color = format_color(obj[5]);
-	cy->reflect_ratio = ft_atod(obj[6]);
+	if (size >= 7)
+		cy->reflect_ratio = ft_atod(obj[6]);
+	else
+		cy->reflect_ratio = 0.0;
+	if (size == 8)
+		cy->specular = ft_atod(obj[7]);
+	else
+		cy->specular = 0;
 	cy->a = cy->pos;
 	cy->b = add_vect(cy->pos, multiply_vect(cy->dir, cy->height));
 	cy->ba = soustract_vect(cy->b, cy->a);

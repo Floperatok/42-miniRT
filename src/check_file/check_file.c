@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:40:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/03/19 17:24:27 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 11:59:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,23 @@ static int	check_extension(char *file)
 static int	check_line(char *line)
 {
 	char	**data;
+	int		size;
 
 	if (is_empty(line))
 		return (1);
 	data = create_data_array(line);
+	size = double_array_len(data);
 	if (!ft_strcmp(data[0], "A") && !check_ambiant_lightning(data))
 		return (free_double_array(data), 0);
 	if (!ft_strcmp(data[0], "C") && !check_camera(data))
 		return (free_double_array(data), 0);
 	if (!ft_strcmp(data[0], "L") && !check_light(data))
 		return (free_double_array(data), 0);
-	if (!ft_strcmp(data[0], "pl") && !check_plane(data))
+	if (!ft_strcmp(data[0], "pl") && !check_plane(data, size))
 		return (free_double_array(data), 0);
-	if (!ft_strcmp(data[0], "sp") && !check_sphere(data))
+	if (!ft_strcmp(data[0], "sp") && !check_sphere(data, size))
 		return (free_double_array(data), 0);
-	if (!ft_strcmp(data[0], "cy") && !check_cylinder(data))
+	if (!ft_strcmp(data[0], "cy") && !check_cylinder(data, size))
 		return (free_double_array(data), 0);
 	return (free_double_array(data), 1);
 }

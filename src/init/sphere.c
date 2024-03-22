@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:08:13 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:16:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,21 @@ void	destroy_spheres(t_sphere **spheres)
 static t_sphere	*new_sphere(char **obj)
 {
 	t_sphere	*sphere;
+	int			size;
 
+	size = double_array_len(obj);
 	sphere = malloc(sizeof(t_sphere));
 	sphere->pos = get_vec_from_string(obj[1], ',');
 	sphere->radius = ft_atod(obj[2]) / 2;
 	sphere->color = format_color(obj[3]);
-	sphere->reflect_ratio = ft_atod(obj[4]);
+	if (size >= 5)
+		sphere->reflect_ratio = ft_atod(obj[4]);
+	else
+		sphere->reflect_ratio = 0.0;
+	if (size == 6)
+		sphere->specular = ft_atod(obj[5]);
+	else
+		sphere->specular = 0;
 	return (sphere);
 }
 

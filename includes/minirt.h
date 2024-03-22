@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 17:22:16 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:00:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,15 +207,16 @@ char		**create_data_array(char *line);
 int			check_file(char *file);
 int			check_identifier(char *line);
 int			check_double(char *f);
+int			check_ratio(char *str);
 int			check_rgb(char *param);
 int			check_coordinates(char *coord);
 int			check_orientation_vector(char *coord);
 int 		check_ambiant_lightning(char **data);
 int			check_camera(char **data);
 int	        check_light(char **data);
-int	        check_plane(char **data);
-int         check_sphere(char **data);
-int	        check_cylinder(char **data);
+int	        check_plane(char **data, int size);
+int         check_sphere(char **data, int size);
+int	        check_cylinder(char **data, int size);
 
 /* INIT STRUCTURES */
 t_vec		get_vec(double x, double y, double z);

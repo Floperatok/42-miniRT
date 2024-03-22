@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/21 17:41:28 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:22:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_color	apply_light(t_alight *alight, t_light *light, t_hitinfo *hit,
 		exposure *= 1 / light_dst;
 	exposure++;
 	color = multiplies_color(color, exposure * 0.8);
-	if (specular > 0.4)
+	if (specular > 0.4 && hit->specular)
 	{
 		specular = pow(specular, 70) * 0.5;
 		color.r += specular;
