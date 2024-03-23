@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:40:45 by drenassi          #+#    #+#             */
-/*   Updated: 2024/03/22 11:59:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:48:41 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,14 @@ int	check_file(char *file)
 			line = get_next_line(fd);
 		}
 		if ((!is_empty(line) && !check_identifier(line)) || !check_line(line))
-			return (close(fd), free(line), 0);
+		{
+			get_next_line(-1);
+			close(fd);
+			return (free(line), 0);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
+	get_next_line(-1);
 	return (close(fd), 1);
 }
