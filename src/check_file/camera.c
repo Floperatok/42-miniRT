@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drenassi <@student.42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 20:31:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/03/09 17:15:04 by drenassi         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:45:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_horizontal_field(char *field)
 		i++;
 	}
 	value = ft_atoi(field);
-	if (value < 0 || value > 180)
+	if (value < 0 || value > 179)
 	{
 		print_error("Error: Camera: Horizontal field of view must be ");
 		return (print_error("in range [0,180]. Example: 70.\n"));
@@ -51,8 +51,8 @@ int	check_camera(char **data)
 	c_count++;
 	if (c_count > 1)
 		return (print_error("Error: Too much Cameras.\n"));
-	if (double_array_len(data) != 4)
-		return (print_error("Error: Camera needs 3 arguments.\n"));
+	if (double_array_len(data) != 6)
+		return (print_error("Error: Camera needs 5 arguments.\n"));
 	if (!check_coordinates(data[1]))
 		return (print_error("Error: Camera: Wrong coordinates.\n"));
 	if (!check_orientation_vector(data[2]))
@@ -60,5 +60,11 @@ int	check_camera(char **data)
 			print_error("must be in range [-1.0,1.0] for each axis.\n"));
 	if (!check_horizontal_field(data[3]))
 		return (0);
+	if (!check_int(data[4]) || ft_atoi(data[4]) <= 0 || 
+		ft_atoi(data[4]) > 10000)
+		return (print_error("Error: Camera: Invalid screen width\n"));
+	if (!check_int(data[5]) || ft_atoi(data[5]) <= 0 || 
+		ft_atoi(data[5]) > 10000)
+		return (print_error("Error: Camera: Invalid screen height\n"));
 	return (1);
 }

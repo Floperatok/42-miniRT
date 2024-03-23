@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/22 12:00:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:41:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_camera
 	t_vec	dir_z;
     int		fov;
 	double	viewport_dst;
+	double	screen_h;
+	double	screen_w;
 }	t_camera;
 
 typedef struct s_light
@@ -207,6 +209,7 @@ char		**create_data_array(char *line);
 int			check_file(char *file);
 int			check_identifier(char *line);
 int			check_double(char *f);
+int			check_int(char *n);
 int			check_ratio(char *str);
 int			check_rgb(char *param);
 int			check_coordinates(char *coord);
@@ -221,7 +224,7 @@ int	        check_cylinder(char **data, int size);
 /* INIT STRUCTURES */
 t_vec		get_vec(double x, double y, double z);
 t_vec		get_vec_from_string(char *string, char delimiter);
-int			init_window(t_window *win, int width, int height);
+int			init_window(t_window *win, t_camera *camera);
 void		destroy_window(t_window *win);
 int			get_image(t_image *img, t_window win);
 void		destroy_image(t_image *img, void *mlx);

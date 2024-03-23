@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 13:53:22 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:40:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ t_camera	*get_camera(char ***objs)
 	camera->pos = get_vec_from_string(objs[i][1], ',');
 	camera->dir = get_vec_from_string(objs[i][2], ',');
 	camera->fov = ft_atoi(objs[i][3]);
+	camera->screen_w = ft_atoi(objs[i][4]);
+	camera->screen_h = ft_atoi(objs[i][5]);
 	return (camera);
 }

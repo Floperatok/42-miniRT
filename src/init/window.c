@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:18:56 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/25 15:11:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:40:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	destroy_window(t_window *win)
 	free(win->mlx);
 }
 
-int	init_window(t_window *win, int width, int height)
+int	init_window(t_window *win, t_camera *camera)
 {
-	win->height = height;
-	win->width = width;
+	win->width = camera->screen_w;
+	win->height = camera->screen_h;
 	win->window = NULL;
 	win->mlx = mlx_init();
 	if (!win->mlx)
