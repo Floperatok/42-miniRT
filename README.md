@@ -15,10 +15,6 @@ sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-d
 ```
 For Mac and Windows user you can refer to the unofficial [minilibx doc](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html) and modify the Makefile.
 
-Init and update the submodules:
-```sh
-git submodule init && git submodule update
-```
 Compile the project:
 ```sh
 make
