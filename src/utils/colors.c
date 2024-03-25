@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 19:34:53 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 20:01:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:03:45 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,21 @@ t_color	multiplies_color(t_color color, double factor)
 	return (color);
 }
 
-t_color	combine_colors(t_color color, t_color reflective, double ratio)
+t_color	add_color(t_color color, double x)
+{
+	color.r += x;
+	color.g += x;
+	color.b += x;
+	return (color);
+}
+
+t_color	combine_colors(t_color color1, t_color color2, double ratio)
 {
 	t_color	res;
 
-	res.r = color.r * (1.0 - ratio) + reflective.r * ratio;
-	res.g = color.g * (1.0 - ratio) + reflective.g * ratio;
-	res.b = color.b * (1.0 - ratio) + reflective.b * ratio;
+	res.r = color1.r * (1.0 - ratio) + color2.r * ratio;
+	res.g = color1.g * (1.0 - ratio) + color2.g * ratio;
+	res.b = color1.b * (1.0 - ratio) + color2.b * ratio;
 	protect_colors(&res);
 	return (res);
 }

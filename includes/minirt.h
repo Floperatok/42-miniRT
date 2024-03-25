@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/22 12:41:55 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/25 11:35:14 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libs/minilibx-linux/mlx.h"
 
 # define THREADS_GRID_SIZE 6
+# define LIGHT_REDUCTION 0.8
 
 typedef struct s_window
 {
@@ -203,6 +204,7 @@ int			color_to_int(t_color color);
 void		protect_colors(t_color *color);
 t_color		combine_colors(t_color color, t_color reflective, double ratio);
 t_color		multiplies_color(t_color color, double factor);
+t_color		add_color(t_color color, double x);
 
 /* CHECK CONFIG FILE*/
 char		**create_data_array(char *line);
@@ -252,12 +254,13 @@ int			user_input(int keycode, t_minirt *data);
 /* RAYTRACING */
 void		render_one_thread(t_minirt *data);
 void		render_multiple_threads(t_minirt *data, int grid_size);
-t_color		apply_ambient_lightning(t_alight *alight, t_color color);
+t_color		specular_light(t_color color, t_vec reflect, t_vec light_dir, 
+	double brightness);
 int			is_in_shadow(t_vec start_pos, t_vec light_dir, double light_dst,
 	t_objects *objs);
-t_color	apply_light(t_alight *alight, t_light *light, t_hitinfo *hit, 
+t_color		compute_lights(t_alight *alight, t_light *light, t_hitinfo *hit, 
 	t_objects *objs);
-/* intersectionS */
+/* intersections */
 t_hitinfo	ray_intersection(t_ray ray, t_objects *objs);
 void		spheres_intersection(t_ray ray, t_sphere **spheres, 
 	t_hitinfo *closest_hit);

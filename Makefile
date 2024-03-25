@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/22 12:42:21 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/25 11:32:36 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,8 +81,7 @@ SRCS			= utils/str/ft_atod.c \
 				  init/plane.c \
 				  init/point.c \
 				  init/sphere.c \
-				  computations/light/light_source.c \
-				  computations/light/ambient_lightning.c \
+				  computations/light/lights.c \
 				  computations/light/shadow.c \
 				  computations/intersections/cylinders.c \
 				  computations/intersections/planes.c \
