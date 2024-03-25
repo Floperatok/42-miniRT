@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 12:27:17 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:31:42 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_color	apply_ambient_and_diffuse(t_color color, t_alight *alight,
 	return (color);	
 }
 
-t_color	compute_light(t_alight *alight, t_light *lights, t_hitinfo *hit, 
+t_color	compute_lights(t_alight *alight, t_light *light, t_hitinfo *hit, 
 	t_objects *objs)
 {
 	t_color	color;
@@ -86,7 +86,7 @@ t_color	compute_light(t_alight *alight, t_light *lights, t_hitinfo *hit,
 	light_dst = ft_lenght(light_dir);
 	light_dir = divide_vect(light_dir, light_dst);
 	exposure = fmax(dot(hit->normal, light_dir), 0.0);
-	if (is_in_shadow(hit->pos, light_dir, light_dst, objs) || exposure == 0)
+	if (is_in_shadow(hit->pos, light_dir, light_dst, objs))
 	{
 		color = apply_ambient(color, alight);
 		return (color);
