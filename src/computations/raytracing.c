@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 12:33:48 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:56:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	*draw_screen_with_threads(void *arg)
 		while (++pixel.x < args->end_x)
 		{
 			point = add_vect(args->plane->bottom_left, get_vect(args->plane->width * pixel.x / (args->img->width - 1), args->plane->height * pixel.y / (args->img->height - 1), 0));
-			ray.dir.x = point.x * args->cam->dir_x.x + point.y * -args->cam->dir_y.x + point.z * args->cam->dir_z.x;
-			ray.dir.y = point.x * args->cam->dir_x.y + point.y * -args->cam->dir_y.y + point.z * args->cam->dir_z.y;
-			ray.dir.z = point.x * args->cam->dir_x.z + point.y * -args->cam->dir_y.z + point.z * args->cam->dir_z.z;
+			ray.dir.x = point.x * args->cam->base[0].x + point.y * -args->cam->base[1].x + point.z * args->cam->base[2].x;
+			ray.dir.y = point.x * args->cam->base[0].y + point.y * -args->cam->base[1].y + point.z * args->cam->base[2].y;
+			ray.dir.z = point.x * args->cam->base[0].z + point.y * -args->cam->base[1].z + point.z * args->cam->base[2].z;
 			ray.dir = normalize(ray.dir);
 			ray.origin = args->cam->pos;
 			pixel_color = launch_ray(ray, args->objs, REFLECTION_DEPTH);
@@ -91,9 +91,9 @@ void	draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 			point = add_vect(plane->bottom_left, 
 				get_vect(plane->width * pixel.x / (img->width - 1), 
 				plane->height * pixel.y / (img->height - 1), 0));
-			ray.dir.x = point.x * cam->dir_x.x + point.y * -cam->dir_y.x + point.z * cam->dir_z.x;
-			ray.dir.y = point.x * cam->dir_x.y + point.y * -cam->dir_y.y + point.z * cam->dir_z.y;
-			ray.dir.z = point.x * cam->dir_x.z + point.y * -cam->dir_y.z + point.z * cam->dir_z.z;
+			ray.dir.x = point.x * cam->base[0].x + point.y * -cam->base[1].x + point.z * cam->base[2].x;
+			ray.dir.y = point.x * cam->base[0].y + point.y * -cam->base[1].y + point.z * cam->base[2].y;
+			ray.dir.z = point.x * cam->base[0].z + point.y * -cam->base[1].z + point.z * cam->base[2].z;
 			ray.dir = normalize(ray.dir);
 			ray.origin = cam->pos;
 			pixel_color = launch_ray(ray, objs, REFLECTION_DEPTH);

@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/25 11:32:36 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/26 13:35:31 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ SRCS			= utils/str/ft_atod.c \
 				  computations/intersections/planes.c \
 				  computations/intersections/spheres.c \
 				  computations/intersections/ray_intersection.c \
+				  computations/compute_camera.c \
 				  computations/raytracing.c \
 				  computations/render.c
 

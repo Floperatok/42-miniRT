@@ -6,38 +6,11 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:54:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/21 14:34:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:31:57 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void	setup_camera(t_camera *cam)
-{
-	cam->viewport_dst = 1;
-	
-	// double	rot = 0.01745329 * 90;
-
-	// cam->dir_x.x = (cam->direction.z * sin(rot)) + (cam->direction.x * cos(rot));
-	// cam->dir_x.y = 0;
-	// cam->dir_x.z = (cam->direction.z * cos(rot)) - (cam->direction.x * sin(rot));
-
-	/* dont work with rotation such as {1, 0, 0} */
-	// cam->dir_y.x = -cam->direction.x;
-	// cam->dir_y.y = fmax(cam->direction.x, cam->direction.z);
-	// cam->dir_y.z = -cam->direction.y;
-	
-	// cam->dir_z = cam->direction;
-
-	cam->dir_x = get_vect(1, 0, 0);
-	cam->dir_y = get_vect(0, 1, 0);
-	cam->dir_z = get_vect(0, 0, 1);
-	
-	// printf("cam   : x=%f ; y=%f ; z=%f\n\n", cam->direction.x, cam->direction.y, cam->direction.z);
-	// printf("dir_x : x=%f ; y=%f ; z=%f\n", cam->dir_x.x, cam->dir_x.y, cam->dir_x.z);
-	// printf("dir_y : x=%f ; y=%f ; z=%f\n", cam->dir_y.x, cam->dir_y.y, cam->dir_y.z);
-	// printf("dir_z : x=%f ; y=%f ; z=%f\n", cam->dir_z.x, cam->dir_z.y, cam->dir_z.z);
-}
 
 /*
  *	Computes the position and the sizes of the viewport plane where all the

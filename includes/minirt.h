@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 14:54:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:31:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define THREADS_GRID_SIZE 6
 # define REFLECTION_DEPTH 200
 # define LIGHT_REDUCTION 0.8
+# define VIEWPORT_DST 1
 
 typedef struct s_window
 {
@@ -67,9 +68,7 @@ typedef struct s_camera
 {
     t_vec	pos;
     t_vec	dir;
-	t_vec	dir_x;
-	t_vec	dir_y;
-	t_vec	dir_z;
+	t_vec	base[3];
     int		fov;
 	double	viewport_dst;
 	double	screen_h;
@@ -237,6 +236,7 @@ t_alight	*get_alight(char ***objs);
 void		destroy_alight(t_alight *alight);
 t_camera	*get_camera(char ***objs);
 void		destroy_camera(t_camera *camera);
+void		setup_camera(t_camera *cam);
 t_light		**get_lights(char ***objs, int num_objects);
 void		destroy_lights(t_light **lights);
 t_sphere	**get_spheres(char ***objs, int num_objects);
@@ -259,6 +259,7 @@ int			is_in_shadow(t_vec start_pos, t_vec light_dir, double light_dst,
 	t_objects *objs);
 t_color		compute_lights(t_alight *alight, t_light **lights, t_hitinfo *hit, 
 	t_objects *objs);
+
 /* INTERSECTION */
 t_hitinfo	ray_intersection(t_ray ray, t_objects *objs);
 void		spheres_intersection(t_ray ray, t_sphere **spheres, 
@@ -268,9 +269,8 @@ void		cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 void	planes_intersection(t_ray ray, t_plane **planes, 
 	t_hitinfo *closest_hit);
 
-
 /* VECTORS */
-double		ft_lenght(t_vec vect);
+double		ft_length(t_vec vect);
 t_vec		multiply_vect(t_vec vect, double scalar);
 t_vec		divide_vect(t_vec vect, double scalar);
 double	    vector_scalar_product(t_vec v1, t_vec v2);

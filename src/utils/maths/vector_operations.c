@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:58:25 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 15:52:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:13:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double ft_lenght(t_vec vect)
+double ft_length(t_vec vect)
 {
 	return (sqrt(vect.x * vect.x + vect.y * vect.y + vect.z * vect.z));
 }
@@ -66,12 +66,14 @@ t_vec	add_vect(t_vec vect1, t_vec vect2)
 */
 t_vec	normalize(t_vec vect)
 {
-	double	lenght;
+	double	length;
 
-	lenght = ft_lenght(vect);
-	vect.x /= lenght;
-	vect.y /= lenght;
-	vect.z /= lenght;
+	length = ft_length(vect);
+	if (!length)
+		return ((t_vec){0, 0, 0});
+	vect.x /= length;
+	vect.y /= length;
+	vect.z /= length;
 	return (vect);
 }
 
@@ -97,12 +99,12 @@ t_vec	get_vect(double x, double y, double z)
 
 t_vec cross_product(t_vec vect1, t_vec vect2)
 {
-    t_vec	result;
+    t_vec	res;
 
-    result.x = vect1.y * vect2.z - vect1.z * vect2.y;
-    result.y = vect1.z * vect2.x - vect1.x * vect2.z;
-    result.z = vect1.x * vect2.y - vect1.y * vect2.x;
-    return (result);
+    res.x = vect1.y * vect2.z - vect1.z * vect2.y;
+    res.y = vect1.z * vect2.x - vect1.x * vect2.z;
+    res.z = vect1.x * vect2.y - vect1.y * vect2.x;
+    return (res);
 }
 
 double	dot(t_vec vect1, t_vec vect2)
