@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 13:10:03 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 13:15:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ static t_color	apply_specular(t_color color, t_vec reflect, t_vec light_dir,
 		color.r += light->color.r * specular;
 		color.g += light->color.g * specular;
 		color.b += light->color.b * specular;
-	}
-	if (specular > 0.5)
-	{
-		specular = pow(specular, 20) * light->brightness;
-		color = add_color(color, specular * 0.3);
 	}
 	return (color);
 }
