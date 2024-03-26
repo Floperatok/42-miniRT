@@ -6,34 +6,55 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:04:12 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/19 16:35:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/25 11:52:22 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	destroy_light(t_light *light)
+void	destroy_lights(t_light **lights)
 {
-	if (light)
-		free(light);
+	int	i;
+
+	i = -1;
+	while (lights[++i])
+		free(lights[i]);
+	free(lights);
 }
 
-/*
- *	Creates and returns the light object if found.
-*/
-t_light	*get_light(char ***objs)
+static t_light	*new_light(char **obj)
 {
-	int		i;
 	t_light	*light;
 
-	i = 0;
-	while (objs[i] && ft_strcmp(objs[i][0], "L"))
-		i++;
-	if (!objs[i])
-		return (NULL);
 	light = malloc(sizeof(t_light));
-	light->pos = get_vec_from_string(objs[i][1], ',');
-	light->brightness = ft_atod(objs[i][2]);
-	light->color = format_color(objs[i][3]);
+	light->pos = get_vec_from_string(obj[1], ',');
+	light->brightness = ft_atod(obj[2]);
+	light->color = format_color(obj[3]);
 	return (light);
+}	
+
+/*
+ *	Creates an array of t_light structs with all the lights 
+ *	found in the array objs. Returns the array.
+*/
+t_light	**get_lights(char ***objs, int num_objects)
+{
+	int		i;
+	int		j;
+	int		counter;
+	t_light	**lights;
+
+	i = -1;
+	counter = 0;
+	while (objs[++i])
+		if (!ft_strcmp(objs[i][0], "L"))
+			counter++;
+	lights = malloc(sizeof(t_light *) * (counter + 1));
+	i = -1;
+	j = 0;
+	while (++i < num_objects)
+		if (!ft_strcmp(objs[i][0], "L"))
+			lights[j++] = new_light(objs[i]);
+	lights[j] = NULL;
+	return (lights);
 }

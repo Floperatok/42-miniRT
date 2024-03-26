@@ -6,49 +6,29 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:00:42 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 12:31:42 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 13:10:03 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define SPECULAR_RATIO 0.1
-
 #include "minirt.h"
 
-// t_color	apply_light(t_light *light, t_hitinfo *hit, t_objects *objs)
-// {
-// 	t_vec		light_dir;
-// 	double		light_dst;
-// 	double		exposure;
-
-// 	if (!light)
-// 		return (hit->color);
-// 	light_dir = soustract_vect(light->pos, hit->pos);
-// 	light_dst = ft_lenght(light_dir);
-// 	normalize_vect(&light_dir);
-// 	exposure = dot(hit->normal, light_dir);
-// 	if (exposure < 0)
-// 		return (hit->color);
-// if (is_in_shadow(hit->pos, light_dir, light_dst, objs))
-// 		return (hit->color);
-// 	exposure *= 5;
-// 	exposure++;
-// 	hit->color.r *= exposure;
-// 	hit->color.g *= exposure;
-// 	hit->color.b *= exposure;
-// 	protect_colors(&hit->color);
-// 	return (hit->color);
-// }
-
-t_color	specular_light(t_color color, t_vec reflect, t_vec light_dir, 
-	double brightness)
+static t_color	apply_specular(t_color color, t_vec reflect, t_vec light_dir, 
+	t_light	*light)
 {
 	double	specular;
 
 	specular = dot(reflect, light_dir);
 	if (specular > 0.5)
 	{
-		specular = pow(specular, 70) * brightness;
-		color = add_color(color, specular);
+		specular = pow(specular, 70) * light->brightness;
+		color.r += light->color.r * specular;
+		color.g += light->color.g * specular;
+		color.b += light->color.b * specular;
+	}
+	if (specular > 0.5)
+	{
+		specular = pow(specular, 20) * light->brightness;
+		color = add_color(color, specular * 0.3);
 	}
 	return (color);
 }
@@ -61,39 +41,39 @@ static t_color	apply_ambient(t_color color, t_alight *alight)
 	return (color);
 }
 
-static t_color	apply_ambient_and_diffuse(t_color color, t_alight *alight,
-	t_light *light, double exposure)
+static t_color	apply_diffuse(t_color color, t_color base_color, t_light *light, double exposure)
 {
-	color.r *= alight->color.r * alight->ratio + light->color.r * 
-		light->brightness * exposure;
-	color.g *= alight->color.g * alight->ratio + light->color.g * 
-		light->brightness * exposure;
-	color.b *= alight->color.b * alight->ratio + light->color.b * 
-		light->brightness * exposure;
-	return (color);	
+	color.r += base_color.r * (light->color.r * light->brightness * exposure);
+	color.g += base_color.g * (light->color.g * light->brightness * exposure);
+	color.b += base_color.b * (light->color.b * light->brightness * exposure);
+	return (color);
 }
 
-t_color	compute_lights(t_alight *alight, t_light *light, t_hitinfo *hit, 
+t_color	compute_lights(t_alight *alight, t_light **lights, t_hitinfo *hit, 
 	t_objects *objs)
 {
 	t_color	color;
 	t_vec	light_dir;
 	double	light_dst;
 	double	exposure;
+	int		i;
 
+	i = -1;
 	color = hit->color;
-	light_dir = soustract_vect(light->pos, hit->pos);
-	light_dst = ft_lenght(light_dir);
-	light_dir = divide_vect(light_dir, light_dst);
-	exposure = fmax(dot(hit->normal, light_dir), 0.0);
-	if (is_in_shadow(hit->pos, light_dir, light_dst, objs))
+	color = apply_ambient(color, alight);
+	while (lights[++i])
 	{
-		color = apply_ambient(color, alight);
-		return (color);
+		light_dir = soustract_vect(lights[i]->pos, hit->pos);
+		light_dst = ft_lenght(light_dir);
+		light_dir = divide_vect(light_dir, light_dst);
+		exposure = fmax(dot(hit->normal, light_dir), 0.0);
+		if (is_in_shadow(hit->pos, light_dir, light_dst, objs) || !exposure)
+			continue ;
+		color = apply_diffuse(color, hit->color, lights[i], exposure);
+		if (hit->specular)
+			color = apply_specular(color, hit->reflect, light_dir, 
+				lights[i]);
+		protect_colors(&color);
 	}
-	color = apply_ambient_and_diffuse(color, alight, light, exposure);
-	if (hit->specular)
-		color = specular_light(color, hit->reflect, light_dir, light->brightness);
-	protect_colors(&color);
 	return (color);
 }

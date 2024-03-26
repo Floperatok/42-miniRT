@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 11:35:14 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:54:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libs/minilibx-linux/mlx.h"
 
 # define THREADS_GRID_SIZE 6
+# define REFLECTION_DEPTH 200
 # define LIGHT_REDUCTION 0.8
 
 typedef struct s_window
@@ -133,7 +134,7 @@ typedef struct s_objects
 {
     t_alight	*alight;
     t_camera	*camera;
-    t_light		*light;
+    t_light		**lights;
     t_sphere	**spheres;
     t_plane		**planes;
     t_cylinder	**cylinders;
@@ -236,8 +237,8 @@ t_alight	*get_alight(char ***objs);
 void		destroy_alight(t_alight *alight);
 t_camera	*get_camera(char ***objs);
 void		destroy_camera(t_camera *camera);
-t_light		*get_light(char ***objs);
-void		destroy_light(t_light *light);
+t_light		**get_lights(char ***objs, int num_objects);
+void		destroy_lights(t_light **lights);
 t_sphere	**get_spheres(char ***objs, int num_objects);
 void		destroy_spheres(t_sphere **spheres);
 t_cylinder	**get_cylinders(char ***objs, int num_objects);
@@ -254,13 +255,11 @@ int			user_input(int keycode, t_minirt *data);
 /* RAYTRACING */
 void		render_one_thread(t_minirt *data);
 void		render_multiple_threads(t_minirt *data, int grid_size);
-t_color		specular_light(t_color color, t_vec reflect, t_vec light_dir, 
-	double brightness);
 int			is_in_shadow(t_vec start_pos, t_vec light_dir, double light_dst,
 	t_objects *objs);
-t_color		compute_lights(t_alight *alight, t_light *light, t_hitinfo *hit, 
+t_color		compute_lights(t_alight *alight, t_light **lights, t_hitinfo *hit, 
 	t_objects *objs);
-/* intersections */
+/* INTERSECTION */
 t_hitinfo	ray_intersection(t_ray ray, t_objects *objs);
 void		spheres_intersection(t_ray ray, t_sphere **spheres, 
 	t_hitinfo *closest_hit);
