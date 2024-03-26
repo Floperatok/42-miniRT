@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:54:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 15:31:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:18:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,12 @@ void	render_one_thread(t_minirt *data)
 	plane = set_viewport_plane(data->objs.camera, &data->img);
 	draw_screen(data->objs.camera, &plane, &data->objs, &data->img);
 	mlx_put_image_to_window(data->win.mlx, data->win.window, data->img.image, 0, 0);
+}
+
+void	render(t_minirt *data)
+{
+	if (data->hardware == 0)
+		render_one_thread(data);
+	else if (data->hardware == 1)
+		render_multiple_threads(data, THREADS_GRID_SIZE);
 }

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 15:31:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:14:57 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,6 @@ typedef struct s_objects
     t_cylinder	**cylinders;
 }	t_objects;
 
-typedef struct s_minirt
-{
-	t_window	win;
-	t_image		img;
-	t_objects	objs;
-}	t_minirt;
-
 typedef struct	s_viewport_plane
 {
 	t_vec	bottom_left;
@@ -182,6 +175,15 @@ typedef struct s_thread_args
 	int					start_y;
 	int					end_y;
 }	t_thread_args;
+
+typedef struct s_minirt
+{
+	t_window	win;
+	t_image		img;
+	t_objects	objs;
+	double		an;
+	int			hardware;
+}	t_minirt;
 
 /* UTILS */
 int			ft_strcmp(const char *s1, const char *s2);
@@ -253,6 +255,7 @@ int			exit_handling(t_minirt *data);
 int			user_input(int keycode, t_minirt *data);
 
 /* RAYTRACING */
+void		render(t_minirt *data);
 void		render_one_thread(t_minirt *data);
 void		render_multiple_threads(t_minirt *data, int grid_size);
 int			is_in_shadow(t_vec start_pos, t_vec light_dir, double light_dst,
