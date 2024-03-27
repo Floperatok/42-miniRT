@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 02:48:37 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 15:56:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:03:23 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 	hit = ray_intersection(ray, objs);
 	if (!hit.did_hit)
 		return ((t_color){0, 0, 0});
-	hit.reflect = reflect(ray.dir, hit.normal);;
+	hit.reflect = reflect(ray.dir, hit.normal);
 	hit.color = compute_lights(objs->alight, objs->lights, &hit, objs);
 	if (depth == 1 || hit.reflect_ratio <= 0)
 		return (multiplies_color(hit.color, (1 - hit.reflect_ratio)));
@@ -35,6 +35,19 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 	return (combine_colors(hit.color, reflection_color, hit.reflect_ratio));
 }
 
+static t_vec	set_ray_dir(t_vec *point, t_vec base[3])
+{
+	t_vec	dir;
+
+	dir.x = point->x * base[0].x + point->y * -base[1].x
+		+ point->z * base[2].x;
+	dir.y = point->x * base[0].y + point->y * -base[1].y
+		+ point->z * base[2].y;
+	dir.z = point->x * base[0].z + point->y * -base[1].z
+		+ point->z * base[2].z;
+	return (dir);
+}
+
 /*
  *	Goes through all the pixels and launch a ray in the direction of the camera
  *	for each of them. Colors the pixel with the color of the first object 
@@ -42,11 +55,11 @@ t_color	launch_ray(t_ray ray, t_objects *objs, int depth)
 */
 void	*draw_screen_with_threads(void *arg)
 {
-	t_thread_args *args;
-	t_vec	pixel;
-	t_ray	ray;
-	t_vec	point;
-	t_color	pixel_color;
+	t_thread_args	*args;
+	t_vec			pixel;
+	t_ray			ray;
+	t_vec			point;
+	t_color			pixel_color;
 
 	args = (t_thread_args *)arg;
 	pixel.y = args->start_y - 1;
@@ -55,10 +68,11 @@ void	*draw_screen_with_threads(void *arg)
 		pixel.x = args->start_x - 1;
 		while (++pixel.x < args->end_x)
 		{
-			point = add_vect(args->plane->bottom_left, get_vect(args->plane->width * pixel.x / (args->img->width - 1), args->plane->height * pixel.y / (args->img->height - 1), 0));
-			ray.dir.x = point.x * args->cam->base[0].x + point.y * -args->cam->base[1].x + point.z * args->cam->base[2].x;
-			ray.dir.y = point.x * args->cam->base[0].y + point.y * -args->cam->base[1].y + point.z * args->cam->base[2].y;
-			ray.dir.z = point.x * args->cam->base[0].z + point.y * -args->cam->base[1].z + point.z * args->cam->base[2].z;
+			point = add_vect(args->plane->bottom_left,
+					get_vect(args->plane->width * pixel.x
+						/ (args->img->width - 1), args->plane->height
+						* pixel.y / (args->img->height - 1), 0));
+			ray.dir = set_ray_dir(&point, args->cam->base);
 			ray.dir = normalize(ray.dir);
 			ray.origin = args->cam->pos;
 			pixel_color = launch_ray(ray, args->objs, REFLECTION_DEPTH);
@@ -84,16 +98,15 @@ void	draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
 	pixel.y = -1;
 	while (++pixel.y < img->height)
 	{
-		display_loading("Rendering:", 0, pixel.y + 1, (double)img->height / 100);
+		display_loading("Rendering:", 0, pixel.y + 1,
+			(double)img->height / 100);
 		pixel.x = -1;
 		while (++pixel.x < img->width)
 		{
-			point = add_vect(plane->bottom_left, 
-				get_vect(plane->width * pixel.x / (img->width - 1), 
-				plane->height * pixel.y / (img->height - 1), 0));
-			ray.dir.x = point.x * cam->base[0].x + point.y * -cam->base[1].x + point.z * cam->base[2].x;
-			ray.dir.y = point.x * cam->base[0].y + point.y * -cam->base[1].y + point.z * cam->base[2].y;
-			ray.dir.z = point.x * cam->base[0].z + point.y * -cam->base[1].z + point.z * cam->base[2].z;
+			point = add_vect(plane->bottom_left,
+					get_vect(plane->width * pixel.x / (img->width - 1),
+						plane->height * pixel.y / (img->height - 1), 0));
+			ray.dir = set_ray_dir(&point, cam->base);
 			ray.dir = normalize(ray.dir);
 			ray.origin = cam->pos;
 			pixel_color = launch_ray(ray, objs, REFLECTION_DEPTH);

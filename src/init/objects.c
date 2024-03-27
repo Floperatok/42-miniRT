@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 11:52:10 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:39:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	***get_data_objects(char *filecontent)
 }
 
 // for debuging
-void   print_data_objs(char ***data_objs)
+void	print_data_objs(char ***data_objs)
 {
 	int	i;
 	int	j;

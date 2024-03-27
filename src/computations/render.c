@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:54:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 16:18:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:07:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 */
 static t_viewport_plane	set_viewport_plane(t_camera *cam, t_image *img)
 {
-	t_viewport_plane plane;
+	t_viewport_plane	plane;
 
 	plane.height = cam->viewport_dst * tan(cam->fov * 0.01745329 / 2) * 2;
 	plane.width = plane.height * img->aspect_ratio;
-	plane.bottom_left = get_vect(-plane.width / 2, -plane.height / 2,\
-		cam->viewport_dst);
+	plane.bottom_left = get_vect(-plane.width / 2, -plane.height / 2,
+			cam->viewport_dst);
 	return (plane);
 }
 
-static t_thread_args	set_args(t_minirt *data, t_viewport_plane *plane, 
+static t_thread_args	set_args(t_minirt *data, t_viewport_plane *plane,
 	int grid_size, int i)
 {
 	t_thread_args	args;
@@ -59,7 +59,8 @@ void	render_multiple_threads(t_minirt *data, int grid_size)
 	while (++i < (grid_size * grid_size))
 		args[i] = set_args(data, &plane, grid_size, i);
 	while (--i >= 0)
-		if (pthread_create(&threads[i], NULL, &draw_screen_with_threads, &(args[i])))
+		if (pthread_create(&threads[i], NULL, &draw_screen_with_threads,
+				&(args[i])))
 			perror("");
 	while (++i < (grid_size * grid_size))
 		pthread_join(threads[i], NULL);
@@ -71,12 +72,13 @@ void	render_multiple_threads(t_minirt *data, int grid_size)
 
 void	render_one_thread(t_minirt *data)
 {
-	t_viewport_plane plane;
+	t_viewport_plane	plane;
 
 	setup_camera(data->objs.camera);
 	plane = set_viewport_plane(data->objs.camera, &data->img);
 	draw_screen(data->objs.camera, &plane, &data->objs, &data->img);
-	mlx_put_image_to_window(data->win.mlx, data->win.window, data->img.image, 0, 0);
+	mlx_put_image_to_window(data->win.mlx, data->win.window,
+		data->img.image, 0, 0);
 }
 
 void	render(t_minirt *data)

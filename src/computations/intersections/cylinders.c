@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:45:11 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 16:53:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:19:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ t_vec	cylinder_normal(t_cylinder *cy, t_vec hitpos, double y, int is_cap)
 {
 	t_vec	normal;
 	t_vec	pa;
-	
+
 	if (is_cap)
-		normal = divide_vect(multiply_vect(cy->ba, sign(y)), 
-			sqrt(cy->baba));
+		normal = divide_vect(multiply_vect(cy->ba, sign(y)),
+				sqrt(cy->baba));
 	else
 	{
 		pa = soustract_vect(hitpos, cy->a);
-		normal = divide_vect(soustract_vect(pa, 
-			multiply_vect(cy->ba, (dot(pa, cy->ba) / cy->baba))), cy->radius);	
+		normal = divide_vect(soustract_vect(pa,
+					multiply_vect(cy->ba, (dot(pa, cy->ba) / cy->baba))),
+				cy->radius);
 	}
 	return (normal);
 }
@@ -63,7 +64,7 @@ t_vec	cylinder_normal(t_cylinder *cy, t_vec hitpos, double y, int is_cap)
  *	Thanks to https://www.shadertoy.com/view/4lcSRn and 
  *	https://iquilezles.org/articles/intersectors/ for the formula.
 */
-static t_cy_values one_cylinder_intersection(t_ray ray, t_cylinder *cy)
+static t_cy_values	one_cylinder_intersection(t_ray ray, t_cylinder *cy)
 {
 	t_cy_values	val;
 
@@ -87,6 +88,20 @@ static t_cy_values one_cylinder_intersection(t_ray ray, t_cylinder *cy)
 	return (val);
 }
 
+static void	cy_closest_hit(t_hitinfo *closest_hit, t_ray ray,
+	t_cylinder *closest_cy, t_cy_values *val_closest_cy)
+{
+	closest_hit->did_hit = 1;
+	closest_hit->color = closest_cy->color;
+	closest_hit->dst = val_closest_cy->dst;
+	closest_hit->pos = add_vect(ray.origin,
+			multiply_vect(ray.dir, val_closest_cy->dst));
+	closest_hit->reflect_ratio = closest_cy->reflect_ratio;
+	closest_hit->normal = cylinder_normal(closest_cy,
+			closest_hit->pos, val_closest_cy->y, val_closest_cy->is_cap);
+	closest_hit->specular = closest_cy->specular;
+}
+
 void	cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 	t_hitinfo *closest_hit)
 {
@@ -95,6 +110,9 @@ void	cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 	t_cy_values	val_closest_cy;
 	int			i;
 
+	closest_cy = NULL;
+	val_closest_cy.y = 0;
+	val_closest_cy.is_cap = 0;
 	val_closest_cy.dst = -1;
 	i = -1;
 	while (cylinders[++i])
@@ -109,11 +127,5 @@ void	cylinders_intersection(t_ray ray, t_cylinder **cylinders,
 	}
 	if (val_closest_cy.dst == -1)
 		return ;
-	closest_hit->did_hit = 1;
-	closest_hit->color = closest_cy->color;
-	closest_hit->dst = val_closest_cy.dst;
-	closest_hit->pos = add_vect(ray.origin, multiply_vect(ray.dir, val_closest_cy.dst));
-	closest_hit->reflect_ratio = closest_cy->reflect_ratio;
-	closest_hit->normal = cylinder_normal(closest_cy, closest_hit->pos, val_closest_cy.y, val_closest_cy.is_cap);
-	closest_hit->specular = closest_cy->specular;
+	cy_closest_hit(closest_hit, ray, closest_cy, &val_closest_cy);
 }

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 20:31:10 by drenassi          #+#    #+#             */
-/*   Updated: 2024/03/22 12:45:30 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 19:38:52 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	check_camera(char **data)
 			print_error("must be in range [-1.0,1.0] for each axis.\n"));
 	if (!check_horizontal_field(data[3]))
 		return (0);
-	if (!check_int(data[4]) || ft_atoi(data[4]) <= 0 || 
-		ft_atoi(data[4]) > 10000)
+	if (!check_int(data[4]) || ft_atoi(data[4]) <= 0
+		|| ft_atoi(data[4]) > 10000)
 		return (print_error("Error: Camera: Invalid screen width\n"));
-	if (!check_int(data[5]) || ft_atoi(data[5]) <= 0 || 
-		ft_atoi(data[5]) > 10000)
+	if (!check_int(data[5]) || ft_atoi(data[5]) <= 0
+		|| ft_atoi(data[5]) > 10000)
 		return (print_error("Error: Camera: Invalid screen height\n"));
 	return (1);
 }

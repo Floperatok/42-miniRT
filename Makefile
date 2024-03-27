@@ -6,7 +6,7 @@
 #    By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/15 14:42:11 by drenassi          #+#    #+#              #
-#    Updated: 2024/03/26 13:35:31 by nsalles          ###   ########.fr        #
+#    Updated: 2024/03/27 20:34:57 by nsalles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@
 
 NAME		= miniRT
 CC 			= cc
-CFLAGS		= -Wall -Werror -Wextra
-DEBUG_FLAGS = -g3
+CFLAGS		= -Wall -Werror -Wextra -O3
+DEBUG_FLAGS = 
 MLXFLAGS	= -Imlx -lX11 -lXext
 MATH_FLAGS	= -lm
 THREADFLAG	= -pthread
@@ -51,6 +51,8 @@ SRCS			= utils/str/ft_atod.c \
 				  utils/str/printing.c \
 				  utils/str/readfile.c \
 				  utils/maths/vector_operations.c \
+				  utils/maths/vector_operations2.c \
+				  utils/maths/vector_operations3.c \
 				  utils/maths/utils.c \
 				  utils/colors.c \
 				  utils/pixel_put.c \

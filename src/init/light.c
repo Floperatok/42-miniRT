@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:04:12 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/25 11:52:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:39:30 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_light	*new_light(char **obj)
 	light->brightness = ft_atod(obj[2]);
 	light->color = format_color(obj[3]);
 	return (light);
-}	
+}
 
 /*
  *	Creates an array of t_light structs with all the lights 

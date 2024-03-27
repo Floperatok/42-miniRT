@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/21 17:31:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:35:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,24 @@ static double	one_plane_intersection(t_ray ray, t_plane *plane)
 	return (dot(plane->normal, offset_ray) / scalar);
 }
 
-/*
- *
-*/
-void	planes_intersection(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
+static void	pl_closest_hit(t_hitinfo *closest_hit, t_ray ray,
+	t_plane *closest_pl)
+{
+	closest_hit->did_hit = 1;
+	closest_hit->pos = add_vect(ray.origin,
+			multiply_vect(ray.dir, closest_hit->dst));
+	if (dot(ray.dir, closest_pl->normal) > 0)
+		closest_hit->normal = normalize(
+				multiply_vect(closest_pl->normal, -1));
+	else
+		closest_hit->normal = normalize(closest_pl->normal);
+	closest_hit->color = closest_pl->color;
+	closest_hit->reflect_ratio = closest_pl->reflect_ratio;
+	closest_hit->specular = closest_pl->specular;
+}
+
+void	planes_intersection(t_ray ray, t_plane **planes,
+	t_hitinfo *closest_hit)
 {
 	double	dst;
 	t_plane	*closest_plane;
@@ -48,14 +62,5 @@ void	planes_intersection(t_ray ray, t_plane **planes, t_hitinfo *closest_hit)
 	}
 	if (!closest_plane)
 		return ;
-	closest_hit->did_hit = 1;
-	closest_hit->pos = add_vect(ray.origin,
-		multiply_vect(ray.dir, closest_hit->dst));
-	if (dot(ray.dir, closest_plane->normal) > 0)
-		closest_hit->normal = normalize(multiply_vect(closest_plane->normal, -1));
-	else
-		closest_hit->normal = normalize(closest_plane->normal);
-	closest_hit->color = closest_plane->color;
-	closest_hit->reflect_ratio = closest_plane->reflect_ratio;
-	closest_hit->specular = closest_plane->specular;
+	pl_closest_hit(closest_hit, ray, closest_plane);
 }

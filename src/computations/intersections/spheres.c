@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:18:44 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/20 16:52:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:22:06 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 */
 double	one_sphere_intersection(t_ray ray, t_sphere *sphere)
 {
-	t_vec 	offset_ray;
-	double		a;
-	double		b;
-	double		discriminant;
-	double		dst;
+	t_vec	offset_ray;
+	double	a;
+	double	b;
+	double	discriminant;
+	double	dst;
 
 	offset_ray = soustract_vect(ray.origin, sphere->pos);
 	a = dot(ray.dir, ray.dir);
 	b = 2 * dot(offset_ray, ray.dir);
-	discriminant = b * b - 4 * a *
-		(dot(offset_ray, offset_ray) - sphere->radius * sphere->radius);
+	discriminant = b * b - 4 * a
+		* (dot(offset_ray, offset_ray) - sphere->radius * sphere->radius);
 	if (discriminant >= 0)
 	{
 		dst = (-b - sqrt(discriminant)) / (2 * a);
@@ -45,7 +45,8 @@ double	one_sphere_intersection(t_ray ray, t_sphere *sphere)
  *	position of the intersection point of the ray with the closest sphere.
  *	If no sphere are encountered, does not change hit_info.
 */
-void	spheres_intersection(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
+void	spheres_intersection(t_ray ray, t_sphere **spheres,
+	t_hitinfo *closest_hit)
 {
 	double		dst;
 	t_sphere	*closest_sphere;
@@ -66,8 +67,9 @@ void	spheres_intersection(t_ray ray, t_sphere **spheres, t_hitinfo *closest_hit)
 		return ;
 	closest_hit->did_hit = 1;
 	closest_hit->pos = add_vect(ray.origin,
-		multiply_vect(ray.dir, closest_hit->dst));
-	closest_hit->normal = normalize(soustract_vect(closest_hit->pos, closest_sphere->pos));
+			multiply_vect(ray.dir, closest_hit->dst));
+	closest_hit->normal = normalize(soustract_vect(closest_hit->pos,
+				closest_sphere->pos));
 	closest_hit->color = closest_sphere->color;
 	closest_hit->reflect_ratio = closest_sphere->reflect_ratio;
 	closest_hit->specular = closest_sphere->specular;

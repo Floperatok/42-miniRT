@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:42:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/26 13:46:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/27 20:39:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	get_image(t_image *img, t_window win)
 		print_error("Fatal error: image initialization failed\n");
 		return (destroy_image(img, win.mlx), 0);
 	}
-	img->addr = mlx_get_data_addr(img->image, &img->bits_per_pixel,\
-		&img->line_length, &img->endian);
+	img->addr = mlx_get_data_addr(img->image, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
 	if (!img->addr)
 	{
 		print_error("Fatal error: image initialization failed\n");
