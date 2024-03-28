@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:47:05 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/26 16:14:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:51:10 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ typedef struct s_color
 
 typedef struct s_vec
 {
-    double	x;
-    double	y;
-    double	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vec;
 
 typedef struct s_alight
 {
-    double	ratio;    
-    t_color	color;
+	double	ratio;
+	t_color	color;
 }	t_alight;
 
 typedef struct s_camera
 {
-    t_vec	pos;
-    t_vec	dir;
+	t_vec	pos;
+	t_vec	dir;
 	t_vec	base[3];
-    int		fov;
+	int		fov;
 	double	viewport_dst;
 	double	screen_h;
 	double	screen_w;
@@ -77,36 +77,36 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-    t_vec	pos;
-    double	brightness;
-    t_color	color;
+	t_vec	pos;
+	double	brightness;
+	t_color	color;
 }	t_light;
 
 typedef struct s_sphere
 {
-    t_vec	pos;
-    double	radius;
-    t_color	color;
+	t_vec	pos;
+	double	radius;
+	t_color	color;
 	double	reflect_ratio;
 	double	specular;
 }	t_sphere;
 
 typedef struct s_plane
 {
-    t_vec	pos;
-    t_vec	normal;
-    t_color	color;
+	t_vec	pos;
+	t_vec	normal;
+	t_color	color;
 	double	reflect_ratio;
 	double	specular;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-    t_vec	pos;
-    t_vec	dir;
-    double	radius;
-    double	height;
-    t_color	color;
+	t_vec	pos;
+	t_vec	dir;
+	double	radius;
+	double	height;
+	t_color	color;
 	double	reflect_ratio;
 	double	specular;
 	t_vec	a;
@@ -118,7 +118,7 @@ typedef struct s_cylinder
 typedef struct s_cy_values
 {
 	int		is_cap;
-	t_vec oc;
+	t_vec	oc;
 	double	bard;
 	double	baoc;
 	double	k2;
@@ -131,15 +131,15 @@ typedef struct s_cy_values
 
 typedef struct s_objects
 {
-    t_alight	*alight;
-    t_camera	*camera;
-    t_light		**lights;
-    t_sphere	**spheres;
-    t_plane		**planes;
-    t_cylinder	**cylinders;
+	t_alight	*alight;
+	t_camera	*camera;
+	t_light		**lights;
+	t_sphere	**spheres;
+	t_plane		**planes;
+	t_cylinder	**cylinders;
 }	t_objects;
 
-typedef struct	s_viewport_plane
+typedef struct s_viewport_plane
 {
 	t_vec	bottom_left;
 	double	height;
@@ -218,12 +218,12 @@ int			check_ratio(char *str);
 int			check_rgb(char *param);
 int			check_coordinates(char *coord);
 int			check_orientation_vector(char *coord);
-int 		check_ambiant_lightning(char **data);
+int			check_ambiant_lightning(char **data);
 int			check_camera(char **data);
-int	        check_light(char **data);
-int	        check_plane(char **data, int size);
-int         check_sphere(char **data, int size);
-int	        check_cylinder(char **data, int size);
+int			check_light(char **data);
+int			check_plane(char **data, int size);
+int			check_sphere(char **data, int size);
+int			check_cylinder(char **data, int size);
 
 /* INIT STRUCTURES */
 t_vec		get_vec(double x, double y, double z);
@@ -259,29 +259,28 @@ void		render(t_minirt *data);
 void		render_one_thread(t_minirt *data);
 void		render_multiple_threads(t_minirt *data, int grid_size);
 int			is_in_shadow(t_vec start_pos, t_vec light_dir, double light_dst,
-	t_objects *objs);
-t_color		compute_lights(t_alight *alight, t_light **lights, t_hitinfo *hit, 
-	t_objects *objs);
+				t_objects *objs);
+t_color		compute_lights(t_alight *alight, t_light **lights, t_hitinfo *hit,
+				t_objects *objs);
 
 /* INTERSECTION */
 t_hitinfo	ray_intersection(t_ray ray, t_objects *objs);
-void		spheres_intersection(t_ray ray, t_sphere **spheres, 
-	t_hitinfo *closest_hit);
-void		cylinders_intersection(t_ray ray, t_cylinder **cylinders, 
-	t_hitinfo *closest_hit);
-void	planes_intersection(t_ray ray, t_plane **planes, 
-	t_hitinfo *closest_hit);
+void		spheres_intersection(t_ray ray, t_sphere **spheres,
+				t_hitinfo *closest_hit);
+void		cylinders_intersection(t_ray ray, t_cylinder **cylinders,
+				t_hitinfo *closest_hit);
+void		planes_intersection(t_ray ray, t_plane **planes,
+				t_hitinfo *closest_hit);
 
 /* VECTORS */
 double		ft_length(t_vec vect);
 t_vec		multiply_vect(t_vec vect, double scalar);
 t_vec		divide_vect(t_vec vect, double scalar);
-double	    vector_scalar_product(t_vec v1, t_vec v2);
 t_vec		soustract_vect(t_vec vect1, t_vec vect2);
 t_vec		add_vect(t_vec vect1, t_vec vect2);
 t_vec		normalize(t_vec vect);
 t_vec		copy_vect(t_vec vect);
-t_vec 		cross_product(t_vec vect1, t_vec vect2);
+t_vec		cross_product(t_vec vect1, t_vec vect2);
 double		dot(t_vec vect1, t_vec vect2);
 t_vec		get_vect(double x, double y, double z);
 void		print_vect(char *msg, t_vec vect);
@@ -291,6 +290,6 @@ t_vec		reflect(t_vec dir, t_vec normal);
 void		pixel_put(t_image *img, int x, int y, t_color color);
 void		*draw_screen_with_threads(void *arg);
 void		draw_screen(t_camera *cam, t_viewport_plane *plane, t_objects *objs,
-	t_image *img);
+				t_image *img);
 
 #endif
