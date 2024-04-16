@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:49:24 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/27 20:39:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/04/16 17:02:29 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	get_objects(t_objects *objs, char *filename)
 	objs->cylinders = get_cylinders(data_objs, num_objects);
 	objs->planes = get_planes(data_objs, num_objects);
 	objs->spheres = get_spheres(data_objs, num_objects);
+	if (!objs->camera)
+		return (print_error("Error: No camera where found\n"));
 	free(filecontent);
 	free_triple_array(data_objs);
 	return (1);
