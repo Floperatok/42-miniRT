@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:49:29 by nsalles           #+#    #+#             */
-/*   Updated: 2024/03/27 19:40:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/04/16 18:22:44 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	user_input(int keycode, t_minirt *data)
 {
 	if (keycode == 65307)
 		exit_handling(data);
-	else if (keycode == 32)
+	else if (keycode == 32 && data->hardware)
 	{
 		data->an -= 0.02;
 		data->objs.camera->pos.x = 5 * cos(data->an);
@@ -28,7 +28,5 @@ int	user_input(int keycode, t_minirt *data)
 		data->objs.camera->pos.y = 2;
 		render(data);
 	}
-	else
-		ft_printf("keycode = %d\n", keycode);
 	return (0);
 }
