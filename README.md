@@ -1,4 +1,5 @@
 # <div align="center">⚙️ miniRT (a [42](https://42perpignan.fr/) project) ⚙️</div>
+<img src=assets/minirt.png with=70%>
 
 Subject : [en.miniRT_subject.pdf](assets/en.subject.pdf)
 
